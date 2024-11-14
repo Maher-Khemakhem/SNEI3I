@@ -1,12 +1,18 @@
+//npm run watch
 const express = require('express');
 const app = express();
 const port = 3000;
 const mongoose = require('mongoose');
-const Product = require("./models/mydataSchema");
-const productRoute = require("./routes/product.route");
+const Worker = require("./models/worker.model");
+const Client = require("./models/client.model");
+const Admin = require("./models/admin.model");
+const Offre = require("./models/offre.model");
+const partner = require("./models/partner.model");
+const searchRoute = require("./routes/search.route");
+const rateRoute = require("./routes/rate.route");
+const partnerRoute = require('./routes/partner.route');
 const path = require("path");
-const livereload = require("livereload");
-const connectLivereload = require("connect-livereload");
+
 
 app.set('view engine', 'ejs');
 
@@ -15,9 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //routes
-app.use("/api/products",productRoute);
-
-
+//app.use("/api/products",productRoute);
+app.use('/search',searchRoute);
+app.use('/toprated',rateRoute);
+app.use('/partner',partnerRoute);
 // Auto refresh setup
 /*
 const liveReloadServer = livereload.createServer();
@@ -48,6 +55,14 @@ mongoose
 // Routes
 app.get('/', async (req, res) => {
   res.send("Hello from node API server updated");
+});
+app.get('/api/location', async (req, res) => {
+  try {
+    const uniqueLocations = await Worker.distinct("location");
+    res.status(200).json(uniqueLocations);
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred while fetching locations", error: error.message });
+  }
 });
 
 
