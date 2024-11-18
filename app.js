@@ -1,4 +1,5 @@
 //npm run watch
+//git push -u origin maher
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -11,6 +12,7 @@ const partner = require("./models/partner.model");
 const searchRoute = require("./routes/search.route");
 const rateRoute = require("./routes/rate.route");
 const partnerRoute = require('./routes/partner.route');
+const workerRoute = require('./routes/worker.route');
 const path = require("path");
 
 
@@ -23,8 +25,9 @@ app.use(express.json());
 //routes
 //app.use("/api/products",productRoute);
 app.use('/search',searchRoute);
-app.use('/toprated',rateRoute);
+app.use('/rate',rateRoute);
 app.use('/partner',partnerRoute);
+app.use('/worker',workerRoute);
 // Auto refresh setup
 /*
 const liveReloadServer = livereload.createServer();
