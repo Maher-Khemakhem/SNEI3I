@@ -9,10 +9,13 @@ const Client = require("./models/client.model");
 const Admin = require("./models/admin.model");
 const Offre = require("./models/offre.model");
 const partner = require("./models/partner.model");
+const reservation = require('./models/reservation.model')
 const searchRoute = require("./routes/search.route");
 const rateRoute = require("./routes/rate.route");
 const partnerRoute = require('./routes/partner.route');
 const workerRoute = require('./routes/worker.route');
+const clientRoute = require('./routes/client.route');
+const reservationRoute = require('./routes/reservation.route');
 const path = require("path");
 
 
@@ -28,6 +31,8 @@ app.use('/search',searchRoute);
 app.use('/rate',rateRoute);
 app.use('/partner',partnerRoute);
 app.use('/worker',workerRoute);
+app.use('/client',clientRoute);
+app.use('/reservation',reservationRoute)
 // Auto refresh setup
 /*
 const liveReloadServer = livereload.createServer();
@@ -42,10 +47,7 @@ liveReloadServer.server.once("connection", () => {
 });
 */
 mongoose
-  .connect('mongodb+srv://maherkhemakhem:OZXvWbLKbnAZqTpT@cluster0.6gotj.mongodb.net/all-data?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect('mongodb+srv://maherkhemakhem:OZXvWbLKbnAZqTpT@cluster0.6gotj.mongodb.net/all-data?retryWrites=true&w=majority')
   .then(() => {
     app.listen(port, () => {
       console.log(`Server running at http://localhost:${port}/`);

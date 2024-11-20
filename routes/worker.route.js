@@ -7,7 +7,7 @@ const { createWorker,
     deleteWorker, } = require('../controllers/worker.controller');
 
 // Routes for search functionality
-//base route  /search
+//base route  /worker
 router.get('/:id', getWorkerById);
 router.get('/',getAllWorkers);
 router.post('/create',createWorker);
