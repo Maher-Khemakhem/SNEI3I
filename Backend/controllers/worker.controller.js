@@ -1,4 +1,5 @@
 const Worker = require('../models/worker.model');
+const Reservation = require('../models/reservation.model');
 
 // Create a new worker
 const createWorker = async (req, res) => {
@@ -62,11 +63,31 @@ const deleteWorker = async (req, res) => {
     res.status(500).json({ message: `Error deleting worker: ${error.message}` });
   }
 };
+const getReservationWorker = async(req,res)=>{
+  try {
+    const { id } = req.params;
 
+    // Find reservations where the worker field matches the provided workerId
+    const reservations = await Reservation.find({ worker: id })
+    .populate('client', 'firstname lastname email') // Populate client details
+        .populate('worker', 'firstname lastname speciality rate');// Populate worker details
+
+    // Check if any reservations were found
+    if (reservations.length === 0) {
+      return res.status(404).json({ message: 'No reservations found for this worker.' });
+    }
+
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch reservations for this worker.' });
+  }
+};
 module.exports = {
   createWorker,
   getWorkerById,
   getAllWorkers,
   updateWorker,
   deleteWorker,
+  getReservationWorker
 };

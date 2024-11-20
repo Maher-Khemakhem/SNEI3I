@@ -4,7 +4,8 @@ const {
     getAllClients,
     getClientById,
     updateClient,
-    deleteClient
+    deleteClient,
+    getReservationClient
 } = require('../controllers/client.controller');
 
 const router = express.Router();
@@ -23,5 +24,5 @@ router.put('/:id', updateClient);
 
 // Route to delete a client by ID
 router.delete('/:id', deleteClient);
-
+router.get('/reservation/:id', getReservationClient);
 module.exports = router;
