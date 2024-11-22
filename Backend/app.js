@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const Worker = require("./models/worker.model");
 const Client = require("./models/client.model");
 const Admin = require("./models/admin.model");
@@ -16,6 +17,7 @@ const partnerRoute = require('./routes/partner.route');
 const workerRoute = require('./routes/worker.route');
 const clientRoute = require('./routes/client.route');
 const reservationRoute = require('./routes/reservation.route');
+const authRoute = require('./routes/auth.route');
 const path = require("path");
 
 
@@ -24,7 +26,7 @@ app.set('view engine', 'ejs');
 //middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cookieParser());
 //routes
 //app.use("/api/products",productRoute);
 app.use('/search',searchRoute);
@@ -32,7 +34,8 @@ app.use('/rate',rateRoute);
 app.use('/partner',partnerRoute);
 app.use('/worker',workerRoute);
 app.use('/client',clientRoute);
-app.use('/reservation',reservationRoute)
+app.use('/reservation',reservationRoute);
+app.use('/connect',authRoute);
 // Auto refresh setup
 /*
 const liveReloadServer = livereload.createServer();
@@ -69,6 +72,19 @@ app.get('/api/location', async (req, res) => {
     res.status(500).json({ message: "An error occurred while fetching locations", error: error.message });
   }
 });
+
+//cookies
+app.get('/set-cookies',(req,res)=>{
+
+  res.cookie('newUser',false);
+  res.cookie('isEmployee',true,{maxAge:1000*60*60*24,httpOnly:true});
+  res.send('you got the cookies');
+})
+
+app.get('/read-cookies',(req,res)=>{
+  const cookies = req.cookies;
+  res.json(cookies);
+})
 
 
 

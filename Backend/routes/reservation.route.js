@@ -7,12 +7,13 @@ const {
   updateReservation,
   deleteReservation
 } = require('../controllers/reservation.controller');
+const {requireAuth} = require('../middleware/auth.middleware')
 //reservation
 // Create a new reservation
-router.post('/', createReservation);
+router.post('/',createReservation);
 
 // Get all reservations
-router.get('/', getAllReservations);
+router.get('/', requireAuth,getAllReservations);
 
 // Get a single reservation by ID
 router.get('/:id', getReservationById);
