@@ -1,49 +1,37 @@
 hello
-<link href="https://cdn.jsdelivr.net/npm/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
 
-<mat-horizontal-stepper [linear]="true" #stepper>
-  <!-- Step 1: Enter Username -->
-  <mat-step [stepControl]="usernameFormGroup">
-    <form [formGroup]="usernameFormGroup">
-      <ng-template matStepLabel>Enter Username</ng-template>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username" required />
-        <mat-error *ngIf="usernameFormGroup.get('username')?.hasError('required')">
-          Username is required
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>First Step</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" />
+        <mat-error *ngIf="firstFormGroup.get('firstName')?.hasError('required')">
+          First name is required.
         </mat-error>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext [disabled]="!usernameFormGroup.valid">Next</button>
+        <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
 
-  <!-- Step 2: Enter Password -->
-  <mat-step [stepControl]="passwordFormGroup">
-    <form [formGroup]="passwordFormGroup">
-      <ng-template matStepLabel>Enter Password</ng-template>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required />
-        <mat-error *ngIf="passwordFormGroup.get('password')?.hasError('required')">
-          Password is required
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Second Step</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" />
+        <mat-error *ngIf="secondFormGroup.get('lastName')?.hasError('required')">
+          Last name is required.
         </mat-error>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext [disabled]="!passwordFormGroup.valid">Next</button>
+        <button mat-button (click)="onSubmit()">Submit</button>
       </div>
     </form>
-  </mat-step>
-
-  <!-- Step 3: Confirm Login -->
-  <mat-step>
-    <ng-template matStepLabel>Confirm Login</ng-template>
-    <p>You're ready to log in!</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="onSubmit()">Login</button>
-    </div>
   </mat-step>
 </mat-horizontal-stepper>
