@@ -18,6 +18,14 @@ const UserSchema = new Schema(
             required: [true, 'Please enter a password'],
             minlength: [6, 'Minimum password length is 6 characters'],
         },
+        role:{
+            type:String,
+            required:true
+        },
+        id_role:{
+            type:mongoose.Schema.Types.ObjectId,
+            require:true,
+        }
     },
     {
         timestamps: true,

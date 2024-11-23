@@ -83,11 +83,28 @@ const getReservationWorker = async(req,res)=>{
     res.status(500).json({ error: 'Failed to fetch reservations for this worker.' });
   }
 };
+const getWorkersBySpeciality = async (req, res) => {
+  try {
+    const { speciality } = req.params;
+
+    // Assuming Worker model has a 'speciality' field
+    const workers = await Worker.find({ speciality });
+
+    if (workers.length === 0) {
+      return res.status(404).json({ message: 'No workers found with the given speciality' });
+    }
+
+    res.status(200).json(workers);
+  } catch (error) {
+    res.status(500).json({ message: `Error fetching workers by speciality: ${error.message}` });
+  }
+};
 module.exports = {
   createWorker,
   getWorkerById,
   getAllWorkers,
   updateWorker,
   deleteWorker,
-  getReservationWorker
+  getReservationWorker,
+  getWorkersBySpeciality
 };
