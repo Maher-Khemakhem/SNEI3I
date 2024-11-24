@@ -1,4 +1,4 @@
-<mat-horizontal-stepper class="p-5"  [linear]="isLinear" #stepper>
+<mat-horizontal-stepper class="p-5" [linear]="isLinear" #stepper>
   <!-- First Step -->
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
@@ -48,7 +48,7 @@
         <mat-error *ngIf="secondFormGroup.get('num_tel')?.hasError('required')">
           Phone number is required.
         </mat-error>
-        <mat-error *ngIf="secondFormGroup.get('numt_tel')?.hasError('pattern')">
+        <mat-error *ngIf="secondFormGroup.get('num_tel')?.hasError('pattern')">
           Invalid phone number format.
         </mat-error>
       </mat-form-field>
@@ -69,6 +69,8 @@
       </div>
     </form>
   </mat-step>
+
+  <!-- Third Step -->
   <mat-step>
     <ng-template matStepLabel>Third Step</ng-template>
     <p>Upload a photo (optional):</p>
@@ -115,6 +117,8 @@
       </div>
     </form>
   </mat-step>
+
+  <!-- Done Step -->
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     You are now done.

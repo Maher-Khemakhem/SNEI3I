@@ -5,8 +5,10 @@ import { MatButtonModule } from '@angular/material/button';  // for navigation b
 import { MatIconModule } from '@angular/material/icon';      // optional for step icons
 import { MatFormFieldModule } from '@angular/material/form-field'; // optional if using forms
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {  HttpClientModule, provideHttpClient } from '@angular/common/http';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';@NgModule({
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import this module
+import { BrowserModule } from '@angular/platform-browser';
+
+@NgModule({
   declarations: [],
   imports: [
     CommonModule,
@@ -16,11 +18,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';@NgM
     MatAutocompleteModule,
     MatIconModule,
     MatFormFieldModule,
-    HttpClientModule,
-    NoopAnimationsModule
+    BrowserAnimationsModule,
+    BrowserModule
   ],
   providers: [
-    provideHttpClient(),
+    
   ],
 })
 export class AppModule { }

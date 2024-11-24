@@ -2,15 +2,18 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class SignupClientService {
+export class SignupService {
+
+
   private REST_API = 'http://localhost:3000/connect/signup'; // API base URL
 
   // Default headers
-  private httpHeaders = new HttpHeaders({});
+  private httpHeaders = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
 
   constructor(private httpClient: HttpClient) {}
 

@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 //import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import this module
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [],
@@ -28,7 +30,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-   
+    BrowserAnimationsModule,
+    BrowserModule
   ]
 })
 export class LoginModule {}

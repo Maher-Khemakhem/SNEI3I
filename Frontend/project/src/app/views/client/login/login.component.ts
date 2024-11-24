@@ -20,9 +20,15 @@ import { CommonModule } from '@angular/common';
 
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { SignupClientService } from '../../../service/signup-client.service';
+import { SignupService } from '../../../services/signup.service';
 //import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -42,6 +48,7 @@ import { SignupClientService } from '../../../service/signup-client.service';
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  
 })
 export class LoginComponent implements OnInit{
   private _formBuilder = inject(FormBuilder);
@@ -53,7 +60,7 @@ export class LoginComponent implements OnInit{
   isLinear = true;
   photo: string | null = null;
 
-  constructor(private loginservice: SignupClientService) {}
+  constructor(private signupService:SignupService) {}
 
   ngOnInit() {
     this.initializeFormGroups();
@@ -117,23 +124,31 @@ export class LoginComponent implements OnInit{
       this.passwordFormGroup.valid
     ) {
       await this.mockApiRequest();
-
+  
+      // Extract necessary values
+      const { confirmPassword, ...passwordGroupValues } = this.passwordFormGroup.value;
+  
+      // Construct formData in the desired order
       const formData = {
-        ...this.firstFormGroup.value,
-        ...this.secondFormGroup.value,
-        ...this.passwordFormGroup.value,
+        firstname: this.firstFormGroup.value.firstname,
+        lastname: this.firstFormGroup.value.lastname,
+        password: passwordGroupValues.password,
+        email: this.firstFormGroup.value.email,
+        num_tel: this.secondFormGroup.value.num_tel,
+        Date_of_birth: this.secondFormGroup.value.Date_of_birth,
         photo: this.photo || 'Default photo URL or message',
       };
-      /*
-      this.loginservice.addClient(formData,"client").subscribe(() => {
+  
+      this.signupService.addClient(formData, "client").subscribe(() => {
         console.log('Form Submitted Successfully!');
       });
-      */
+  
       console.log('Form Data:', formData);
     } else {
       console.error('Form is invalid!');
     }
   }
+  
 
   // Simulated async validator for email
   asyncEmailValidator(): AsyncValidatorFn {

@@ -19,6 +19,12 @@ const clientRoute = require('./routes/client.route');
 const reservationRoute = require('./routes/reservation.route');
 const authRoute = require('./routes/auth.route');
 const path = require("path");
+const cors = require('cors');
+app.use(cors({
+  origin: 'http://localhost:4200', // Replace with your Angular app's URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 
 app.set('view engine', 'ejs');
