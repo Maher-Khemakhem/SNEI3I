@@ -5,9 +5,8 @@ import { MatButtonModule } from '@angular/material/button';  // for navigation b
 import { MatIconModule } from '@angular/material/icon';      // optional for step icons
 import { MatFormFieldModule } from '@angular/material/form-field'; // optional if using forms
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
-
-@NgModule({
+import {  HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';@NgModule({
   declarations: [],
   imports: [
     CommonModule,
@@ -16,7 +15,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatIconModule,
     MatAutocompleteModule,
     MatIconModule,
-    MatFormFieldModule
-  ]
+    MatFormFieldModule,
+    HttpClientModule,
+    NoopAnimationsModule
+  ],
+  providers: [
+    provideHttpClient(),
+  ],
 })
 export class AppModule { }

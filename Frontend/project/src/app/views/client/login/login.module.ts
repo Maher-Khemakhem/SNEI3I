@@ -11,6 +11,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+//import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
@@ -25,7 +26,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDatepickerModule,MatNativeDateModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+   
   ]
 })
 export class LoginModule {}

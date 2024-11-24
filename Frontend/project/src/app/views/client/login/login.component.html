@@ -6,8 +6,8 @@
 
       <mat-form-field appearance="fill">
         <mat-label>First Name</mat-label>
-        <input matInput formControlName="firstName" required />
-        <mat-error *ngIf="firstFormGroup.get('firstName')?.hasError('required')">
+        <input matInput formControlName="firstname" required />
+        <mat-error *ngIf="firstFormGroup.get('firstname')?.hasError('required')">
           First name is required.
         </mat-error>
       </mat-form-field>
@@ -44,21 +44,21 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Phone Number</mat-label>
-        <input matInput formControlName="numtel" type="tel" required />
-        <mat-error *ngIf="secondFormGroup.get('numtel')?.hasError('required')">
+        <input matInput formControlName="num_tel" type="tel" required />
+        <mat-error *ngIf="secondFormGroup.get('num_tel')?.hasError('required')">
           Phone number is required.
         </mat-error>
-        <mat-error *ngIf="secondFormGroup.get('numtel')?.hasError('pattern')">
+        <mat-error *ngIf="secondFormGroup.get('numt_tel')?.hasError('pattern')">
           Invalid phone number format.
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Date of Birth</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="dob" required />
+        <input matInput [matDatepicker]="picker" formControlName="Date_of_birth" required />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="secondFormGroup.get('dob')?.hasError('required')">
+        <mat-error *ngIf="secondFormGroup.get('Date_of_birth')?.hasError('required')">
           Date of birth is required.
         </mat-error>
       </mat-form-field>
