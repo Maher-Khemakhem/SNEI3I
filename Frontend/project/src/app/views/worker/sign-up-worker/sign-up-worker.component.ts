@@ -209,7 +209,10 @@ export class SignUpWorkerComponent implements OnInit{
         price: '69', // Assuming a default price
         rate: 3.5, // Assuming a default rate
         number_of_messages: '69', // Assuming a default number of messages
-        certification: this.certifications.value.title, // Extract certifications from the FormArray
+        certification: this.certifications.value.map((cert:any) => ({
+          title: cert.title,
+          url: cert.url,
+        })), // Extract certifications from the FormArray
         autre_service: ['Service Example'], // Replace with your actual data
         photo: this.photo || 'Default photo URL or message',
         work_photo: this.photos.map((photo) => photo.file.name), // Extract photo filenames

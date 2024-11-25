@@ -52,10 +52,12 @@ const WorkerSchema = new Schema({
     type: String, // Consider changing to `Number` if it's a count
     required: true
   },
-  certification: {
-    type: [String], // Array of strings for multiple certifications
-    required: true
-  },
+  certification: [
+    {
+      title: { type: String, required: true }, // Key: Certification title
+      url: { type: String, required: true }, // Value: Certification description
+    }
+  ],
   autre_service: {
     type: [String], // Array of strings for multiple services
     required: true
