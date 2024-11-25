@@ -10,4 +10,18 @@ mat-horizontal-stepper{
   button {
       margin-right: 8px;
   }
-    
+    /* Add this CSS to style your form */
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .half-width {
+    flex: 0 0 48%; /* Makes each input field take up about 48% of the row */
+  }
+  
+  mat-form-field {
+    width: 100%; /* Makes sure the mat-form-field takes up the full width */
+  }
+  

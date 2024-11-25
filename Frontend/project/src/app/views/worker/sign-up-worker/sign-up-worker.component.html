@@ -2,60 +2,69 @@
     <!-- First Step -->
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>General informations</ng-template>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstname" required />
-          <mat-error *ngIf="firstFormGroup.get('firstname')?.hasError('required')">
-            First name is required.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="lastname" required />
-          <mat-error *ngIf="firstFormGroup.get('lastname')?.hasError('required')">
-            Last name is required.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>E-mail</mat-label>
-          <input matInput formControlName="email" type="email" required />
-          <mat-error *ngIf="firstFormGroup.get('email')?.hasError('required')">
-            E-mail is required.
-          </mat-error>
-          <mat-error *ngIf="firstFormGroup.get('email')?.hasError('email')">
-            Invalid e-mail format.
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Phone Number</mat-label>
-          <input matInput formControlName="num_tel" type="tel" required />
-          <mat-error *ngIf="secondFormGroup.get('num_tel')?.hasError('required')">
-            Phone number is required.
-          </mat-error>
-          <mat-error *ngIf="secondFormGroup.get('num_tel')?.hasError('pattern')">
-            Invalid phone number format.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
+        <ng-template matStepLabel>General information</ng-template>
+    
+        <!-- First row with two fields -->
+        <div class="row">
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstname" required />
+            <mat-error *ngIf="firstFormGroup.get('firstname')?.hasError('required')">
+              First name is required.
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastname" required />
+            <mat-error *ngIf="firstFormGroup.get('lastname')?.hasError('required')">
+              Last name is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+    
+        <!-- Second row with remaining fields -->
+        <div class="row">
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email" required />
+            <mat-error *ngIf="firstFormGroup.get('email')?.hasError('required')">
+              E-mail is required.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.get('email')?.hasError('email')">
+              Invalid e-mail format.
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="num_tel" type="tel" required />
+            <mat-error *ngIf="firstFormGroup.get('num_tel')?.hasError('required')">
+              Phone number is required.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.get('num_tel')?.hasError('pattern')">
+              Invalid phone number format.
+            </mat-error>
+          </mat-form-field>
+        
+    
+        <!-- Third row with the Date of Birth field -->
+        <mat-form-field appearance="fill" class="half-width">
           <mat-label>Date of Birth</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="Date_of_birth" required />
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="secondFormGroup.get('Date_of_birth')?.hasError('required')">
+          <mat-error *ngIf="firstFormGroup.get('Date_of_birth')?.hasError('required')">
             Date of birth is required.
           </mat-error>
         </mat-form-field>
-  
+      </div>
         <div>
           <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
         </div>
       </form>
     </mat-step>
+    
   
     <!-- Second Step -->
     <mat-step [stepControl]="secondFormGroup">
