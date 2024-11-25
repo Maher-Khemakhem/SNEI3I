@@ -193,21 +193,29 @@ export class SignUpWorkerComponent implements OnInit{
     ) {
       await this.mockApiRequest();
   
-      // Extract necessary values
+      // Extract values from the form groups
       const { confirmPassword, ...passwordGroupValues } = this.passwordFormGroup.value;
   
-      // Construct formData in the desired order
       const formData = {
         firstname: this.firstFormGroup.value.firstname,
         lastname: this.firstFormGroup.value.lastname,
-        password: passwordGroupValues.password,
         email: this.firstFormGroup.value.email,
-        num_tel: this.secondFormGroup.value.num_tel,
-        Date_of_birth: this.secondFormGroup.value.Date_of_birth,
+        password: passwordGroupValues.password,
+        num_tel: this.firstFormGroup.value.num_tel,
+        date_of_birth: this.firstFormGroup.value.Date_of_birth?.toISOString() || null, // Format date properly
+        speciality: this.secondFormGroup.value.speciality,
+        description: this.secondFormGroup.value.description,
+        location: 'manar', // Assuming a default or static location
+        price: '69', // Assuming a default price
+        rate: 3.5, // Assuming a default rate
+        number_of_messages: '69', // Assuming a default number of messages
+        certification: this.certifications.value.title, // Extract certifications from the FormArray
+        autre_service: ['Service Example'], // Replace with your actual data
         photo: this.photo || 'Default photo URL or message',
+        work_photo: this.photos.map((photo) => photo.file.name), // Extract photo filenames
       };
   
-      this.signupService.addClient(formData, "client").subscribe(() => {
+      this.signupService.addClient(formData, "worker").subscribe(() => {
         console.log('Form Submitted Successfully!');
       });
   

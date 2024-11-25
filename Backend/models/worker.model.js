@@ -25,7 +25,7 @@ const WorkerSchema = new Schema({
     required: true
   },
   date_of_birth: {
-    type: String, // Change to `Date` if you want to store as a date type
+    type: Date, // Change to `Date` if you want to store as a date type
     required: true
   },
   speciality: {
@@ -50,10 +50,6 @@ const WorkerSchema = new Schema({
   },
   number_of_messages: {
     type: String, // Consider changing to `Number` if it's a count
-    required: true
-  },
-  work_experience: {
-    type: String,
     required: true
   },
   certification: {

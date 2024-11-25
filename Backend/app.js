@@ -20,6 +20,10 @@ const reservationRoute = require('./routes/reservation.route');
 const authRoute = require('./routes/auth.route');
 const path = require("path");
 const cors = require('cors');
+app.use(express.json({ limit: '50mb' }));
+
+// Increase the size limit for URL-encoded form data
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors({
   origin: 'http://localhost:4200', // Replace with your Angular app's URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],

@@ -61,13 +61,13 @@ const signup_post = async (req, res) => {
     try {
         if (role === 'worker') {
             const {
-                firstname, lastname, email, password, num_tel, Date_of_birth,
+                firstname, lastname, email, password, num_tel, date_of_birth,
                 speciality, description, location, price, rate, number_of_messages,
                 certification, autre_service, photo, work_photo, validated,
             } = req.body;
 
             const worker = await Worker.create({
-                firstname, lastname, email, password, num_tel, Date_of_birth,
+                firstname, lastname, email, password, num_tel, date_of_birth,
                 speciality, description, location, price, rate, number_of_messages,
                 certification, autre_service, photo, work_photo, validated,
             });
