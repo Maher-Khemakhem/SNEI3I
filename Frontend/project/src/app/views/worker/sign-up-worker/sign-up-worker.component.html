@@ -1,0 +1,230 @@
+<mat-horizontal-stepper class="p-5" [linear]="isLinear" #stepper>
+    <!-- First Step -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>General information</ng-template>
+    
+        <!-- First row with two fields -->
+        <div class="row">
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstname" required />
+            <mat-error *ngIf="firstFormGroup.get('firstname')?.hasError('required')">
+              First name is required.
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastname" required />
+            <mat-error *ngIf="firstFormGroup.get('lastname')?.hasError('required')">
+              Last name is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+    
+        <!-- Second row with remaining fields -->
+        <div class="row">
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email" required />
+            <mat-error *ngIf="firstFormGroup.get('email')?.hasError('required')">
+              E-mail is required.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.get('email')?.hasError('email')">
+              Invalid e-mail format.
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="num_tel" type="tel" required />
+            <mat-error *ngIf="firstFormGroup.get('num_tel')?.hasError('required')">
+              Phone number is required.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.get('num_tel')?.hasError('pattern')">
+              Invalid phone number format.
+            </mat-error>
+          </mat-form-field>
+        
+    
+        <!-- Third row with the Date of Birth field -->
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="Date_of_birth" required />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="firstFormGroup.get('Date_of_birth')?.hasError('required')">
+            Date of birth is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+        <div>
+          <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    
+  
+    <!-- Second Step -->
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Details</ng-template>
+  
+      <!-- Speciality -->
+      <mat-form-field appearance="fill">
+        <mat-label>Speciality</mat-label>
+        <mat-select formControlName="speciality" required>
+          <mat-option *ngFor="let spec of specialities" [value]="spec">{{ spec }}</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+        <mat-error *ngIf="secondFormGroup.get('speciality')?.hasError('required')">
+          Speciality is required.
+        </mat-error>
+      </mat-form-field>
+      <div *ngIf="secondFormGroup.get('speciality')?.value === 'other'">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your speciality</mat-label>
+          <input matInput formControlName="speciality" />
+        </mat-form-field>
+      </div>
+  
+      <!-- Description -->
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" required></textarea>
+        <mat-error *ngIf="secondFormGroup.get('description')?.hasError('required')">
+          Description is required.
+        </mat-error>
+      </mat-form-field>
+  
+      
+  
+      <!-- Certification -->
+      <div formArrayName="certifications">
+        <div *ngFor="let cert of certifications.controls; let i = index" [formGroupName]="i">
+          <mat-form-field appearance="fill">
+            <mat-label>Certification Title</mat-label>
+            <input matInput formControlName="title" required />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Certification URL</mat-label>
+            <input matInput formControlName="url" required />
+          </mat-form-field>
+          <button mat-icon-button color="warn" (click)="removeCertification(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <button mat-raised-button color="primary" (click)="addCertification()">Add Certification</button>
+      </div>
+        
+  
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext [disabled]="secondFormGroup.invalid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+  
+    <!-- Third Step -->
+    <mat-step>
+      <ng-template matStepLabel>Profile Picture</ng-template>
+      <p>Upload a photo (optional):</p>
+  
+      <div>
+        <input    type="file" (change)="onPhotoUpload($event)" />
+      </div>
+      <p *ngIf="!photo">No photo uploaded. A default photo will be used.</p>
+      <img *ngIf="photo" [src]="photo" alt="Uploaded photo" style="width: 150px; height: 150px;" />
+      <!-- Work Photo -->
+      <!-- Photo Upload -->
+  <div>
+    <label for="photoInput">Upload Photos</label>
+    <input
+      id="photoInput"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+      multiple
+      style="width: 150px; height: 150px;"
+    />
+  </div>
+
+  <!-- Carousel -->
+  <div *ngIf="photos.length > 0">
+    <p>Preview Photos:</p>
+    <owl-carousel-o [options]="carouselOptions">
+      <ng-container *ngFor="let photo of photos; let i = index">
+        <ng-template carouselSlide>
+          <img
+            [src]="photo.preview"
+            alt="Uploaded Photo"
+            style="width: 100%; height: auto;"
+          />
+          <button
+            type="button"
+            (click)="removePhoto(i)"
+            style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.5); border: none; border-radius: 50%; padding: 5px;">
+            <mat-icon style="color: white;">delete</mat-icon>
+          </button>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+
+  <!-- Validation Messages -->
+  <div *ngIf="photos.length < 3" class="error">
+    You need to upload at least 3 photos.
+  </div>
+  <div *ngIf="photos.length > 5" class="error">
+    You can upload a maximum of 5 photos.
+  </div>
+      
+  
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext [disabled]="photos.length < 3 || photos.length > 5">Next</button>
+      </div>
+    </mat-step>
+  
+    <!-- Fourth Step (Password) -->
+    <mat-step [stepControl]="passwordFormGroup">
+      <form [formGroup]="passwordFormGroup">
+        <ng-template matStepLabel>Password</ng-template>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required />
+          <mat-error *ngIf="passwordFormGroup.get('password')?.hasError('required')">
+            Password is required.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput formControlName="confirmPassword" type="password" required />
+          <mat-error *ngIf="passwordFormGroup.get('confirmPassword')?.hasError('required')">
+            Confirmation is required.
+          </mat-error>
+          <mat-error *ngIf="passwordFormGroup.hasError('passwordMismatch')">
+            Passwords do not match.
+          </mat-error>
+        </mat-form-field>
+  
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext [disabled]="passwordFormGroup.invalid" (click)="onSubmit()">Submit</button>
+        </div>
+      </form>
+    </mat-step>
+  
+    <!-- Done Step -->
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  
