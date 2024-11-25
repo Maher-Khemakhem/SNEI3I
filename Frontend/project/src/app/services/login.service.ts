@@ -1,9 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs'; // Import Observable
+import { User } from '../model/class/User';
+import { APILoginResponseModel } from '../model/interface/API_Login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  // The Login method accepts a User object and returns an Observable of APILoginResponseModel
+  Login(user: User): Observable<APILoginResponseModel> {
+    return this.http.post<APILoginResponseModel>("http://localhost:3000/connect/login", user);
+  }
 }
