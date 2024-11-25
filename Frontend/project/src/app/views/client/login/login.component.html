@@ -2,7 +2,7 @@
   <!-- First Step -->
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>First Step</ng-template>
+      <ng-template matStepLabel>General informations</ng-template>
 
       <mat-form-field appearance="fill">
         <mat-label>First Name</mat-label>
@@ -40,7 +40,7 @@
   <!-- Second Step -->
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Second Step</ng-template>
+      <ng-template matStepLabel>Details</ng-template>
 
       <mat-form-field appearance="fill">
         <mat-label>Phone Number</mat-label>
@@ -72,7 +72,7 @@
 
   <!-- Third Step -->
   <mat-step>
-    <ng-template matStepLabel>Third Step</ng-template>
+    <ng-template matStepLabel>Profile Picture</ng-template>
     <p>Upload a photo (optional):</p>
 
     <div>
@@ -90,7 +90,7 @@
   <!-- Fourth Step (Password) -->
   <mat-step [stepControl]="passwordFormGroup">
     <form [formGroup]="passwordFormGroup">
-      <ng-template matStepLabel>Fourth Step</ng-template>
+      <ng-template matStepLabel>Password</ng-template>
 
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>

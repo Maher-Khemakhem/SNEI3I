@@ -1,3 +1,4 @@
+
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -5,6 +6,7 @@ import {
   Validators,
   AbstractControl,
   AsyncValidatorFn,
+  FormArray,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -15,9 +17,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-
+import { MatSelectModule } from '@angular/material/select';
 import { of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { SignupService } from '../../../services/signup.service';
@@ -29,8 +31,9 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-up-worker',
   standalone: true,
   imports: [
     CommonModule,
@@ -43,24 +46,45 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatNativeDateModule,MatOptionModule,MatSelectModule ,
+    CarouselModule
    
   ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './sign-up-worker.component.html',
+  styleUrl: './sign-up-worker.component.css'
   
 })
-export class LoginComponent implements OnInit{
+
+export class SignUpWorkerComponent implements OnInit{
   private _formBuilder = inject(FormBuilder);
 
   firstFormGroup!: FormGroup; // Ensure proper typing
   secondFormGroup!: FormGroup;
   passwordFormGroup!: FormGroup;
+  photos: { file: File; preview: string }[] = [];
+  carouselOptions = {
+    loop: true,
+    margin: 10,
+    nav: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 2,
+      },
+      1000: {
+        items: 3,
+      },
+    },
+  };
+  specialities = ['Software Development', 'Design', 'Marketing', 'Data Analysis'];
+
 
   isLinear = true;
   photo: string | null = null;
 
-  constructor(private signupService:SignupService) {}
+  constructor(private signupService:SignupService,private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initializeFormGroups();
@@ -78,14 +102,18 @@ export class LoginComponent implements OnInit{
         [Validators.required, Validators.email],
         [this.asyncEmailValidator()],
       ],
-    });
-
-    this.secondFormGroup = this._formBuilder.group({
       Date_of_birth: ['', Validators.required],
       num_tel: [
         '',
         [Validators.required, Validators.pattern(/^\d{8,15}$/)],
       ],
+    });
+
+    this.secondFormGroup = this.fb.group({
+      speciality: ['', Validators.required],
+      customSpeciality: [''],
+      description: ['', Validators.required],
+      certifications: this.fb.array([]),
     });
 
     this.passwordFormGroup = this._formBuilder.group(
@@ -95,6 +123,46 @@ export class LoginComponent implements OnInit{
       },
       { validators: this.passwordMatchValidator }
     );
+  }
+  get certifications(): FormArray {
+    return this.secondFormGroup.get('certifications') as FormArray;
+  }
+
+  addCertification(): void {
+    this.certifications.push(
+      this.fb.group({
+        title: ['', Validators.required],
+        url: ['', Validators.required],
+      })
+    );
+  }
+
+  removeCertification(index: number): void {
+    this.certifications.removeAt(index);
+  }
+
+  onFileSelected(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target.files) {
+      const selectedFiles = Array.from(target.files);
+      const totalFiles = this.photos.length + selectedFiles.length;
+
+      if (totalFiles <= 5) {
+        selectedFiles.forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.photos.push({ file, preview: e.target.result });
+          };
+          reader.readAsDataURL(file);
+        });
+      } else {
+        alert('You can upload a maximum of 5 photos.');
+      }
+    }
+  }
+
+  removePhoto(index: number): void {
+    this.photos.splice(index, 1);
   }
   
   // Password match validator

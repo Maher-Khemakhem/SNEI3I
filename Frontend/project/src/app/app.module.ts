@@ -8,6 +8,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import this module
 import { BrowserModule } from '@angular/platform-browser';
 
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 @NgModule({
   declarations: [],
   imports: [
@@ -19,7 +22,8 @@ import { BrowserModule } from '@angular/platform-browser';
     MatIconModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    BrowserModule
+    BrowserModule,MatOptionModule,MatSelectModule,CarouselModule
+    
   ],
   providers: [
     
