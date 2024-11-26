@@ -17,14 +17,13 @@ export class LogInClientComponent {
   userObj: User = new User();
   loginService = inject(LoginService);
   router = inject(Router);  
-
-  onSubmit() {
+onSubmit() {
   this.loginService.Login(this.userObj).subscribe({
     next: (response: APILoginResponseModel) => {
       if (response.user) {
-        alert("secces login")
+        alert("Success! You are logged in.");
       } else if (response.errors) {
-        // More specific error handling
+        // More specific error handling for errors in response
         const errorMessage = 
           response.errors.password || 
           response.errors.email || 
@@ -33,9 +32,35 @@ export class LogInClientComponent {
       }
     },
     error: (httpError) => {
-      console.log("dddddddd");
-      alert('Connection error. Please try again.');
+      // Handle HTTP errors returned from the server
+      if (httpError.error && typeof httpError.error === 'object') {
+        // Access the JSON error response
+        const errorResponse = httpError.error;
+        
+        // General error message
+        const generalMessage = errorResponse.message || 'An unknown error occurred.';
+        
+        // Access specific fields from the JSON, if available
+        const emailError = errorResponse.errors?.email;
+        const passwordError = errorResponse.errors?.password;
+
+        // Display error messages
+        let errorMessage = `Error: ${generalMessage}\n`;
+        if (emailError) {
+          errorMessage += `Email Error: ${emailError}\n`;
+        }
+        if (passwordError) {
+          errorMessage += `Password Error: ${passwordError}\n`;
+        }
+
+        alert(errorMessage);
+      } else {
+        // Handle non-JSON errors (e.g., connection failures)
+        alert('Connection error. Please try again.');
+      }
     }
   });
 }
+
+
 }
