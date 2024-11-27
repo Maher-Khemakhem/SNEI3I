@@ -5,7 +5,8 @@ const {
   getAllReservations,
   getReservationById,
   updateReservation,
-  deleteReservation
+  deleteReservation,
+  getMonthlyRevenueByWorker
 } = require('../controllers/reservation.controller');
 const {requireAuth} = require('../middleware/auth.middleware')
 //reservation
@@ -23,6 +24,7 @@ router.put('/:id', updateReservation);
 
 // Delete a reservation by ID
 router.delete('/:id', deleteReservation);
+router.get('/revenue/:workerId',getMonthlyRevenueByWorker);
 
 
 
