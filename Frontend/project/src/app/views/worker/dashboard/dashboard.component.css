@@ -16,10 +16,6 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.card:hover {
-    transform: scale(1.05);
-    /* Scales up the card on hover */
-}
 
 /* Adjust spacing for different screen sizes */
 @media (max-width: 768px) {

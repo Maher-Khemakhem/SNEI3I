@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Chart, registerables, ChartConfiguration, ChartType } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
 
@@ -13,52 +13,48 @@ Chart.register(...registerables);
 })
 export class DashboardComponent implements OnInit {
   router = inject(Router);
-  
-  // Chart options
-  public barChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
-
-  // Chart type
-  public barChartType: ChartType = 'bar';
-
-  // Chart data
-  public barChartData: ChartConfiguration['data'] = {
-    labels: ['January', 'February', 'March', 'April', 'May'],
-    datasets: [
-      {
-        data: [65, 59, 80, 81, 56],
-        label: 'Sales Data',
-        backgroundColor: 'rgba(0, 123, 255, 0.5)',
-        borderColor: 'rgba(0, 123, 255, 1)',
-        borderWidth: 1
-      },
-      {
-        data: [28, 48, 40, 19, 86],
-        label: 'Revenue Data',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1
-      }
-    ]
-  };
 
   constructor() {}
 
   ngOnInit(): void {
-    
-    // You can perform additional setup here if needed
+    // Initialize the chart when the component is loaded
+    const ctx = document.getElementById('chart-line') as HTMLCanvasElement;
+    new Chart(ctx, {
+      type: 'line', // Line chart
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May'], // X-axis labels
+        datasets: [
+          {
+            label: 'Sales Data',
+            data: [65, 59, 80, 81, 56],
+            borderColor: 'rgba(0, 123, 255, 1)',
+            borderWidth: 2,
+            fill: false // No filled surface under the line
+          },
+          {
+            label: 'Revenue Data',
+            data: [28, 48, 40, 19, 86],
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 2,
+            fill: false // No filled surface under the line
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
 
   onClickOffre(): void {
