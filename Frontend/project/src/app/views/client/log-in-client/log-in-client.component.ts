@@ -22,6 +22,7 @@ onSubmit() {
     next: (response: APILoginResponseModel) => {
       if (response.user) {
         alert("Success! You are logged in.");
+        localStorage.setItem('user_id',response.user );
       } else if (response.errors) {
         // More specific error handling for errors in response
         const errorMessage = 
@@ -32,32 +33,30 @@ onSubmit() {
       }
     },
     error: (httpError) => {
+       
       // Handle HTTP errors returned from the server
       if (httpError.error && typeof httpError.error === 'object') {
         // Access the JSON error response
         const errorResponse = httpError.error;
-        
         // General error message
         const generalMessage = errorResponse.message || 'An unknown error occurred.';
-        
         // Access specific fields from the JSON, if available
         const emailError = errorResponse.errors?.email;
         const passwordError = errorResponse.errors?.password;
-
         // Display error messages
-        let errorMessage = `Error: ${generalMessage}\n`;
+        let errorMessage = ``;
         if (emailError) {
           errorMessage += `Email Error: ${emailError}\n`;
         }
         if (passwordError) {
           errorMessage += `Password Error: ${passwordError}\n`;
         }
-
         alert(errorMessage);
       } else {
         // Handle non-JSON errors (e.g., connection failures)
         alert('Connection error. Please try again.');
       }
+
     }
   });
 }
