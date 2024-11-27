@@ -15,7 +15,9 @@
     background-color: #fff;
     transition: transform 0.3s ease-in-out;
 }
-
+.col-lg-6.col-12.mb-4 {
+    width: 50%;
+}
 
 /* Adjust spacing for different screen sizes */
 @media (max-width: 768px) {
