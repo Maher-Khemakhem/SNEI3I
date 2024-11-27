@@ -18,6 +18,7 @@ const workerRoute = require('./routes/worker.route');
 const clientRoute = require('./routes/client.route');
 const reservationRoute = require('./routes/reservation.route');
 const authRoute = require('./routes/auth.route');
+const offreRoute = require('./routes/offre.route');
 const path = require("path");
 const cors = require('cors');
 app.use(express.json({ limit: '50mb' }));
@@ -46,6 +47,7 @@ app.use('/worker',workerRoute);
 app.use('/client',clientRoute);
 app.use('/reservation',reservationRoute);
 app.use('/connect',authRoute);
+app.use('/offre',offreRoute);
 // Auto refresh setup
 /*
 const liveReloadServer = livereload.createServer();

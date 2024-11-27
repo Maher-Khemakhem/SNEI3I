@@ -15,11 +15,19 @@ const OffreSchema = new Schema({
       required:true,
       default:0
     },
+    price: {
+      type: Number, 
+      required: true
+    },
     date:{
       type:Date,
       required:false,
     },
-    
+    status:{
+      type:String,
+      require:true,
+      default:"pending",
+    }
     
   },{
     timestamps:true,
