@@ -26,6 +26,7 @@ onSubmit() {
       if (response.user) {
         alert("Success! You are logged in.");
         localStorage.setItem('user_id',response.user );
+        localStorage.setItem('token',response.token||"" );
       } else if (response.errors) {
         // More specific error handling for errors in response
         const errorMessage = 
