@@ -27,7 +27,10 @@
     "bootstrap": "^5.3.3",
     "cdbreact": "^1.5.19",
     "chart.js": "^4.4.6",
+<<<<<<< HEAD
     "ng2-charts": "^7.0.0",
+=======
+>>>>>>> 8cebf10019f8852f8a0e385bafb35a4f41675164
     "ngx-owl-carousel-o": "^18.0.0",
     "owl.carousel": "^2.3.4",
     "react": "^18.3.1",

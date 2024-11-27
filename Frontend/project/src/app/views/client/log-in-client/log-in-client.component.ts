@@ -24,9 +24,15 @@ onSubmit() {
   this.loginService.Login(this.userObj).subscribe({
     next: (response: APILoginResponseModel) => {
       if (response.user) {
-        alert("Success! You are logged in.");
-        localStorage.setItem('user_id',response.user );
-        localStorage.setItem('token',response.token||"" );
+        if(response.role==="client"){
+          alert("Success! You are logged in.");
+          localStorage.setItem('user_id',response.user );
+          localStorage.setItem('token',response.token||"" );
+          this.router.navigateByUrl('/');
+        }else{
+          alert("Access only for clients");
+        }
+        
       } else if (response.errors) {
         // More specific error handling for errors in response
         const errorMessage = 
