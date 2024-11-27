@@ -6,30 +6,29 @@ import { LogInClientComponent } from './views/client/log-in-client/log-in-client
 import { LogInWorkerComponent } from './views/worker/log-in-worker/log-in-worker.component';
 import { authGuard } from './services/auth.guard';
 
-
 export const routes: Routes = [
-    
-    {
-        path:'',
-        component:ClientLayoutComponent,
-        children:[
-            
-        ]
-    },
-    { 
-        path: 'login', component: LoginComponent, 
-    },
-    { 
-        path: 'signupworker', component: SignUpWorkerComponent 
-    },
-    { 
-        path: 'loginclient', component: LogInClientComponent ,
-        children:[],
-        canActivate:[authGuard],
-        
-
-    },
-    { 
-        path: 'loginworker', component: LogInWorkerComponent 
-    }
+  {
+    path: '',
+    component: ClientLayoutComponent,
+    children: [],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [authGuard], // Protect the route
+  },
+  {
+    path: 'signupworker',
+    component: SignUpWorkerComponent,
+  },
+  {
+    path: 'loginclient',
+    component: LogInClientComponent,
+    canActivate: [authGuard], // Protect the route
+  },
+  {
+    path: 'loginworker',
+    component: LogInWorkerComponent,
+    canActivate: [authGuard], // Protect the route
+  },
 ];
