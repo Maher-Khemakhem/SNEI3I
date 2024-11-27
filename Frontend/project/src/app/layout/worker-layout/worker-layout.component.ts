@@ -1,7 +1,8 @@
-import { Component,inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { NavComponent } from "../../views/worker/nav/nav.component";
-import { RouterLink, RouterOutlet } from '@angular/router';
 import { FooterComponent } from "../../views/worker/footer/footer.component";
+import { DashboardComponent } from '../../views/worker/dashboard/dashboard.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,13 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-worker-layout',
   standalone: true,
-  imports: [RouterOutlet, NavComponent, FooterComponent,
-    
-    MatIconModule,MatCardModule,MatButtonModule,
-    ],
+  imports: [
+    RouterModule,
+    NavComponent, 
+    FooterComponent, 
+    DashboardComponent, 
+    MatCardModule, 
+    MatIconModule, 
+    MatButtonModule
+  ],
   templateUrl: './worker-layout.component.html',
   styleUrl: './worker-layout.component.css'
 })
-export class WorkerLayoutComponent {
-
-}
+export class WorkerLayoutComponent {}

@@ -1,0 +1,30 @@
+/* Ensure all cards in the row align properly */
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Adds space between the cards */
+    justify-content: flex-start;
+    /* Aligns the cards to the left */
+}
+
+/* Optional: Customize card styles */
+.card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    /* Scales up the card on hover */
+}
+
+/* Adjust spacing for different screen sizes */
+@media (max-width: 768px) {
+    .card-row {
+        justify-content: center;
+        /* Centers cards on smaller screens */
+    }
+}

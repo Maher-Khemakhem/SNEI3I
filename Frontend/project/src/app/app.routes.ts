@@ -7,6 +7,8 @@ import { LogInWorkerComponent } from './views/worker/log-in-worker/log-in-worker
 import { DashboardComponent } from './views/worker/dashboard/dashboard.component'; // Import the DashboardComponent
 import { authGuard } from './services/auth.guard';
 import { WorkerLayoutComponent } from './layout/worker-layout/worker-layout.component';
+import { OfferComponent } from './views/worker/offer/offer.component';
+import { HistoriqueComponent } from './views/worker/historique/historique.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +41,13 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent, // Child route for /worker/dashboard
+      },{
+        path: 'offre',
+        component: OfferComponent, // Child route for /worker/dashboard
+      },
+      {
+        path: 'historique',
+        component: HistoriqueComponent, // Child route for /worker/dashboard
       },
     ],
   },
