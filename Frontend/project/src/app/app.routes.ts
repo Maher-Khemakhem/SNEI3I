@@ -23,11 +23,8 @@ export const routes: Routes = [
         path: 'signupworker', component: SignUpWorkerComponent 
     },
     { 
-        path: 'loginclient', component: LogInClientComponent ,
-        children:[],
-        canActivate:[authGuard],
         
-
+        path: 'loginclient', component: LogInClientComponent ,
     },
     { 
         path: 'loginworker', component: LogInWorkerComponent 
