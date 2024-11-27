@@ -7,6 +7,7 @@ import { LogInWorkerComponent } from './views/worker/log-in-worker/log-in-worker
 import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
+<<<<<<< HEAD
   {
     path: '',
     component: ClientLayoutComponent,
@@ -31,4 +32,3 @@ export const routes: Routes = [
     component: LogInWorkerComponent,
     canActivate: [authGuard], // Protect the route
   },
-];
