@@ -97,7 +97,6 @@ const getMonthlyRevenueByWorker = async (req, res) => {
 
     const currentYear = year ? parseInt(year, 10) : new Date().getFullYear();
 
-    // Fetch all reservations for the given worker and year
     const reservations = await Reservation.find({
       worker: workerId,
       date: {
@@ -106,13 +105,11 @@ const getMonthlyRevenueByWorker = async (req, res) => {
       },
     });
     console.log(reservations);
-    // Initialize an array to hold revenue for all  months
     const monthlyRevenue = Array(12).fill(0);
 
-    // Sum up revenue for each month
     reservations.forEach((reservation) => {
-      const month = new Date(reservation.date).getMonth(); // Get month (0-11)
-      monthlyRevenue[month] += reservation.price; // Add price to the corresponding month
+      const month = new Date(reservation.date).getMonth(); 
+      monthlyRevenue[month] += reservation.price;
     });
     console.log(monthlyRevenue);
     // Format the response
