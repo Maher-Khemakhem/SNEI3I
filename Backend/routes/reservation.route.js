@@ -11,7 +11,6 @@ const {
   getTotalRevenueThisMonth,
   getTotalRevenueTodayForWorker,
 } = require("../controllers/reservation.controller");
-
 const { requireAuth } = require("../middleware/auth.middleware");
 //reservation
 // Create a new reservation
@@ -30,7 +29,6 @@ router.put("/:id", updateReservation);
 router.delete("/:id", deleteReservation);
 router.get("/revenue/:workerId", getMonthlyRevenueByWorker);
 router.get("/total/:workerId", getTotalRevenueByWorker);
-
 router.get("/thismonth/:workerId", getTotalRevenueThisMonth);
 router.get("/today/:workerId", getTotalRevenueTodayForWorker);
 
