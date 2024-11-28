@@ -11,6 +11,7 @@ import { OfferComponent } from './views/worker/offer/offer.component';
 import { HistoriqueComponent } from './views/worker/historique/historique.component';
 import { ClientFeedbackComponent } from './views/client/client-feedback/client-feedback.component';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -52,8 +53,5 @@ export const routes: Routes = [
       },
     ],
   },
-  {
-    path:'a',
-    component:ClientFeedbackComponent,
-  }
+  
 ];
