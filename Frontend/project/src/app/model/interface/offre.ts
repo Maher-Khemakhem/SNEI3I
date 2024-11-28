@@ -1,12 +1,10 @@
 export interface Offre {
-  clientName: string
-  empId: number
-  empCode: string
-  empEmailId: string
-  empDesignation: string
-  projectName: string
-  startDate: string
-  expectedEndDate: string
-  
-  clientProjectId: number
+  _id: string
+    Client_id: string
+    Worker_id: string
+    message : string
+    Client_location: string
+    Date: string
+    status: string
+    price: number
 }

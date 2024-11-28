@@ -1,5 +1,7 @@
-const Worker = require('../models/worker.model');
-const Reservation = require('../models/reservation.model');
+const Worker = require("../models/worker.model");
+const Offre = require("../models/offre.model");
+
+const Reservation = require("../models/reservation.model");
 
 // Create a new worker
 const createWorker = async (req, res) => {
@@ -8,7 +10,9 @@ const createWorker = async (req, res) => {
     const savedWorker = await newWorker.save();
     res.status(201).json(savedWorker);
   } catch (error) {
-    res.status(500).json({ message: `Error creating worker: ${error.message}` });
+    res
+      .status(500)
+      .json({ message: `Error creating worker: ${error.message}` });
   }
 };
 
@@ -18,11 +22,13 @@ const getWorkerById = async (req, res) => {
     const { id } = req.params;
     const worker = await Worker.findById(id);
     if (!worker) {
-      return res.status(404).json({ message: 'Worker not found' });
+      return res.status(404).json({ message: "Worker not found" });
     }
     res.status(200).json(worker);
   } catch (error) {
-    res.status(500).json({ message: `Error fetching worker by ID: ${error.message}` });
+    res
+      .status(500)
+      .json({ message: `Error fetching worker by ID: ${error.message}` });
   }
 };
 
@@ -32,7 +38,9 @@ const getAllWorkers = async (req, res) => {
     const workers = await Worker.find();
     res.status(200).json(workers);
   } catch (error) {
-    res.status(500).json({ message: `Error fetching workers: ${error.message}` });
+    res
+      .status(500)
+      .json({ message: `Error fetching workers: ${error.message}` });
   }
 };
 
@@ -40,13 +48,18 @@ const getAllWorkers = async (req, res) => {
 const updateWorker = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedWorker = await Worker.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+    const updatedWorker = await Worker.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
     if (!updatedWorker) {
-      return res.status(404).json({ message: 'Worker not found' });
+      return res.status(404).json({ message: "Worker not found" });
     }
     res.status(200).json(updatedWorker);
   } catch (error) {
-    res.status(500).json({ message: `Error updating worker: ${error.message}` });
+    res
+      .status(500)
+      .json({ message: `Error updating worker: ${error.message}` });
   }
 };
 
@@ -56,31 +69,61 @@ const deleteWorker = async (req, res) => {
     const { id } = req.params;
     const deletedWorker = await Worker.findByIdAndDelete(id);
     if (!deletedWorker) {
-      return res.status(404).json({ message: 'Worker not found' });
+      return res.status(404).json({ message: "Worker not found" });
     }
-    res.status(200).json({ message: 'Worker deleted successfully' });
+    res.status(200).json({ message: "Worker deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: `Error deleting worker: ${error.message}` });
+    res
+      .status(500)
+      .json({ message: `Error deleting worker: ${error.message}` });
   }
 };
-const getReservationWorker = async(req,res)=>{
+// get the offer of a worker by his ID, sorted by date
+const getOfferWorker = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const offres = await Offre.find({ Worker_id: id })
+      .populate({
+        path: "Client_id",
+        select: "name",
+      })
+      .select("_id Worker_id Client_id Client_location date status price")
+      .sort({ date: -1 }); // Sort by date, -1 for descending order (newest first)
+
+    if (offres.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No offers found for this worker." });
+    }
+    res.status(200).json(offres);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch offers for this worker." });
+  }
+};
+
+const getReservationWorker = async (req, res) => {
   try {
     const { id } = req.params;
 
     // Find reservations where the worker field matches the provided workerId
     const reservations = await Reservation.find({ worker: id })
-    .populate('client', 'firstname lastname email') // Populate client details
-        .populate('worker', 'firstname lastname speciality rate');// Populate worker details
+      .populate("client", "firstname lastname email") // Populate client details
+      .populate("worker", "firstname lastname speciality rate"); // Populate worker details
 
     // Check if any reservations were found
     if (reservations.length === 0) {
-      return res.status(404).json({ message: 'No reservations found for this worker.' });
+      return res
+        .status(404)
+        .json({ message: "No reservations found for this worker." });
     }
 
     res.status(200).json(reservations);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to fetch reservations for this worker.' });
+    res
+      .status(500)
+      .json({ error: "Failed to fetch reservations for this worker." });
   }
 };
 const getWorkersBySpeciality = async (req, res) => {
@@ -91,12 +134,16 @@ const getWorkersBySpeciality = async (req, res) => {
     const workers = await Worker.find({ speciality });
 
     if (workers.length === 0) {
-      return res.status(404).json({ message: 'No workers found with the given speciality' });
+      return res
+        .status(404)
+        .json({ message: "No workers found with the given speciality" });
     }
 
     res.status(200).json(workers);
   } catch (error) {
-    res.status(500).json({ message: `Error fetching workers by speciality: ${error.message}` });
+    res.status(500).json({
+      message: `Error fetching workers by speciality: ${error.message}`,
+    });
   }
 };
 module.exports = {
@@ -106,5 +153,6 @@ module.exports = {
   updateWorker,
   deleteWorker,
   getReservationWorker,
-  getWorkersBySpeciality
+  getWorkersBySpeciality,
+  getOfferWorker,
 };

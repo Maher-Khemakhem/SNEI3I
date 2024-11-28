@@ -22,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './worker-layout.component.html',
   styleUrl: './worker-layout.component.css'
 })
-export class WorkerLayoutComponent  {
+export class WorkerLayoutComponent   {
   router = inject(Router);
 
 }
