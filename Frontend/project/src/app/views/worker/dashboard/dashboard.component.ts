@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
+import { ChartService } from '../../../services/chart.service';
 
 Chart.register(...registerables);
 
@@ -13,30 +14,54 @@ Chart.register(...registerables);
 })
 export class DashboardComponent implements OnInit {
   router = inject(Router);
+  data: any = null;
+  labeldata: string[] = []; // For labels (months)
+  tabdata: number[] = [];  // For revenue values
 
-  constructor() {}
+  constructor(private chartservice: ChartService) {}
 
   ngOnInit(): void {
-    // Initialize the chart when the component is loaded
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
+      this.chartservice.getdata(userId).subscribe({
+        next: (response) => {
+          console.log('Chart data loaded:', response);
+          this.data = response;
+
+          // Populate labels and data arrays
+          if (this.data && this.data.revenue) {
+            this.labeldata = this.data.revenue.map((item: any) => item.month);
+            this.tabdata = this.data.revenue.map((item: any) => item.totalRevenue);
+          }
+
+          // Initialize the chart
+          this.initializeChart();
+        },
+        error: (error) => {
+          console.error('Error fetching chart data:', error);
+        }
+      });
+    }
+  }
+
+  initializeChart(): void {
     const ctx = document.getElementById('chart-line') as HTMLCanvasElement;
+    if (!ctx || !this.labeldata.length || !this.tabdata.length) {
+      console.error('Unable to initialize chart: Missing data or canvas element.');
+      return;
+    }
+
     new Chart(ctx, {
-      type: 'line', // Line chart
+      type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May'], // X-axis labels
+        labels: this.labeldata, // Dynamic labels
         datasets: [
           {
-            label: 'Sales Data',
-            data: [65, 59, 80, 81, 56],
+            label: 'Revenue Data',
+            data: this.tabdata, // Dynamic revenue data
             borderColor: 'rgba(0, 123, 255, 1)',
             borderWidth: 2,
-            fill: false // No filled surface under the line
-          },
-          {
-            label: 'Revenue Data',
-            data: [28, 48, 40, 19, 86],
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 2,
-            fill: false // No filled surface under the line
+            fill: false
           }
         ]
       },
