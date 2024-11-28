@@ -1,0 +1,46 @@
+<div class="worker-profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <img [src]="worker.photo || 'assets/default-profile.png'" alt="Worker Photo" class="profile-photo" />
+      <h1 class="worker-name">{{ worker.firstname }} {{ worker.lastname }}</h1>
+      <p class="worker-title">{{ worker.speciality }}</p>
+    </div>
+  
+    <!-- Profile Details -->
+    <div class="profile-details">
+      <h2>About Me</h2>
+      <p>{{ worker.description || 'No description available.' }}</p>
+  
+      <h2>Contact Information</h2>
+      <p><strong>Email:</strong> {{ worker.email || 'Not provided' }}</p>
+      <p><strong>Phone:</strong> {{ worker.num_tel || 'Not provided' }}</p>
+      <p><strong>Location:</strong> {{ worker.location || 'No location provided.' }}</p>
+      <p><strong>Date of Birth:</strong> {{ worker.date_of_birth | date: 'longDate' }}</p>
+  
+      <h2>Pricing and Rating</h2>
+      <p><strong>Price:</strong> ${{ worker.price }}</p>
+      <p><strong>Rating:</strong> {{ worker.rate }} / 5</p>
+  
+      <h2>Certifications</h2>
+      <ul>
+        <li *ngFor="let certification of worker.certification">
+          <strong>{{ certification.title }}</strong> - 
+          <a [href]="certification.url" target="_blank">View Certificate</a>
+        </li>
+      </ul>
+  
+      <h2>Other Services</h2>
+      <ul>
+        <li *ngFor="let service of worker.autre_service">{{ service }}</li>
+      </ul>
+  
+      <h2>Work Portfolio</h2>
+      <div class="work-photos">
+        <img *ngFor="let photo of worker.work_photo" [src]="photo" alt="Work Photo" />
+      </div>
+  
+      <h2>Validation Status</h2>
+      <p>{{ worker.validated ? 'Validated' : 'Not Validated' }}</p>
+    </div>
+  </div>
+  
