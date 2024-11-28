@@ -1,0 +1,18 @@
+<div class="main">
+    <div class="cards-container">
+      <section class="profile-card" *ngFor="let worker of workers"  (click)="gotoworker(worker._id)">
+        <div class="image">
+          <img
+            [src]="worker.photo || 'assets/default-profile.png'"
+            alt="{{ worker.firstname }}"
+            class="profile-pic"
+          />
+        </div>
+        <div class="data">
+          <h2>{{ worker.firstname }} {{ worker.lastname }}</h2>
+          <span>{{ worker.speciality }}</span>
+        </div>
+      </section>
+    </div>
+  </div>
+  
