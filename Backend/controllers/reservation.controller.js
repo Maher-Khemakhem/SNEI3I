@@ -132,11 +132,20 @@ const getTotalRevenueByWorker = async (req, res) => {
   try {
     const { workerId } = req.params; // Get the worker ID from request parameters
 
+    // Validate the workerId to ensure it's a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(workerId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid worker ID",
+      });
+    }
+
     // Aggregate the total revenue for the specific worker
     const totalRevenue = await Reservation.aggregate([
       {
         $match: {
-          worker: mongoose.Types.ObjectId(workerId), // Match the worker ID
+          worker: new mongoose.Types.ObjectId(workerId), // Correct instantiation of ObjectId
+          status: "Confirmed", // Optionally, include only confirmed reservations
         },
       },
       {
@@ -147,17 +156,19 @@ const getTotalRevenueByWorker = async (req, res) => {
       },
     ]);
 
-    // If no revenue data found, set total to 0
+    // If no revenue data is found, set total to 0
     const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
 
     // Respond with the total revenue
     res.status(200).json({
+      success: true,
       workerId,
       totalRevenue: revenue,
     });
   } catch (error) {
     // Handle any errors
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 const getTotalRevenueThisMonth = async (req, res) => {
