@@ -37,6 +37,7 @@ export class SearchService {
       })
     );
   }
+  
   getSepcialities(): Observable<any> {
     const API_URL = `${this.search_API}/speciality`;
     return this.http.get(API_URL).pipe(
