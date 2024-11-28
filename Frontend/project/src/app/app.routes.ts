@@ -10,11 +10,20 @@ import { WorkerLayoutComponent } from './layout/worker-layout/worker-layout.comp
 import { OfferComponent } from './views/worker/offer/offer.component';
 import { ClientFeedbackComponent } from './views/client/client-feedback/client-feedback.component';
 import { ReservationComponent } from './views/worker/reservation/reservation.component';
+import { WorkerProfileComponent } from './views/client/worker-profile/worker-profile.component';
+import { FiltreComponent } from './views/client/filtre/filtre.component';
+import { HeaderComponent } from './views/client/header/header.component';
+
 
 export const routes: Routes = [
   {
     path: '',
     component: ClientLayoutComponent,
+    children:[
+      {path:'',component:HeaderComponent},
+      {path:'workerprofile',component:WorkerProfileComponent},
+      {path:'filter',component:FiltreComponent}
+    ]
   },
   {
     path: 'login',
@@ -52,8 +61,5 @@ export const routes: Routes = [
       },
     ],
   },
-  {
-    path:'a',
-    component:ClientFeedbackComponent,
-  }
+  
 ];
