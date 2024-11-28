@@ -1,5 +1,5 @@
-const Reservation = require('../models/reservation.model');
-const mongoose = require('mongoose');
+const Reservation = require("../models/reservation.model");
+const mongoose = require("mongoose");
 // Create a new reservation
 const createReservation = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ const createReservation = async (req, res) => {
       worker,
       date,
       price,
-      message
+      message,
     });
 
     const savedReservation = await newReservation.save();
@@ -24,8 +24,8 @@ const createReservation = async (req, res) => {
 const getAllReservations = async (req, res) => {
   try {
     const reservations = await Reservation.find()
-      .populate('client', 'firstname lastname email')
-      .populate('worker', 'firstname lastname speciality');
+      .populate("client", "firstname lastname email")
+      .populate("worker", "firstname lastname speciality");
     res.status(200).json(reservations);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -37,11 +37,11 @@ const getReservationById = async (req, res) => {
   try {
     const { id } = req.params;
     const reservation = await Reservation.findById(id)
-      .populate('client', 'firstname lastname email')
-      .populate('worker', 'firstname lastname speciality');
+      .populate("client", "firstname lastname email")
+      .populate("worker", "firstname lastname speciality");
 
     if (!reservation) {
-      return res.status(404).json({ message: 'Reservation not found' });
+      return res.status(404).json({ message: "Reservation not found" });
     }
 
     res.status(200).json(reservation);
@@ -61,11 +61,11 @@ const updateReservation = async (req, res) => {
       updatedData,
       { new: true }
     )
-      .populate('client', 'firstname lastname email')
-      .populate('worker', 'firstname lastname speciality');
+      .populate("client", "firstname lastname email")
+      .populate("worker", "firstname lastname speciality");
 
     if (!updatedReservation) {
-      return res.status(404).json({ message: 'Reservation not found' });
+      return res.status(404).json({ message: "Reservation not found" });
     }
 
     res.status(200).json(updatedReservation);
@@ -82,10 +82,10 @@ const deleteReservation = async (req, res) => {
     const deletedReservation = await Reservation.findByIdAndDelete(id);
 
     if (!deletedReservation) {
-      return res.status(404).json({ message: 'Reservation not found' });
+      return res.status(404).json({ message: "Reservation not found" });
     }
 
-    res.status(200).json({ message: 'Reservation deleted successfully' });
+    res.status(200).json({ message: "Reservation deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -108,7 +108,7 @@ const getMonthlyRevenueByWorker = async (req, res) => {
     const monthlyRevenue = Array(12).fill(0);
 
     reservations.forEach((reservation) => {
-      const month = new Date(reservation.date).getMonth(); 
+      const month = new Date(reservation.date).getMonth();
       monthlyRevenue[month] += reservation.price;
     });
     console.log(monthlyRevenue);
@@ -127,11 +127,62 @@ const getMonthlyRevenueByWorker = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+const getTotalRevenueByWorker = async (req, res) => {
+  try {
+    // Get worker ID from request parameters
+    const { workerId } = req.params;
+
+    // Check if workerId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(workerId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid worker ID",
+      });
+    }
+
+    // Aggregate to calculate the total revenue for the worker with "Confirmed" status
+    const totalRevenue = await Reservation.aggregate([
+      {
+        $match: {
+          worker: new mongoose.Types.ObjectId(workerId),
+          status: "Confirmed",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$price" },
+        },
+      },
+    ]);
+
+    // If no revenue found, set total to 0
+    const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
+
+    // Respond with the total revenue for the worker
+    res.status(200).json({
+      success: true,
+      workerId,
+      totalRevenue: revenue,
+    });
+  } catch (error) {
+    // Log the error and send a response
+    console.error("Error calculating worker revenue:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createReservation,
   getAllReservations,
   getReservationById,
   updateReservation,
   deleteReservation,
-  getMonthlyRevenueByWorker
+  getMonthlyRevenueByWorker,
+  getTotalRevenueByWorker,
 };

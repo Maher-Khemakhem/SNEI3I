@@ -361,8 +361,8 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @for (item of reservationList; track $index) {
                     <tr class="align-middle">
-                      @for (item of reservationList; track $index) {
                       <td>
                         {{ item.client.firstname }} {{ item.client.lastname }}
                       </td>
@@ -370,9 +370,8 @@
                       <td>{{ item.worker.location }}</td>
                       <td>{{ item.price }} $</td>
                       <td>rate/5</td>
-
-                      }
                     </tr>
+                    }
                   </tbody>
                 </table>
               </div>

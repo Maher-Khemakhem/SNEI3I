@@ -362,8 +362,9 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @for (item of offreList; track $index) {
+
                     <tr class="align-middle">
-                      @for (item of offreList; track $index) {
                       <td>{{ item.Client_id }}</td>
                       <td>{{ item.date | date : "dd-MMM-yyyy" }}</td>
                       <td style="min-width: 200px">{{ item.message }}</td>
@@ -388,9 +389,8 @@
                           </a>
                         </div>
                       </td>
-
-                      }
                     </tr>
+                    }
                   </tbody>
                 </table>
               </div>

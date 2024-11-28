@@ -1,39 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ReservationSchema = new Schema({
   client: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client', // Reference to the Client model
-    required: true
+    ref: "Client", // Reference to the Client model
+    required: true,
   },
   worker: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Worker', // Reference to the Worker model
-    required: true
+    ref: "Worker", // Reference to the Worker model
+    required: true,
   },
   date: {
     type: Date,
-    required: true
+    required: true,
   },
   status: {
     type: String, // e.g., "Pending", "Confirmed", "Cancelled", etc.
-    enum: ['Pending', 'Confirmed', 'Cancelled'],
-    default: 'Pending'
+    enum: ["Pending", "Confirmed", "Cancelled"],
+    default: "Pending",
   },
   message: {
     type: String, // Optional message from the client
-    required: false
+    required: false,
   },
   price: {
     type: Number, // Price for the service
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-const Reservation = mongoose.model('Reservation', ReservationSchema);
+const Reservation = mongoose.model("Reservation", ReservationSchema);
 module.exports = Reservation;
