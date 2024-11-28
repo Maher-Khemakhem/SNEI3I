@@ -1,0 +1,61 @@
+
+<div class="container">
+    <header>
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </header>
+    <main>
+      <div class="row">
+        <div class="left col-lg-4">
+          <div class="photo-left">
+            <img class="photo" src={{worker.photo}}/>
+            <div class="active"></div>
+          </div>
+          <h4 class="name">{{worker.firstname}}</h4>
+          <p class="info">{{worker.speciality}}</p>
+          <p class="info">{{worker.email}}</p>
+          <div class="stats row">
+            <div class="stat col-xs-4" style="padding-right: 50px;">
+              <p class="number-stat">{{worker.number_of_messages}}</p>
+              <p class="desc-stat">number of messages</p>
+            </div>
+            <div class="stat col-xs-4">
+              <p class="number-stat">{{worker.rate}}</p>
+              <p class="desc-stat">Rate</p>
+            </div>
+            <div class="stat col-xs-4" style="padding-left: 50px;">
+              <p class="number-stat">{{worker.price}}</p>
+              <p class="desc-stat">Price</p>
+            </div>
+          </div>
+          <p class="desc">{{worker.description}}</p>
+          <div class="social">
+            <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            <i class="fa fa-twitter-square" aria-hidden="true"></i>
+            <i class="fa fa-pinterest-square" aria-hidden="true"></i>
+            <i class="fa fa-tumblr-square" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="right col-lg-8">
+          <ul class="nav">
+            <li>General Info</li>
+            <li>Photos</li>
+            <li>Location</li>
+        
+          </ul>
+          
+          <div class="carousel-container">
+            <button mat-button (click)="prev()">&#9664;</button>
+            
+            <div class="photo-wrapper">
+              <mat-card *ngFor="let photo of visiblePhotos">
+                <img [src]="photo.url" [alt]="photo.alt" />
+              </mat-card>
+            </div>
+            
+            <button mat-button (click)="next()">&#9654;</button>
+          </div>
+          
+        </div>
+   
+  </div>
+  

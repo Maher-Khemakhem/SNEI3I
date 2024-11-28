@@ -1,46 +1,68 @@
-<div class="worker-profile-container">
-    <!-- Profile Header -->
-    <div class="profile-header">
-      <img [src]="worker.photo || 'assets/default-profile.png'" alt="Worker Photo" class="profile-photo" />
-      <h1 class="worker-name">{{ worker.firstname }} {{ worker.lastname }}</h1>
-      <p class="worker-title">{{ worker.speciality }}</p>
-    </div>
-  
-    <!-- Profile Details -->
-    <div class="profile-details">
-      <h2>About Me</h2>
-      <p>{{ worker.description || 'No description available.' }}</p>
-  
-      <h2>Contact Information</h2>
-      <p><strong>Email:</strong> {{ worker.email || 'Not provided' }}</p>
-      <p><strong>Phone:</strong> {{ worker.num_tel || 'Not provided' }}</p>
-      <p><strong>Location:</strong> {{ worker.location || 'No location provided.' }}</p>
-      <p><strong>Date of Birth:</strong> {{ worker.date_of_birth | date: 'longDate' }}</p>
-  
-      <h2>Pricing and Rating</h2>
-      <p><strong>Price:</strong> ${{ worker.price }}</p>
-      <p><strong>Rating:</strong> {{ worker.rate }} / 5</p>
-  
-      <h2>Certifications</h2>
-      <ul>
-        <li *ngFor="let certification of worker.certification">
-          <strong>{{ certification.title }}</strong> - 
-          <a [href]="certification.url" target="_blank">View Certificate</a>
-        </li>
-      </ul>
-  
-      <h2>Other Services</h2>
-      <ul>
-        <li *ngFor="let service of worker.autre_service">{{ service }}</li>
-      </ul>
-  
-      <h2>Work Portfolio</h2>
-      <div class="work-photos">
-        <img *ngFor="let photo of worker.work_photo" [src]="photo" alt="Work Photo" />
+
+<div class="container">
+  <header>
+    <i class="fa fa-bars" aria-hidden="true"></i>
+  </header>
+  <main>
+    <div class="row">
+      <div class="left col-lg-4">
+        <div class="photo-left">
+          <img class="photo" src={{worker.photo}}/>
+          <div class="active"></div>
+        </div>
+        <h4 class="name">{{worker.firstname}}</h4>
+        <p class="info">{{worker.speciality}}</p>
+        <p class="info">{{worker.email}}</p>
+        <div class="stats row">
+          <div class="stat col-xs-4" style="padding-right: 50px;">
+            <p class="number-stat">{{worker.number_of_messages}}</p>
+            <p class="desc-stat">number of messages</p>
+          </div>
+          <div class="stat col-xs-4">
+            <p class="number-stat">{{worker.rate}}</p>
+            <p class="desc-stat">Rate</p>
+          </div>
+          <div class="stat col-xs-4" style="padding-left: 50px;">
+            <p class="number-stat">{{worker.price}}</p>
+            <p class="desc-stat">Price</p>
+          </div>
+        </div>
+        <p class="desc">{{worker.description}}</p>
+        <div class="social">
+          <i class="fa fa-facebook-square" aria-hidden="true"></i>
+          <i class="fa fa-twitter-square" aria-hidden="true"></i>
+          <i class="fa fa-pinterest-square" aria-hidden="true"></i>
+          <i class="fa fa-tumblr-square" aria-hidden="true"></i>
+        </div>
       </div>
-  
-      <h2>Validation Status</h2>
-      <p>{{ worker.validated ? 'Validated' : 'Not Validated' }}</p>
-    </div>
-  </div>
-  
+      <div class="right col-lg-8">
+        <ul class="nav">
+          <li>General Info</li>
+          <li>Photos</li>
+          <li>Location</li>
+      
+        </ul>
+        
+        <div class="row gallery">
+          <div class="col-md-4">
+             <img src="https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+          </div>
+          <div class="col-md-4">
+            <img src="https://images.pexels.com/photos/861034/pexels-photo-861034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+          </div>
+          <div class="col-md-4">
+             <img src="https://images.pexels.com/photos/113338/pexels-photo-113338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+          </div>
+          <div class="col-md-4">
+             <img src="https://images.pexels.com/photos/5049/forest-trees-fog-foggy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+          </div>
+          <div class="col-md-4">
+            <img src="https://images.pexels.com/photos/428431/pexels-photo-428431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+          </div>
+          <div class="col-md-4">
+            <img src="https://images.pexels.com/photos/50859/pexels-photo-50859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+          </div>
+        </div>
+      </div>
+ 
+</div>

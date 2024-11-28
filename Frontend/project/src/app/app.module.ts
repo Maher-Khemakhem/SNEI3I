@@ -11,9 +11,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { WorkerWorksPhotoComponent } from './views/client/worker-works-photo/worker-works-photo.component';
 @NgModule({
-  declarations: [],
   imports: [
+    WorkerWorksPhotoComponent,
     CommonModule,
     MatStepperModule,
     MatButtonModule,
@@ -22,9 +23,12 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MatIconModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    BrowserModule,MatOptionModule,MatSelectModule,CarouselModule
-    
+    BrowserModule,
+    MatOptionModule,
+    MatSelectModule,
+    CarouselModule
   ],
+  declarations: [],
   providers: [
     
   ],
