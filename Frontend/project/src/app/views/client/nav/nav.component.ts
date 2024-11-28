@@ -17,6 +17,6 @@ export class NavComponent {
     this.router.navigate(['/login']); // Accessing `router` correctly
   }
   signin() {
-    this.router.navigate(['/logininclient']); // Accessing `router` correctly
+    this.router.navigate(['/loginclient']); // Accessing `router` correctly
   }
 }
