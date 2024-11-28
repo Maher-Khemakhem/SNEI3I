@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { ChartService } from '../../../services/chart.service';
+import { WorkerService } from '../../../services/worker.service';
 
 Chart.register(...registerables);
 
@@ -13,15 +14,26 @@ Chart.register(...registerables);
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  worker_id = localStorage.getItem("worker_id") || "";
   router = inject(Router);
+  workerservice = inject(WorkerService);
+  chartservice = inject(ChartService);
   data: any = null;
   labeldata: string[] = []; // For labels (months)
   tabdata: number[] = [];  // For revenue values
+  total: any = null; // Initialize as null
+  monthly_revenue: any = null; // Initialize as null
+  daily_revenue:any;
 
-  constructor(private chartservice: ChartService) {}
+
+  constructor() {}
 
   ngOnInit(): void {
+    this.initTotalRevenue();
+    this.initMonthlyRevenue();
+    this.initDailyRevenue();
     const userId = localStorage.getItem('user_id');
+  
     if (userId) {
       this.chartservice.getdata(userId).subscribe({
         next: (response) => {
@@ -39,6 +51,43 @@ export class DashboardComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error fetching chart data:', error);
+        }
+      });
+    }
+  }
+
+  initTotalRevenue(): void {
+    if (this.worker_id) {
+      this.workerservice.getTotalrevenue(this.worker_id).subscribe({
+        next: (response) => {
+          this.total = response;
+        },
+        error: (error) => {
+          console.error('Error fetching total revenue:', error);
+        }
+      });
+    }
+  }
+   initMonthlyRevenue(): void {
+    if (this.worker_id) {
+      this.workerservice.getMonthlyrevenue(this.worker_id).subscribe({
+        next: (response) => {
+          this.monthly_revenue = response;
+        },
+        error: (error) => {
+          console.error('Error fetching total revenue:', error);
+        }
+      });
+    }
+  }
+    initDailyRevenue(): void {
+    if (this.worker_id) {
+      this.workerservice.getDailyrevenue(this.worker_id).subscribe({
+        next: (response) => {
+          this.daily_revenue = response;
+        },
+        error: (error) => {
+          console.error('Error fetching today revenue:', error);
         }
       });
     }
@@ -82,8 +131,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  onClickOffre(): void {
+  /*onClickOffre(): void {
     this.router.navigateByUrl('/worker/offre');
     console.log('Offre clicked!');
-  }
+  }*/
 }

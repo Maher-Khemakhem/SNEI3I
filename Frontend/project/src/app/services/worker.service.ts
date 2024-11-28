@@ -31,6 +31,30 @@ export class WorkerService {
       })
     );
   }
+  getTotalrevenue(worker_id: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/reservation/total/${worker_id}`).pipe(
+      catchError((error) => {
+        console.error('Error occurred while fetching the total:', error);
+        return throwError(() => new Error('Failed to fetch the total. Please try again.'));
+      })
+    );
+  }
+    getMonthlyrevenue(worker_id: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/reservation/thismonth/${worker_id}`).pipe(
+      catchError((error) => {
+        console.error('Error occurred while fetching the monthly revenue:', error);
+        return throwError(() => new Error('Failed to fetch the monthly revenue. Please try again.'));
+      })
+    );
+  }
+      getDailyrevenue(worker_id: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/reservation/today/${worker_id}`).pipe(
+      catchError((error) => {
+        console.error('Error occurred while fetching the monthly revenue:', error);
+        return throwError(() => new Error('Failed to fetch the monthly revenue. Please try again.'));
+      })
+    );
+  }
 
   getWorkerbyID(id: any): Observable<any> {
     const API_URL = `${this.REST_API}/${id}`; // Build the dynamic API URL
