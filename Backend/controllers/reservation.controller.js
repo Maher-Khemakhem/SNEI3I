@@ -130,34 +130,103 @@ const getMonthlyRevenueByWorker = async (req, res) => {
 
 const getTotalRevenueByWorker = async (req, res) => {
   try {
-    // Get worker ID from request parameters
-    const { workerId } = req.params;
+    const { workerId } = req.params; // Get the worker ID from request parameters
 
-    // Check if workerId is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(workerId)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid worker ID",
-      });
-    }
-
-    // Aggregate to calculate the total revenue for the worker with "Confirmed" status
+    // Aggregate the total revenue for the specific worker
     const totalRevenue = await Reservation.aggregate([
       {
         $match: {
-          worker: new mongoose.Types.ObjectId(workerId),
-          status: "Confirmed",
+          worker: mongoose.Types.ObjectId(workerId), // Match the worker ID
         },
       },
       {
         $group: {
-          _id: null,
-          total: { $sum: "$price" },
+          _id: null, // We don't need to group by any specific field, so set it to null
+          total: { $sum: "$price" }, // Sum the prices of all matching reservations
         },
       },
     ]);
 
-    // If no revenue found, set total to 0
+    // If no revenue data found, set total to 0
+    const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
+
+    // Respond with the total revenue
+    res.status(200).json({
+      workerId,
+      totalRevenue: revenue,
+    });
+  } catch (error) {
+    // Handle any errors
+    res.status(500).json({ message: error.message });
+  }
+};
+const getTotalRevenueThisMonth = async (req, res) => {
+  try {
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1); // Set the date to the first day of the current month
+    startOfMonth.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
+
+    const endOfMonth = new Date(startOfMonth);
+    endOfMonth.setMonth(startOfMonth.getMonth() + 1); // Set the end of month to the start of the next month
+    endOfMonth.setHours(23, 59, 59, 999); // Set time to 23:59:59.999
+
+    // Aggregate the total revenue for the current month
+    const totalRevenue = await Reservation.aggregate([
+      {
+        $match: {
+          date: { $gte: startOfMonth, $lt: endOfMonth }, // Filter reservations within the current month
+          status: "Confirmed", // Only include confirmed reservations
+        },
+      },
+      {
+        $group: {
+          _id: null, // No grouping necessary
+          total: { $sum: "$price" }, // Sum the prices of all confirmed reservations
+        },
+      },
+    ]);
+
+    // If no revenue data found, set total to 0
+    const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
+
+    // Respond with the total revenue for this month
+    res.status(200).json({
+      totalRevenue: revenue,
+    });
+  } catch (error) {
+    // Handle any errors
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getTotalRevenueTodayForWorker = async (req, res) => {
+  try {
+    const { workerId } = req.params; // Get the worker ID from the request parameters
+
+    // Get today's start and end time
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0); // Start of today (00:00:00)
+
+    const endOfDay = new Date(startOfDay);
+    endOfDay.setHours(23, 59, 59, 999); // End of today (23:59:59)
+
+    // Calculate the total revenue for the specific worker for today
+    const totalRevenue = await Reservation.aggregate([
+      {
+        $match: {
+          worker: new mongoose.Types.ObjectId(workerId), // Use new to instantiate ObjectId
+          date: { $gte: startOfDay, $lt: endOfDay }, // Match the date within today
+          status: "Confirmed", // Only consider confirmed reservations
+        },
+      },
+      {
+        $group: {
+          _id: null, // We don't need to group by anything specific
+          total: { $sum: "$price" }, // Sum up the price for all matching reservations
+        },
+      },
+    ]);
+
     const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
 
     // Respond with the total revenue for the worker
@@ -167,8 +236,7 @@ const getTotalRevenueByWorker = async (req, res) => {
       totalRevenue: revenue,
     });
   } catch (error) {
-    // Log the error and send a response
-    console.error("Error calculating worker revenue:", error);
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -185,4 +253,6 @@ module.exports = {
   deleteReservation,
   getMonthlyRevenueByWorker,
   getTotalRevenueByWorker,
+  getTotalRevenueThisMonth,
+  getTotalRevenueTodayForWorker,
 };

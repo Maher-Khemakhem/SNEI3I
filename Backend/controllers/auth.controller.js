@@ -146,7 +146,9 @@ const login_post = async (req, res) => {
     const token = createToken(user._id);
 
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    return res.status(200).json({ user: user._id,token:token,role:user.role });
+    return res
+      .status(200)
+      .json({ user: user._id, token: token, role: user.role });
   } catch (err) {
     const errors = handleErrors(err);
     return res.status(400).json({ errors });
