@@ -8,8 +8,8 @@ import { DashboardComponent } from './views/worker/dashboard/dashboard.component
 import { authGuard } from './services/auth.guard';
 import { WorkerLayoutComponent } from './layout/worker-layout/worker-layout.component';
 import { OfferComponent } from './views/worker/offer/offer.component';
-import { HistoriqueComponent } from './views/worker/historique/historique.component';
 import { ClientFeedbackComponent } from './views/client/client-feedback/client-feedback.component';
+import { ReservationComponent } from './views/worker/reservation/reservation.component';
 
 export const routes: Routes = [
   {
@@ -47,8 +47,8 @@ export const routes: Routes = [
         component: OfferComponent, // Child route for /worker/dashboard
       },
       {
-        path: 'historique',
-        component: HistoriqueComponent, // Child route for /worker/dashboard
+        path: 'reservation',
+        component: ReservationComponent, // Child route for /worker/dashboard
       },
     ],
   },

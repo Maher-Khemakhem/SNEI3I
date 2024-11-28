@@ -1,7 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Offre } from '../../../model/interface/offre';
 import { WorkerService } from '../../../services/worker.service';
-import { API_offres } from '../../../model/interface/API';
 import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({

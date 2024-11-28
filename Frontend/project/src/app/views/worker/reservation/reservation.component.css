@@ -1,0 +1,75 @@
+/* Ensure all cards in the row align properly */
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Adds space between the cards */
+    justify-content: flex-start;
+    /* Aligns the cards to the left */
+}
+
+/* Optional: Customize card styles */
+.card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+}
+
+.col-lg-6.col-12.mb-4.p2 {
+    width: 66%;
+}
+
+.col-lg-6.col-12.mb-4.p1 {
+    width: 33%;
+}
+
+.col-lg-6.col-md-6.col-12.mb-4.P2 {
+    width: 50%;
+}
+
+/* Adjust spacing for different screen sizes */
+@media (max-width: 768px) {
+    .card-row {
+        justify-content: center;
+        /* Centers cards on smaller screens */
+    }
+}
+
+body {
+    margin-top: 20px;
+    background: #FFF5EE;
+}
+
+.card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+
+.avatar.sm {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: .818125rem;
+}
+
+.table-nowrap .table td,
+.table-nowrap .table th {
+    white-space: nowrap;
+}
+
+.table>:not(caption)>*>* {
+    padding: 0.75rem 1.25rem;
+    border-bottom-width: 1px;
+}
+
+table th {
+    font-weight: 600;
+    background-color: #eeecfd !important;
+}
+
+.fa-arrow-up {
+    color: #00CED1;
+}
+
+.fa-arrow-down {
+    color: #FF00FF;
+}
