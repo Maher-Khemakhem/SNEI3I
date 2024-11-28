@@ -1,0 +1,14 @@
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-footer {
+    background: #f8f9fa;
+  }
+  

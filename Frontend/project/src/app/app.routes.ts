@@ -9,6 +9,7 @@ import { authGuard } from './services/auth.guard';
 import { WorkerLayoutComponent } from './layout/worker-layout/worker-layout.component';
 import { OfferComponent } from './views/worker/offer/offer.component';
 import { HistoriqueComponent } from './views/worker/historique/historique.component';
+import { ClientFeedbackComponent } from './views/client/client-feedback/client-feedback.component';
 
 export const routes: Routes = [
   {
@@ -51,4 +52,8 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path:'a',
+    component:ClientFeedbackComponent,
+  }
 ];
