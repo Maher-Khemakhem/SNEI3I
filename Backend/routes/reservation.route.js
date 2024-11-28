@@ -28,7 +28,7 @@ router.put("/:id", updateReservation);
 // Delete a reservation by ID
 router.delete("/:id", deleteReservation);
 router.get("/revenue/:workerId", getMonthlyRevenueByWorker);
-router.get("/total/:id", getTotalRevenueByWorker);
+router.get("/total/:workerId", getTotalRevenueByWorker);
 
 router.get("/thismonth/:workerId", getTotalRevenueThisMonth);
 router.get("/today/:workerId", getTotalRevenueTodayForWorker);

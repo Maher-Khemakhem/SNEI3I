@@ -210,7 +210,7 @@ const getTotalRevenueTodayForWorker = async (req, res) => {
     const endOfDay = new Date(startOfDay);
     endOfDay.setHours(23, 59, 59, 999); // End of today (23:59:59)
 
-    // Calculate the total revenue for the specific worker for today
+    // Calculate the total revenue for the specific worker for today using aggregation
     const totalRevenue = await Reservation.aggregate([
       {
         $match: {
