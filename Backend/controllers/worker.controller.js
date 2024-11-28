@@ -101,15 +101,15 @@ const getOfferWorker = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch offers for this worker." });
   }
 };
-
 const getReservationWorker = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Find reservations where the worker field matches the provided workerId
+    // Find reservations for the worker and sort them by date in ascending order
     const reservations = await Reservation.find({ worker: id })
       .populate("client", "firstname lastname email") // Populate client details
-      .populate("worker", "firstname lastname speciality rate"); // Populate worker details
+      .populate("worker", "firstname lastname speciality rate location") // Populate worker details
+      .sort({ date: 1 }); // Sort reservations by date (1 for ascending, -1 for descending)
 
     // Check if any reservations were found
     if (reservations.length === 0) {
@@ -126,6 +126,7 @@ const getReservationWorker = async (req, res) => {
       .json({ error: "Failed to fetch reservations for this worker." });
   }
 };
+
 const getWorkersBySpeciality = async (req, res) => {
   try {
     const { speciality } = req.params;

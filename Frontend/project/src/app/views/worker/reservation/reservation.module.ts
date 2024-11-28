@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HistoriqueRoutingModule } from './historique-routing.module';
+import { ReservationRoutingModule } from './reservation-routing.module';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    HistoriqueRoutingModule
+    ReservationRoutingModule
   ]
 })
-export class HistoriqueModule { }
+export class ReservationModule { }
