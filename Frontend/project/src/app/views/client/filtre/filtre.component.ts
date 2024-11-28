@@ -2,32 +2,82 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule for *ngFor and *ngIf
 import { Router } from '@angular/router';
 import { WorkerService } from '../../../services/worker.service';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { SearchService } from '../../../services/search.service';
 @Component({
   selector: 'app-filtre',
   standalone: true,
-  imports: [CommonModule], // Import CommonModule here
+  imports: [CommonModule,ReactiveFormsModule,MatFormFieldModule,MatSelectModule,MatButtonModule], // Import CommonModule here
   templateUrl: './filtre.component.html',
   styleUrls: ['./filtre.component.css'],
 })
 export class FiltreComponent implements OnInit {
-  workers: any[] = []; // Property to store the list of workers
+  workers: any[] = []; // All workers
+  filteredWorkers: any[] = []; // Workers displayed after filtering
+  locations: any[] = []; // List of types
+  prices: any[] = []; // List of categories
+  specialities: any[] = [];
+  filterForm: FormGroup; // Form for filtering
 
-  constructor(private workerservice:WorkerService,private router: Router) {}
+  constructor(private fb: FormBuilder, private workerService: WorkerService,private router:Router,private searchservice:SearchService) {
+    // Initialize the form
+    this.filterForm = this.fb.group({
+      location: [''], // Default value is empty
+      price: [''],
+      speciality:['']    
+    });
+  }
 
   ngOnInit(): void {
-    this.workerservice.getAllworkers().subscribe(
-      (data) => {
-        this.workers = data; // Assign the fetched data to the `workers` property
-        console.log(this.workers); // Debug log to verify data
-      },
-      (error) => {
-        console.error('Error fetching workers:', error); // Handle errors gracefully
-      }
-    );
+    // Fetch initial data
+    this.workerService.getAllworkers().subscribe((data) => {
+      this.workers = data;
+      this.filteredWorkers = data; // Initially, show all workers
+    });
+
+    // Fetch types and categories (mock these APIs if necessary)
+    /*
+    this.workerService.getLocation().subscribe((data) => {
+      this.locations = data;
+    });
+
+    this.workerService.getPrice().subscribe((data) => {
+      this.prices = data;
+    });
+    */
+    this.searchservice.getLocations().subscribe((data:any) => {
+      this.locations = data.locations;
+    });
+    this.searchservice.getPrices().subscribe((data:any) => {
+      this.prices = data.prices;
+    });
+    this.searchservice.getSepcialities().subscribe((data:any) => {
+      this.specialities = data.specialities;
+    });
+  }
+
+  // Filter workers based on form values
+  onFilterSubmit(): void {
+    const { price, location,speciality } = this.filterForm.value;
+
+    this.filteredWorkers = this.workers.filter((worker) => {
+      const matchesPrice = !price || worker.price === price;
+      const matchesLocation = !location || worker.location === location;
+      const matchesSpeciality = !speciality || worker.speciality === speciality;
+      return matchesPrice && matchesLocation && matchesSpeciality;
+    });
+
+    console.log('Filtered Workers:', this.filteredWorkers);
   }
   gotoworker(id:any){
     localStorage.setItem('filterworker_id',id);
     this.router.navigateByUrl('/workerprofile')
   }
+  
+
+  
 }

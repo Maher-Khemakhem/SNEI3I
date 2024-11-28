@@ -133,38 +133,23 @@ const getTotalRevenueByWorker = async (req, res) => {
     // Get worker ID from request parameters
     const { workerId } = req.params;
 
-    // Check if workerId is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(workerId)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid worker ID",
-      });
-    }
+    // Check if workerId is a valid ObjectId (optional validation step)
+    
 
-    // Aggregate to calculate the total revenue for the worker with "Confirmed" status
-    const totalRevenue = await Reservation.aggregate([
-      {
-        $match: {
-          worker: new mongoose.Types.ObjectId(workerId),
-          status: "Confirmed",
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: "$price" },
-        },
-      },
-    ]);
-
-    // If no revenue found, set total to 0
-    const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
+    // Find all reservations for the worker with the "Confirmed" status
+    const reservations = await Reservation.find({
+      worker: workerId,
+      status: "Confirmed", // Assuming you want only confirmed reservations
+    });
+    console.log(reservations);
+    // Use reduce to sum the prices of confirmed reservations
+    const totalRevenue = reservations.reduce((total, reservation) => total + reservation.price, 0);
 
     // Respond with the total revenue for the worker
     res.status(200).json({
       success: true,
       workerId,
-      totalRevenue: revenue,
+      totalRevenue: totalRevenue,
     });
   } catch (error) {
     // Log the error and send a response

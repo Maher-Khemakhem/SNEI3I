@@ -1,6 +1,48 @@
 <div class="main">
+    <aside class="filter-aside">
+      <p>Filter by:</p>
+      <form [formGroup]="filterForm" (ngSubmit)="onFilterSubmit()">
+        <!-- Select Type -->
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Select Type</mat-label>
+          <mat-select formControlName="location">
+            <mat-option *ngFor="let location of locations" [value]="location">
+              {{ location }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- Select Category -->
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Select price</mat-label>
+          <mat-select formControlName="price">
+            <mat-option *ngFor="let price of prices" [value]="price">
+              {{ price }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Select speciality</mat-label>
+            <mat-select formControlName="speciality">
+              <mat-option *ngFor="let speciality of specialities" [value]="speciality">
+                {{ speciality }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+        <!-- Submit Button -->
+        <div class="col-12">
+          <button type="submit" mat-raised-button color="primary" class="btn">Submit</button>
+        </div>
+      </form>
+    </aside>
+  
     <div class="cards-container">
-      <section class="profile-card" *ngFor="let worker of workers"  (click)="gotoworker(worker._id)">
+      <section
+        class="profile-card"
+        *ngFor="let worker of filteredWorkers"
+        (click)="gotoworker(worker._id)"
+      >
         <div class="image">
           <img
             [src]="worker.photo || 'assets/default-profile.png'"
