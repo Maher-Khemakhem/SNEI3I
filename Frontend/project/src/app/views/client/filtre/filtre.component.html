@@ -7,7 +7,7 @@
           <mat-label>Select Type</mat-label>
           <mat-select formControlName="location">
             <mat-option *ngFor="let location of locations" [value]="location">
-              {{ location }}
+              {{ location||obj.location }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -25,7 +25,7 @@
             <mat-label>Select speciality</mat-label>
             <mat-select formControlName="speciality">
               <mat-option *ngFor="let speciality of specialities" [value]="speciality">
-                {{ speciality }}
+                {{ speciality||obj.speciality }}
               </mat-option>
             </mat-select>
           </mat-form-field>

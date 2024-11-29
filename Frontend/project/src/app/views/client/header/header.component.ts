@@ -12,6 +12,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { SearchService } from '.././../../services/search.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -38,11 +39,11 @@ export class HeaderComponent implements OnInit {
   selectedLocation: string | undefined;
   selectedSpecialty: string | undefined;
   filterForm: FormGroup;
-  
+  obj:any;
   
  
 
-  constructor(private fb: FormBuilder,private searchService: SearchService) {
+  constructor(private fb: FormBuilder,private searchService: SearchService,private router:Router) {
     this.filterForm = this.fb.group({
       location: [''], // Default value is empty
  
@@ -87,6 +88,13 @@ export class HeaderComponent implements OnInit {
   
 
   search(): void {
+    this.obj = {
+      location: this.selectedLocation,
+      speciality: this.selectedSpecialty,
+    }
+    localStorage.setItem("obj", JSON.stringify(this.obj));
+    this.router.navigateByUrl('/filter');
+    
     console.log('Searching for:', {
       location: this.selectedLocation,
       specialty: this.selectedSpecialty,

@@ -22,7 +22,7 @@ export class FiltreComponent implements OnInit {
   prices: any[] = []; // List of categories
   specialities: any[] = [];
   filterForm: FormGroup; // Form for filtering
-
+  obj:any;
   constructor(private fb: FormBuilder, private workerService: WorkerService,private router:Router,private searchservice:SearchService) {
     // Initialize the form
     this.filterForm = this.fb.group({
@@ -36,7 +36,22 @@ export class FiltreComponent implements OnInit {
     // Fetch initial data
     this.workerService.getAllworkers().subscribe((data) => {
       this.workers = data;
-      this.filteredWorkers = data; // Initially, show all workers
+      this.obj = JSON.parse(localStorage.getItem('obj') || '{}'); 
+      this.filterForm = this.fb.group({
+        location: [this.obj.location,''], // Default value is empty
+        price: [''],
+        speciality:[this.obj.speciality,'']    
+      });
+      console.log(this.obj.location, this.obj.speciality); 
+      this.filteredWorkers = this.workers.filter((worker) => {
+      const matchesPrice = !this.obj.location||worker.location==this.obj.location;
+      const matchesLocation = !this.obj.speciality||worker.speciality==this.obj.speciality;
+      return matchesPrice && matchesLocation;
+      
+    });
+    console.log(this.workers);
+    console.log(this.filteredWorkers);
+      //this.filteredWorkers = data; // Initially, show all workers
     });
 
     // Fetch types and categories (mock these APIs if necessary)
@@ -58,6 +73,8 @@ export class FiltreComponent implements OnInit {
     this.searchservice.getSepcialities().subscribe((data:any) => {
       this.specialities = data.specialities;
     });
+    
+    
   }
 
   // Filter workers based on form values
