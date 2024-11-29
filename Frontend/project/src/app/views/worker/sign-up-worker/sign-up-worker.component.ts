@@ -146,20 +146,22 @@ export class SignUpWorkerComponent implements OnInit{
     if (target.files) {
       const selectedFiles = Array.from(target.files);
       const totalFiles = this.photos.length + selectedFiles.length;
-
+ 
       if (totalFiles <= 5) {
         selectedFiles.forEach((file) => {
           const reader = new FileReader();
           reader.onload = (e: any) => {
+            // Store both file and its base64 preview
             this.photos.push({ file, preview: e.target.result });
           };
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(file); // Convert file to base64
         });
       } else {
         alert('You can upload a maximum of 5 photos.');
       }
     }
   }
+
 
   removePhoto(index: number): void {
     this.photos.splice(index, 1);
@@ -197,26 +199,27 @@ export class SignUpWorkerComponent implements OnInit{
       const { confirmPassword, ...passwordGroupValues } = this.passwordFormGroup.value;
   
       const formData = {
-        firstname: this.firstFormGroup.value.firstname,
-        lastname: this.firstFormGroup.value.lastname,
-        email: this.firstFormGroup.value.email,
-        password: passwordGroupValues.password,
-        num_tel: this.firstFormGroup.value.num_tel,
-        date_of_birth: this.firstFormGroup.value.Date_of_birth?.toISOString() || null, // Format date properly
-        speciality: this.secondFormGroup.value.speciality,
-        description: this.secondFormGroup.value.description,
-        location: 'manar', // Assuming a default or static location
-        price: '69', // Assuming a default price
-        rate: 3.5, // Assuming a default rate
-        number_of_messages: '69', // Assuming a default number of messages
-        certification: this.certifications.value.map((cert:any) => ({
+        firstname: this.firstFormGroup.value.firstname || '',
+        lastname: this.firstFormGroup.value.lastname || '',
+        email: this.firstFormGroup.value.email || '',
+        password: passwordGroupValues.password || '',
+        num_tel: this.firstFormGroup.value.num_tel || '',
+        date_of_birth: this.firstFormGroup.value.Date_of_birth?.toISOString() || null,
+        speciality: this.secondFormGroup.value.speciality || '',
+        description: this.secondFormGroup.value.description || '',
+        location: 'manar',
+        price: '69',
+        rate: 3.5,
+        number_of_messages: '69',
+        certification: this.certifications?.value.map((cert: any) => ({
           title: cert.title,
           url: cert.url,
-        })), // Extract certifications from the FormArray
-        autre_service: ['Service Example'], // Replace with your actual data
+        })) || [],
+        autre_service: ['Service Example'],
         photo: this.photo || 'Default photo URL or message',
-        work_photo: this.photos.map((photo) => photo.file), // Extract photo filenames
+        work_photo: this.photos?.map((photo) => photo.preview) || [],
       };
+
   
       this.signupService.addClient(formData, "worker").subscribe(() => {
         console.log('Form Submitted Successfully!');
