@@ -14,8 +14,8 @@
           <div class="text-white">
             <h1 class="mb-3">WELCOME TO SNEI3I</h1>
             <h4 class="mb-3">Find the best worker for the job</h4>
-           
-            <div class="search-bar-container">
+           <form [formGroup]="filterForm" class="search-bar-container">
+            <div class="form-field">
               <!-- Location Dropdown -->
               <mat-form-field appearance="outline" class="search-field">
                 <mat-label>Location</mat-label>
@@ -25,7 +25,8 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-      
+            </div>
+            <div class="form-field ">
               <!-- Specialty Dropdown -->
               <mat-form-field appearance="outline" class="search-field" >
                 <mat-label>Specialty</mat-label>
@@ -35,12 +36,13 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-      
+      </div>
               <!-- Search Button -->
               <button mat-raised-button class="btn btn-outline-light btn-lg" color="primary" (click)="search()">
                 <mat-icon>search</mat-icon>FIND The SNEI3I
               </button>
-            </div>
+            
+          </form>
           </div>
         </div>
     
