@@ -11,6 +11,7 @@ import { LoginService } from '../../../services/login.service';
   styleUrl: './reservation.component.css'
 })
 export class ReservationComponent implements OnInit {
+  isLoaded :boolean  = false;
   workerService = inject(WorkerService);
   loginService = inject(LoginService);
 
@@ -19,11 +20,14 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllReservation();
+    
   }
 
   getAllReservation() {
     this.workerService.getReservation(this.worker_id).subscribe((res: any) => {
       this.reservationList=res;
+      this.isLoaded = true;
+      
     });
   }
   make(id:string){

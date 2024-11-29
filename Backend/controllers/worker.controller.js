@@ -1,5 +1,6 @@
 const Worker = require("../models/worker.model");
 const Offre = require("../models/offre.model");
+const mongoose = require("mongoose"); // Add this line at the top
 
 const Reservation = require("../models/reservation.model");
 
@@ -82,34 +83,45 @@ const deleteWorker = async (req, res) => {
 const getOfferWorker = async (req, res) => {
   try {
     const { id } = req.params;
-    const offres = await Offre.find({ Worker_id: id })
+
+    // Fetch offers for the worker with status 'pending' or 'Pending'
+    const offres = await Offre.find({
+      Worker_id: id,
+      status: { $in: ["pending", "Pending"] }, // Matches both 'pending' and 'Pending'
+    })
       .populate({
         path: "Client_id",
         select: "name",
       })
       .select("_id Worker_id Client_id Client_location date status price")
-      .sort({ date: -1 }); // Sort by date, -1 for descending order (newest first)
+      .sort({ date: -1 }); // Sort by date, descending
 
+    // Handle case where no pending offers are found
     if (offres.length === 0) {
       return res
         .status(404)
-        .json({ message: "No offers found for this worker." });
+        .json({ message: "No pending offers found for this worker." });
     }
-    res.status(200).json(offres);
+
+    // Respond with the pending offers
+    res.status(200).json({ offre: offres });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to fetch offers for this worker." });
+    res
+      .status(500)
+      .json({ error: "Failed to fetch pending offers for this worker." });
   }
 };
+
 const getReservationWorker = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Find reservations for the worker and sort them by date in ascending order
+    // Find reservations for the worker and sort them by date in descending order
     const reservations = await Reservation.find({ worker: id })
       .populate("client", "firstname lastname email") // Populate client details
       .populate("worker", "firstname lastname speciality rate location") // Populate worker details
-      .sort({ date: 1 }); // Sort reservations by date (1 for ascending, -1 for descending)
+      .sort({ date: -1 }); // Sort reservations by date in descending order
 
     // Check if any reservations were found
     if (reservations.length === 0) {
@@ -147,6 +159,84 @@ const getWorkersBySpeciality = async (req, res) => {
     });
   }
 };
+
+const acceptOffre = async (req, res) => {
+  try {
+    const { Worker_id, offre_id } = req.params; // Extract worker ID and offer ID from request parameters
+
+    // Find and update the offer by ID and Worker_id
+    const updatedOffre = await Offre.findOneAndUpdate(
+      { _id: offre_id, Worker_id }, // Match the specific offer and worker
+      { status: "Accepted" }, // Set status to "Accepted"
+      { new: true } // Return  the updated document
+    );
+
+    // If no offer was found, respond with an error
+    if (!updatedOffre) {
+      return res.status(404).json({
+        success: false,
+        message: "Offre not found or worker ID mismatch.",
+      });
+    }
+
+    // Respond with the updated offer
+    res.status(200).json({
+      success: true,
+      message: "Offre accepted successfully.",
+      data: updatedOffre,
+    });
+  } catch (error) {
+    // Handle errors and respond with a 500 status
+    res.status(500).json({
+      success: false,
+      message: `Error modifying offre: ${error.message}`,
+    });
+  }
+};
+const rejectOffre = async (req, res) => {
+  try {
+    const { Worker_id, offre_id } = req.params;
+
+    // Validate Worker_id and offre_id
+    if (
+      !mongoose.Types.ObjectId.isValid(Worker_id) ||
+      !mongoose.Types.ObjectId.isValid(offre_id)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Worker ID or Offer ID.",
+      });
+    }
+
+    // Update the offer to set status as "Rejected"
+    const updatedOffre = await Offre.findOneAndUpdate(
+      { _id: offre_id, Worker_id },
+      { status: "Rejected" },
+      { new: true }
+    );
+
+    // If no offer was found
+    if (!updatedOffre) {
+      return res.status(404).json({
+        success: false,
+        message: "Offre not found or worker ID mismatch.",
+      });
+    }
+
+    // Respond with the updated offer
+    res.status(200).json({
+      success: true,
+      message: "Offre rejected successfully.",
+      data: updatedOffre,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: `Error rejecting offre: ${error.message}`,
+    });
+  }
+};
+
 module.exports = {
   createWorker,
   getWorkerById,
@@ -156,4 +246,6 @@ module.exports = {
   getReservationWorker,
   getWorkersBySpeciality,
   getOfferWorker,
+  acceptOffre,
+  rejectOffre,
 };

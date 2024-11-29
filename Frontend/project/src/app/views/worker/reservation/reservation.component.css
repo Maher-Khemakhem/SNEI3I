@@ -73,3 +73,16 @@ table th {
 .fa-arrow-down {
     color: #FF00FF;
 }
+.table td.text-green {
+    --bs-table-color: green !important;
+    --bs-table-color-type: green !important;
+    --bs-table-color-state: green !important;
+    font-weight: bold;
+}
+
+.table td.text-red {
+    --bs-table-color: red !important;
+    --bs-table-color-type: red !important;
+    --bs-table-color-state: red !important;
+    font-weight: bold;
+}

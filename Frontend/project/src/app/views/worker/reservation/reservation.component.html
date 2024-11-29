@@ -335,6 +335,7 @@
         </div>
       </div>
     </aside>
+
     <main
       class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
     >
@@ -342,6 +343,7 @@
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         rel="stylesheet"
       />
+      @if (isLoaded == true) {
       <div class="container">
         <div class="row">
           <div class="col-12 mb-3 mb-lg-5">
@@ -353,25 +355,41 @@
                 <table class="table mb-0">
                   <thead class="small text-uppercase bg-body text-muted">
                     <tr>
-                      <th>client name</th>
+                      <th>Client Name</th>
                       <th>Date</th>
-                      <th>location</th>
-                      <th>price</th>
-                      <th>rate</th>
+                      <th>Location</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                      <th>Rate</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @for (item of reservationList; track $index) {
-                    <tr class="align-middle">
+                    <tr
+                      *ngFor="let item of reservationList; let i = index"
+                      class="align-middle"
+                    >
                       <td>
                         {{ item.client.firstname }} {{ item.client.lastname }}
                       </td>
                       <td>{{ item.date | date : "dd-MMM-yyyy" }}</td>
                       <td>{{ item.worker.location }}</td>
                       <td>{{ item.price }} $</td>
+                      <td
+                        [ngClass]="
+                          item.status === 'Confirmed'
+                            ? 'text-green'
+                            : 'text-red'
+                        "
+                        style="
+                          --bs-table-color: inherit;
+                          --bs-table-color-type: inherit;
+                          --bs-table-color-state: inherit;
+                        "
+                      >
+                        {{ item.status }}
+                      </td>
                       <td>rate/5</td>
                     </tr>
-                    }
                   </tbody>
                 </table>
               </div>
@@ -379,7 +397,18 @@
           </div>
         </div>
       </div>
+      } @else {
+      <div
+        class="d-flex justify-content-center align-items-center"
+        style="height: 100vh"
+      >
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      }
     </main>
+
     <!--   Core JS Files   -->
     <script src="../../../../assets/js/core/popper.min.js"></script>
     <script src="../../../../assets/js/core/bootstrap.min.js"></script>

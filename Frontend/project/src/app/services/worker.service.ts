@@ -66,6 +66,7 @@ export class WorkerService {
     );
   }
 
+
   getAllworkers(): Observable<any> {
     const API_URL = this.REST_API; // Use the base API URL
     return this.http.get(API_URL).pipe(
@@ -75,4 +76,42 @@ export class WorkerService {
       })
     );
   }
+acceptOffre(id_worker: any, id_offre: any): Observable<any> {
+  const API_URL = `http://localhost:3000/worker/acceptOffre/${id_worker}/${id_offre}`; // Adjust endpoint as needed
+  console.log('Making PATCH request to:', API_URL);
+  return this.http.put(API_URL, {}).pipe(
+    catchError((error) => {
+      console.error('Error occurred while accepting the offer:', error);
+      return throwError(() => new Error('Failed to accept the offer. Please try again.'));
+    })
+  );
+}
+rejectOffre(id_worker: any, id_offre: any): Observable<any> {
+  const API_URL = `http://localhost:3000/worker/rejectOffre/${id_worker}/${id_offre}`; // Adjust endpoint as needed
+  console.log('Making PATCH request to:', API_URL);
+  return this.http.put(API_URL, this.httpHeaders).pipe(    
+    catchError((error) => {
+      console.error('Error occurred while rejecting the offer:', error);
+      return throwError(() => new Error('Failed to reject the offer. Please try again.'));
+    })
+  );
+}
+
+createReservation(id_worker: any, id_client: any, date: any, price: any): Observable<any> {
+  const API_URL = `http://localhost:3000/reservation`;
+  const body = {
+    client: id_client,
+    worker: id_worker,
+    date: date,
+    price: price
+  };
+  return this.http.post(API_URL, body, { headers: this.httpHeaders }).pipe(
+    catchError((error) => {
+      console.error('Error occurred while creating reservation:', error);
+      return throwError(() => new Error('Failed to create reservation. Please try again.'));
+    })
+  );
+}
+
+
 }

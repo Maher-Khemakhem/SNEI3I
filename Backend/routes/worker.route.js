@@ -9,6 +9,8 @@ const {
   getReservationWorker,
   getWorkersBySpeciality,
   getOfferWorker,
+  acceptOffre,
+  rejectOffre,
 } = require("../controllers/worker.controller");
 
 // Routes for search functionality
@@ -21,6 +23,8 @@ router.delete("/delete/:id", deleteWorker);
 router.get("/reservation/:id", getReservationWorker);
 router.get("/offre/:id", getOfferWorker);
 router.get("/:speciality", getWorkersBySpeciality);
+router.put("/acceptOffre/:Worker_id/:offre_id", acceptOffre);
+router.put("/rejectOffre/:Worker_id/:offre_id", rejectOffre);
 module.exports = router;
 
 //

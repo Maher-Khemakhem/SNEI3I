@@ -374,15 +374,29 @@
                         <div class="d-flex w-50 justify-content-between mt-2">
                           <a
                             class="btn btn-success btn-sm custom-button mr-4"
-                            href=""
+                            href="/worker/offre"
+                            (click)="
+                              acceptOffre(
+                                item._id,
+                                item.Client_id,
+                                item.date,
+                                item.price
+                              );
+                              createReservation(
+                                item.Client_id,
+                                item.date,
+                                item.price
+                              )
+                            "
                           >
                             <i class="fas fa-check fa-2x"></i>
                             <!-- Bigger accept icon -->
                           </a>
+
                           <a
                             class="btn btn-danger btn-sm custom-button"
                             href="/worker/offre"
-                            (click)="make(item._id)"
+                            (click)="rejectOffre(item._id)"
                           >
                             <i class="fas fa-times fa-2x"></i>
                             <!-- Bigger reject icon -->
