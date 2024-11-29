@@ -44,15 +44,23 @@
           </ul>
           
           <div class="carousel-container">
-            <button mat-button (click)="prev()">&#9664;</button>
-            
-            <div class="photo-wrapper">
-              <mat-card *ngFor="let photo of visiblePhotos">
-                <img [src]="photo"  />
-              </mat-card>
+          
+           
+            <div >
+              <p>Preview Photos:</p>
+              <owl-carousel-o [options]="carouselOptions">
+                <ng-container *ngFor="let photo of visiblePhotos">
+                  <ng-template carouselSlide>
+                    <img
+                      [src]="photo"
+                      alt="Uploaded Photo"
+                      style="width: 100%; height: auto;"
+                    />
+                  
+                  </ng-template>
+                </ng-container>
+              </owl-carousel-o>
             </div>
-            
-            <button mat-button (click)="next()">&#9654;</button>
           </div>
           
         </div>
