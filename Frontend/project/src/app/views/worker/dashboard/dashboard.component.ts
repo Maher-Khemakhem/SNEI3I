@@ -132,7 +132,11 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+  logout(){
+  localStorage.removeItem("worker_id");
+    localStorage.removeItem("user_id");
 
+  }
   /*onClickOffre(): void {
     this.router.navigateByUrl('/worker/offre');
     console.log('Offre clicked!');

@@ -26,5 +26,9 @@ export class ReservationComponent implements OnInit {
   make(id:string){
     alert(id)
   }
+  logout(){
+    localStorage.removeItem("worker_id");
+    localStorage.removeItem("user_id");
+  }
 
 }
