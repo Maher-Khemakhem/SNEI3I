@@ -13,6 +13,8 @@ import { ReservationComponent } from './views/worker/reservation/reservation.com
 import { WorkerProfileComponent } from './views/client/worker-profile/worker-profile.component';
 import { FiltreComponent } from './views/client/filtre/filtre.component';
 import { HeaderComponent } from './views/client/header/header.component';
+import { WorkerWorksPhotoModule } from './views/client/worker-works-photo/worker-works-photo.module';
+import { WorkerWorksPhotoComponent } from './views/client/worker-works-photo/worker-works-photo.component';
 
 
 export const routes: Routes = [
@@ -22,6 +24,7 @@ export const routes: Routes = [
     children:[
       {path:'',component:HeaderComponent},
       {path:'workerprofile',component:WorkerProfileComponent},
+      {path:'workerphoto',component:WorkerWorksPhotoComponent},
       {path:'filter',component:FiltreComponent}
     ]
   },

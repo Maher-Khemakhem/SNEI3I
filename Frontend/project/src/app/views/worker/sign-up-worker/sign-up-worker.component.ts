@@ -215,7 +215,7 @@ export class SignUpWorkerComponent implements OnInit{
         })), // Extract certifications from the FormArray
         autre_service: ['Service Example'], // Replace with your actual data
         photo: this.photo || 'Default photo URL or message',
-        work_photo: this.photos.map((photo) => photo.file.name), // Extract photo filenames
+        work_photo: this.photos.map((photo) => photo.file), // Extract photo filenames
       };
   
       this.signupService.addClient(formData, "worker").subscribe(() => {

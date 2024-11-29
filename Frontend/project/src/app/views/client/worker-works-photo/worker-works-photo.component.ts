@@ -6,59 +6,50 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-worker-works-photo',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [MatCardModule, CommonModule], // Required for standalone components
   templateUrl: './worker-works-photo.component.html',
   styleUrl: './worker-works-photo.component.css'
 })
 export class WorkerWorksPhotoComponent implements OnInit {
-  worker: any; // Define the worker property to hold worker data
-
-  constructor(private workerservice:WorkerService) {
-    this.updateVisiblePhotos();
-  }
-
-  ngOnInit(): void {
-    // Get the worker ID from localStorage
-    const id = localStorage.getItem('filterworker_id'); // Corrected syntax
-    if (id) {
-      // Ensure the ID exists before making a request
-      this.workerservice.getWorkerbyID(id).subscribe({
-        next: (workerData) => {
-          this.worker = workerData; // Assign worker data to the component property
-          console.log('Worker data:', workerData); // Debugging log
-        },
-        error: (err) => {
-          console.error('Error fetching worker data:', err); // Handle errors gracefully
-        }
-      });
-    } else {
-      console.error('No worker ID found in localStorage'); // Log error if ID is not found
-    }
-  }
-  photos = [
-    { url: 'https://via.placeholder.com/150', alt: 'Photo 1' },
-    { url: 'https://via.placeholder.com/150', alt: 'Photo 2' },
-    { url: 'https://via.placeholder.com/150', alt: 'Photo 3' },
-    { url: 'https://via.placeholder.com/150', alt: 'Photo 4' },
-    { url: 'https://via.placeholder.com/150', alt: 'Photo 5' },
-  ];
-
+  worker: any;
+  workPhotos: any[] = [];
   visiblePhotos: any[] = [];
   startIndex = 0;
   photosToShow = 3;
 
-  
-  
+  constructor(private workerservice: WorkerService) {}
 
+  ngOnInit(): void {
+    const id = localStorage.getItem('filterworker_id');
+    if (id) {
+      this.workerservice.getWorkerbyID(id).subscribe({
+        next: (workerData) => {
+          this.worker = workerData;
+          if (workerData && Array.isArray(workerData.work_photo)) {
+            // Ensure `work_photo` is an array
+            this.workPhotos = workerData.work_photo;
+            this.updateVisiblePhotos();
+          } else {
+            console.warn('No work photos available or work_photo is not an array.');
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching worker data:', err);
+        },
+      });
+    } else {
+      console.error('No worker ID found in localStorage');
+    }
+  }
   updateVisiblePhotos() {
-    this.visiblePhotos = this.photos.slice(
+    this.visiblePhotos = this.workPhotos.slice(
       this.startIndex,
       this.startIndex + this.photosToShow
     );
   }
 
   next() {
-    if (this.startIndex + this.photosToShow < this.photos.length) {
+    if (this.startIndex + this.photosToShow < this.workPhotos.length) {
       this.startIndex++;
       this.updateVisiblePhotos();
     }
