@@ -48,7 +48,7 @@ export class FiltreComponent implements OnInit {
       const matchesLocation = !this.obj.speciality||worker.speciality==this.obj.speciality;
       return matchesPrice && matchesLocation;
       
-    });
+    }); 
     console.log(this.workers);
     console.log(this.filteredWorkers);
       //this.filteredWorkers = data; // Initially, show all workers

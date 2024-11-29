@@ -200,7 +200,7 @@ table.table .avatar {
     border-radius: 0 0 3px 3px;
 }
 .modal .modal-title {
-    display: inline-block;
+    display: inline-block; 
 }
 .modal .form-control {
     border-radius: 2px;

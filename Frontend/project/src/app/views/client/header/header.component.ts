@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
     this.searchService.getLocations().subscribe({
       next: (data) => {
         this.locations = data.locations;
-        console.log(this.locations);
+        console.log(this.locations); 
          // Assuming `data` is an array of strings.
       },
       error: (error) => {
