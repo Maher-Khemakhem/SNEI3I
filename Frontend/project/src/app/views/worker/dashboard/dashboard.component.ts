@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     this.initTotalRevenue();
     this.initMonthlyRevenue();
     this.initDailyRevenue();
-    const userId = localStorage.getItem('user_id');
+    const userId = localStorage.getItem('worker_id');
   
     if (userId) {
       this.chartservice.getdata(userId).subscribe({
@@ -95,11 +95,13 @@ export class DashboardComponent implements OnInit {
 
   initializeChart(): void {
     const ctx = document.getElementById('chart-line') as HTMLCanvasElement;
+    console.log(this.labeldata);
+    console.log(this.tabdata);
     if (!ctx || !this.labeldata.length || !this.tabdata.length) {
       console.error('Unable to initialize chart: Missing data or canvas element.');
       return;
     }
-
+    
     new Chart(ctx, {
       type: 'line',
       data: {

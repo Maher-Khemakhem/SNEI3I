@@ -68,9 +68,11 @@ export class FiltreComponent implements OnInit {
       const matchesPrice = !price || worker.price === price;
       const matchesLocation = !location || worker.location === location;
       const matchesSpeciality = !speciality || worker.speciality === speciality;
-      return matchesPrice && matchesLocation && matchesSpeciality;
+      console.log(price);
+      return matchesPrice || matchesLocation || matchesSpeciality;
+      
     });
-
+    
     console.log('Filtered Workers:', this.filteredWorkers);
   }
   gotoworker(id:any){
