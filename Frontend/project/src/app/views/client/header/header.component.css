@@ -23,3 +23,20 @@
 h1{
   font-size: 3rem;
 }
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-field {
+  width: 200px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+}
+

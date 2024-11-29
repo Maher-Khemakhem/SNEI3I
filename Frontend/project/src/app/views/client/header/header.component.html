@@ -17,6 +17,30 @@
             <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="#!" role="button"
             >FIND The SNEI3I</a
             >
+            <div class="search-bar-container">
+              <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Location</mat-label>
+                <mat-select [(ngModel)]="selectedLocation">
+                  <mat-option *ngFor="let location of locations" [value]="location">
+                    {{ location }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            
+              <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Specialty</mat-label>
+                <mat-select [(ngModel)]="selectedSpecialty">
+                  <mat-option *ngFor="let specialty of specialties" [value]="specialty">
+                    {{ specialty }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            
+              <button mat-raised-button color="primary" (click)="search()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+            
           </div>
         </div>
     
