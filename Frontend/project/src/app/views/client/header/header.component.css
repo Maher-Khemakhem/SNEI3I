@@ -40,3 +40,20 @@ button {
   height: 56px;
 }
 
+.search-bar-container{
+  background-color: aliceblue;
+  padding:5%;
+  border-radius: 15px; 
+}
+.search-bar-container{
+  margin:0;
+  width: 100%;
+}
+.mat-mdc-form-field-subscript-wrapper .mat-mdc-form-field-bottom-align .ng-tns-c508571215-0 {
+  height: 0;
+  overflow: hidden; /* Ensures any child content is hidden */
+} 
+.mat-mdc-form-field-subscript-wrapper .mat-mdc-form-field-bottom-align.ng-tns-c508571215-2 {
+  height: 0;
+  overflow: hidden; /* Ensures any child content is hidden */
+}

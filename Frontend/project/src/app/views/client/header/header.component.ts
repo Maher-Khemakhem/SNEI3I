@@ -9,12 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
-
-
+import { SearchService } from '.././../../services/search.service';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule,
+  imports: [
+    MatIconModule,
     MatCardModule,
     MatButtonModule,
     MatStepperModule,
@@ -24,21 +26,67 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  MatIconModule,MatSelectModule,MatOptionModule],
+    MatSelectModule,
+    MatOptionModule, CommonModule,
+  ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  ngOnInit(): void {
-    
-  }
-  locations = ['New York', 'San Francisco', 'Chicago', 'Los Angeles'];
-  specialties = ['Cardiology', 'Dermatology', 'Pediatrics', 'Neurology'];
-
+  locations: any[] = [];
+  specialties:  any[] = [];
   selectedLocation: string | undefined;
   selectedSpecialty: string | undefined;
+  filterForm: FormGroup;
+  
+  
+ 
 
-  search() {
+  constructor(private fb: FormBuilder,private searchService: SearchService) {
+    this.filterForm = this.fb.group({
+      location: [''], // Default value is empty
+ 
+      speciality:['']    
+    });
+  }
+
+  ngOnInit(): void {
+    this.fetchLocations();
+    this.fetchSpecialties();
+  }
+
+  fetchLocations(): void {
+    this.searchService.getLocations().subscribe({
+      next: (data) => {
+        this.locations = data.locations;
+        console.log(this.locations);
+         // Assuming `data` is an array of strings.
+      },
+      error: (error) => {
+        console.error('Failed to fetch locations:', error);
+      },
+      complete: () => {
+        console.log('Locations fetched successfully');
+      },
+    });
+  }
+  
+  fetchSpecialties(): void {
+    this.searchService.getSepcialities().subscribe({
+      next: (data) => {
+        this.specialties = data.specialities; // Assuming `data` is an array of strings.
+      },
+      error: (error) => {
+        console.error('Failed to fetch specialties:', error);
+      },
+      complete: () => {
+        console.log('Specialties fetched successfully');
+      },
+    });
+  }
+  
+
+  search(): void {
     console.log('Searching for:', {
       location: this.selectedLocation,
       specialty: this.selectedSpecialty,

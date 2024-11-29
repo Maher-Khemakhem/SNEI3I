@@ -14,33 +14,33 @@
           <div class="text-white">
             <h1 class="mb-3">WELCOME TO SNEI3I</h1>
             <h4 class="mb-3">Find the best worker for the job</h4>
-            <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="#!" role="button"
-            >FIND The SNEI3I</a
-            >
+           
             <div class="search-bar-container">
+              <!-- Location Dropdown -->
               <mat-form-field appearance="outline" class="search-field">
                 <mat-label>Location</mat-label>
-                <mat-select [(ngModel)]="selectedLocation">
+                <mat-select [(value)]="selectedLocation" formControlName="location">
                   <mat-option *ngFor="let location of locations" [value]="location">
                     {{ location }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-            
-              <mat-form-field appearance="outline" class="search-field">
+      
+              <!-- Specialty Dropdown -->
+              <mat-form-field appearance="outline" class="search-field" >
                 <mat-label>Specialty</mat-label>
-                <mat-select [(ngModel)]="selectedSpecialty">
+                <mat-select [(value)]="selectedSpecialty" formControlName="speciality">
                   <mat-option *ngFor="let specialty of specialties" [value]="specialty">
                     {{ specialty }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-            
-              <button mat-raised-button color="primary" (click)="search()">
-                <mat-icon>search</mat-icon>
+      
+              <!-- Search Button -->
+              <button mat-raised-button class="btn btn-outline-light btn-lg" color="primary" (click)="search()">
+                <mat-icon>search</mat-icon>FIND The SNEI3I
               </button>
             </div>
-            
           </div>
         </div>
     
