@@ -22,10 +22,11 @@ export class LogInClientComponent {
   router = inject(Router);  
 onSubmit() {
   this.loginService.Login(this.userObj).subscribe({
-    next: (response: APILoginResponseModel) => {
+    next: (response: any) => {
       if (response.user) {
         if(response.role==="client"){
           alert("Success! You are logged in.");
+          localStorage.setItem('client_id',response.id_role)
           localStorage.setItem('user_id',response.user );
           localStorage.setItem('token',response.token||"" );
           this.router.navigateByUrl('/');

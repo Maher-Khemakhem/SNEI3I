@@ -25,6 +25,7 @@ const UserSchema = new Schema(
         id_role:{
             type:mongoose.Schema.Types.ObjectId,
             require:true,
+            unique: true, 
         }
     },
     {

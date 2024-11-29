@@ -19,10 +19,11 @@ export class LogInWorkerComponent {
   router = inject(Router);  
 onSubmit() {
   this.loginService.Login(this.userObj).subscribe({
-    next: (response: APILoginResponseModel) => {
+    next: (response: any) => {
       if (response.user) {
         if(response.role==="worker"){
           alert("Success! You are logged in.");
+          localStorage.setItem('worker_id',response.id_role);
           localStorage.setItem('user_id',response.user );
           localStorage.setItem('token',response.token||"" );
           this.router.navigateByUrl('/');
