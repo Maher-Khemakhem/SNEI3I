@@ -10,15 +10,16 @@ const AdminSchema = new Schema({
       required:true,
       default:0
     },
+    email:{
+      type:String,
+      required:false,
+    },
     password:{
       type:String,
       required:true,
       default:0
     },
-    email:{
-      type:String,
-      required:false,
-    },
+    
     num_tel:{
       type:String,
       required:true,

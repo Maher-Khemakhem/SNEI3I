@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router'; // Import RouterModule
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.css'
 })

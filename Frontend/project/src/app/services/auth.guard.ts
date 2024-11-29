@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-
+import {jwtDecode} from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,15 +9,25 @@ export class authGuard implements CanActivate {
 
   canActivate(): boolean {
     // Replace this with your actual authentication check
-    const isAuthenticated = !!localStorage.getItem('token'); // Example: check for a token
+    const token = localStorage.getItem('token'); // Example: check for a token
 
-    if (isAuthenticated) {
-      // Redirect to the home page (or another page) if the user is logged in
-      this.router.navigate(['/']);
-      return false;
+    if (token) {
+      try {
+        // Decode and validate token
+        const decodedToken: any = jwtDecode(token);
+  
+        // Check if the token is expired
+        const isExpired = decodedToken.exp * 1000 < Date.now();
+        if (!isExpired) {
+          this.router.navigate(['/']);
+          return false;
+        }
+      } catch (error) {
+        console.error('Invalid token:', error);
+      }
+      
     }
 
-    // Allow access if the user is not logged in
     return true;
   }
 }

@@ -15,6 +15,14 @@ import { FiltreComponent } from './views/client/filtre/filtre.component';
 import { HeaderComponent } from './views/client/header/header.component';
 import { WorkerWorksPhotoModule } from './views/client/worker-works-photo/worker-works-photo.module';
 import { WorkerWorksPhotoComponent } from './views/client/worker-works-photo/worker-works-photo.component';
+import { Component } from '@angular/core';
+import { LoginAdminComponent } from './views/admin/login-admin/login-admin.component';
+import { DashboardAdminComponent } from './views/admin/dashboard-admin/dashboard-admin.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { GererAdminComponent } from './views/admin/gerer-admin/gerer-admin.component';
+import { GererClientComponent } from './views/admin/gerer-client/gerer-client.component';
+import { GererWorkerComponent } from './views/admin/gerer-worker/gerer-worker.component';
+import { adminauthenticationGuard } from './services/adminauthentication.guard';
 
 
 export const routes: Routes = [
@@ -64,5 +72,22 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path:'loginadmin',component:LoginAdminComponent,
+    canActivate: [authGuard],
+    
+  },
+  {
+    path:'admin',
+    component:AdminLayoutComponent,
+    canActivate:[adminauthenticationGuard],
+    children:[
+      {path:'dashboard',component:DashboardAdminComponent},
+      {path:'gerer-admin',component:GererAdminComponent},
+      {path:'gerer-client',component:GererClientComponent},
+      {path:'gerer-worker',component:GererWorkerComponent},
+    ]
+    
+  }
   
 ];
