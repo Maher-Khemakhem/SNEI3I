@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -14,6 +15,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   imports: [
     CommonModule,
     HeaderRoutingModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
