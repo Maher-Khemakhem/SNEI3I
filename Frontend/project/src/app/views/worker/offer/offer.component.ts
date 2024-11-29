@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { WorkerService } from '../../../services/worker.service';
 import { CommonModule, DatePipe } from '@angular/common';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-offer',
@@ -11,6 +12,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 })
 export class OfferComponent implements OnInit {
   offreservice = inject(WorkerService);
+  loginService = inject(LoginService);
+
   offreList : any;
   worker_id: string = localStorage.getItem('worker_id') ?? ''; // Using nullish coalescing operator
 
@@ -29,5 +32,7 @@ export class OfferComponent implements OnInit {
   logout(){
     localStorage.removeItem("worker_id");
     localStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+    this.loginService.logout();
   }
 }

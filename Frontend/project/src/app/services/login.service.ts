@@ -17,7 +17,4 @@ export class LoginService {
   logout(): Observable<any> {
     return this.http.get<any>("http://localhost:3000/connect/logout");
   }
-  
-  
-  
 }

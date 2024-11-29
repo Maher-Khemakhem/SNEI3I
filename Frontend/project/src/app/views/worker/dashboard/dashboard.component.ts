@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { ChartService } from '../../../services/chart.service';
 import { WorkerService } from '../../../services/worker.service';
+import { LoginService } from '../../../services/login.service';
 
 Chart.register(...registerables);
 
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit {
   router = inject(Router);
   workerservice = inject(WorkerService);
   chartservice = inject(ChartService);
+  loginService = inject(LoginService);
+
   data: any = null;
   labeldata: string[] = []; // For labels (months)
   tabdata: number[] = [];  // For revenue values
@@ -133,8 +136,10 @@ export class DashboardComponent implements OnInit {
     });
   }
   logout(){
-  localStorage.removeItem("worker_id");
+    localStorage.removeItem("worker_id");
     localStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+    this.loginService.logout();
 
   }
   /*onClickOffre(): void {
