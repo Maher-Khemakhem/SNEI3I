@@ -14,7 +14,9 @@ export class LoginService {
   Login(user: User): Observable<APILoginResponseModel> {
     return this.http.post<APILoginResponseModel>("http://localhost:3000/connect/login", user);
   }
-  
+  logout(): Observable<any> {
+    return this.http.get<any>("http://localhost:3000/connect/logout");
+  }
   
   
   
