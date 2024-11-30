@@ -1,6 +1,6 @@
 .gradient-header {
     background: linear-gradient(45deg, #007bff, #00025d);
-    height: 500px; /* Adjust height as needed */
+    height: 700px; /* Adjust height as needed */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,4 +56,7 @@ button {
 .mat-mdc-form-field-subscript-wrapper .mat-mdc-form-field-bottom-align.ng-tns-c508571215-2 {
   height: 0;
   overflow: hidden; /* Ensures any child content is hidden */
+}
+.container{
+  padding-top: 3%;
 }

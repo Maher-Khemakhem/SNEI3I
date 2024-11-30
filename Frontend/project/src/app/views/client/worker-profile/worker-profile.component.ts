@@ -58,11 +58,10 @@ export class WorkerProfileComponent implements OnInit {
        
         next: (workerData) => {
           this.worker = workerData;
-          if (workerData && Array.isArray(workerData.work_photo)) {
-            // Ensure `work_photo` is an array
-            this.workPhotos = workerData.work_photo;
-            this.updateVisiblePhotos();
-          }},
+          
+          this.workPhotos = this.worker.work_photo;
+          this.updateVisiblePhotos();
+         },
         error: (err) => {
           console.error('Error fetching worker data:', err); // Handle errors gracefully
         }
