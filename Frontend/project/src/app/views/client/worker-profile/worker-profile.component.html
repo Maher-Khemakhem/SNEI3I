@@ -14,7 +14,7 @@
         <p class="info">{{worker.speciality}}</p>
         <p class="info">{{worker.email}}</p>
         <div class="stats row">
-          <div class="stat col-xs-4" style="padding-right: 50px;">
+          <div class="stat col-xs-4">
             <p class="number-stat">{{worker.number_of_messages}}</p>
             <p class="desc-stat">number of messages</p>
           </div>
@@ -22,7 +22,7 @@
             <p class="number-stat">{{worker.rate}}</p>
             <p class="desc-stat">Rate</p>
           </div>
-          <div class="stat col-xs-4" style="padding-left: 50px;">
+          <div class="stat col-xs-4" >
             <p class="number-stat">{{worker.price}}</p>
             <p class="desc-stat">Price</p>
           </div>
@@ -36,33 +36,92 @@
         </div>
       </div>
       <div class="right col-lg-8">
-        <ul class="nav">
-          <li><a href="#">General Info</a></li>
-          <li><a href="http://localhost:4200/workerphoto">Photos</a></li>
-          <li><a href="#">Location</a></li>
-      
-        </ul>
+        <mat-tab-group>
+          <mat-tab label="General Info"> 
+            <div class="row gallery" style="width: 100%;">
+              <mat-card class="worker-profile-card">
+                <mat-card-header>
+                  <div mat-card-avatar class="profile-avatar" style="background-image: url('{{ worker.avatarUrl }}');"></div>
+                  <mat-card-title>{{ worker.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ worker.jobTitle }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <mat-list>
+                    <!-- Email -->
+                    <mat-divider></mat-divider>
+            
+                      <mat-icon matListIcon>email</mat-icon>
+                      <div class="form-container">
+                        <mat-form-field appearance="fill" class="input-field">
+                          <mat-label>Email</mat-label>
+                          <input matInput [value]="worker.email" disabled />
+                        </mat-form-field>
+                      </div>
+                
+                      <mat-divider></mat-divider>
+            
+                    <!-- Phone Number -->
+                 
+                      <mat-icon matListIcon>phone</mat-icon>
+                      <div class="form-container">
+                        <mat-form-field appearance="fill" class="input-field">
+                          <mat-label>Phone</mat-label>
+                          <input matInput [value]="worker.num_tel" disabled />
+                        </mat-form-field>
+                      </div>
+                    
+            
+                    <mat-divider></mat-divider>
+            
+                    <!-- Certifications -->
+                    <div *ngFor="let cert of worker.certification" class="list-item">
+                      <mat-icon matListIcon>school</mat-icon>
+                      <div class="form-container">
+                        <mat-form-field appearance="fill" class="input-field">
+                          <mat-label>Certification Title</mat-label>
+                          <input matInput [value]="cert.title" disabled />
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="input-field">
+                          <mat-label>Certification URL</mat-label>
+                          <input matInput [value]="cert.url" disabled />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </mat-list>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            
+            
+            
+             </mat-tab>
+          <mat-tab label="Photos">
+            <div class="carousel-container">
+          
+           
+              <div >
+                <p>Preview Photos:</p>
+                <owl-carousel-o [options]="carouselOptions">
+                  <ng-container *ngFor="let photo of visiblePhotos">
+                    <ng-template carouselSlide>
+                      <img
+                        [src]="photo"
+                        alt="Uploaded Photo"
+                        style="width: 100%; height: auto;"
+                      />
+                    
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
+              </div>
+            </div>
+            
+          
+     
+          </mat-tab>
+          <mat-tab label="Location"> Content 3 </mat-tab>
+        </mat-tab-group>
         
-        <div class="row gallery">
-          <div class="col-md-4">
-             <img src="https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-          </div>
-          <div class="col-md-4">
-            <img src="https://images.pexels.com/photos/861034/pexels-photo-861034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-          </div>
-          <div class="col-md-4">
-             <img src="https://images.pexels.com/photos/113338/pexels-photo-113338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-          </div>
-          <div class="col-md-4">
-             <img src="https://images.pexels.com/photos/5049/forest-trees-fog-foggy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-          </div>
-          <div class="col-md-4">
-            <img src="https://images.pexels.com/photos/428431/pexels-photo-428431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-          </div>
-          <div class="col-md-4">
-            <img src="https://images.pexels.com/photos/50859/pexels-photo-50859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-          </div>
-        </div>
-      </div>
+        
  
 </div>

@@ -1,15 +1,15 @@
-html,body {
+html, body {
   background: #efefef;
   font-family: "Arial";
 }
 
 .container {
   max-width: 1250px;
-  margin: 30px auto 30px;
-  padding: 0 !important;
+  margin: 30px auto;
+  padding: 0;
   width: 90%;
   background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 header {
@@ -22,47 +22,46 @@ header {
 }
 
 header i {
-  position: relative;
+  position: absolute;
   cursor: pointer;
-  right: -96%;
+  right: 4%;
   top: 25px;
-  font-size: 18px !important;
+  font-size: 18px;
   color: #fff;
 }
 
-@media (max-width:800px) {
+@media (max-width: 800px) {
   header {
     height: 150px;
-  } 
-  
+  }
+
   header i {
-    right: -90%;
+    right: 10%;
   }
 }
 
 main {
-      padding: 20px 20px 0px 20px;
+  padding: 20px;
 }
 
 .left {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+  align-items: center;
 }
 
 .photo {
   width: 200px;
   height: 200px;
   margin-top: -120px;
-  border-radius: 100px;
+  border-radius: 50%;
   border: 4px solid #fff;
 }
 
 .active {
   width: 20px;
   height: 20px;
-  border-radius: 20px;
+  border-radius: 50%;
   position: absolute;
   right: calc(50% - 70px);
   top: 50px;
@@ -70,16 +69,15 @@ main {
   border: 3px solid #fff;
 }
 
-@media (max-width:990px) {
+@media (max-width: 990px) {
   .active {
     right: calc(50% - 60px);
-    top: 50px;
-  } 
+  }
 }
 
 .name {
   margin-top: 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 18pt;
   color: #777;
@@ -88,7 +86,7 @@ main {
 .info {
   margin-top: -5px;
   margin-bottom: 5px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 11pt;
   color: #aaa;
 }
@@ -98,15 +96,11 @@ main {
   text-align: center;
   padding-bottom: 20px;
   border-bottom: 1px solid #ededed;
-  font-family: 'Montserrat', sans-serif;
 }
 
-
 .number-stat {
-  padding: 0px;
   font-size: 14pt;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
   color: #aaa;
 }
 
@@ -118,19 +112,16 @@ main {
 
 .desc {
   text-align: center;
-  margin-top: 25px;
   margin: 25px 40px;
   color: #999;
   font-size: 11pt;
-  font-family: 'Montserrat', sans-serif;
   padding-bottom: 25px;
   border-bottom: 1px solid #ededed;
 }
 
 .social {
-  margin: 5px 0 12px 0;
+  margin: 5px 0 12px;
   text-align: center;
-  display: inline-block;
   font-size: 20pt;
 }
 
@@ -139,17 +130,18 @@ main {
   margin: 0 15px;
 }
 
-.social i:nth-child(1)  { color: #4267b2; }
-.social i:nth-child(2)  { color: #1da1f2; }
-.social i:nth-child(3)  { color: #bd081c; }
-.social i:nth-child(4)  { color: #36465d; }
+.social i:nth-child(1) { color: #4267b2; }
+.social i:nth-child(2) { color: #1da1f2; }
+.social i:nth-child(3) { color: #bd081c; }
+.social i:nth-child(4) { color: #36465d; }
 
 .right {
-  padding: 0 25px 0 25px !important;
+  padding: 0 25px;
 }
 
 .nav {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .nav li {
@@ -157,59 +149,40 @@ main {
   cursor: pointer;
   font-size: 13pt;
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: #888;
 }
 
-.nav li:hover, .nav li:nth-child(1)  { 
+.nav li:hover,
+.nav li:nth-child(1) {
   color: #999;
   border-bottom: 2px solid #999;
 }
 
-.follow {
-  position: absolute;
-  right: 8%;
-  top: 35px;
-  font-size: 11pt;
-  background-color: #42b1fa;
-  color: #fff;
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: all .4s;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-}
 
-.follow:hover {
-  box-shadow: 0 0 15px rgba(0,0,0,0.2), 0 0 15px rgba(0,0,0,0.2);
-}
 
-@media (max-width:990px) {
+@media (max-width: 990px) {
   .nav {
     display: none;
   }
+
   
-  .follow {
-    width: 50%;
-    margin-left: 25%;
-    display: block;
-    position: unset;
-    text-align: center;
-  }
-}
-.gallery  {
-  margin-top: 35px;
 }
 
-.gallery div {
-  margin-bottom: 30px;
-}
+
 
 .gallery img {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);
-  width: auto; 
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
   height: auto;
   cursor: pointer;
-  max-width: 100%;
 }
+
+.worker-profile-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+
