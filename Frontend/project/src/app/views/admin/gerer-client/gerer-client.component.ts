@@ -3,6 +3,8 @@ import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
 import { ClientService } from '../../../services/client.service';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateClientComponent } from './update-client/update-client.component';
 
 @Component({
   selector: 'app-gerer-client',
@@ -13,12 +15,14 @@ import { CommonModule } from '@angular/common';
 })
 export class GererClientComponent implements OnInit{
   clients:any;
-  constructor(private loginService:LoginService,private router:Router,private clientservice:ClientService){}
+  constructor(private loginService:LoginService,private router:Router,private clientservice:ClientService,private a:MatDialog){}
   ngOnInit(): void {
-      this.clientservice.getAllClients().subscribe((data:any)=>{
-        this.clients = data;
-        
-      })
+      this.getClients();
+  }
+  getClients(){
+    this.clientservice.getAllClients().subscribe((data:any)=>{
+      this.clients = data;
+    })
   }
   logout(){
     localStorage.removeItem("worker_id");
@@ -38,5 +42,23 @@ export class GererClientComponent implements OnInit{
   }
   gotoworker(){
     this.router.navigate(['/admin/gerer-worker']);
+  }
+  openUpdate(id:any){
+    const modal = this.a.open(UpdateClientComponent,{
+      width:'55%',
+      height:'75%',
+      data:{id:id}
+    });
+    modal.afterClosed().subscribe((res:any)=>{
+        if(res){
+          this.getClients();
+        }
+    })
+  }
+  delete(id:any){
+    this.clientservice.deleteClient(id).subscribe(()=>{
+      this.getClients();
+      console.log("client deleted successfully");
+    });
   }
 }

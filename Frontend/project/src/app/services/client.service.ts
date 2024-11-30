@@ -17,5 +17,18 @@ export class ClientService {
       })
     );
   }
+  updateClient(id:any,data:any): Observable<any> {
+    const API = `${this.REST_API}/${id}`;
+    return this.http.put<any>(API,data).pipe(
+      catchError((error) => {
+        console.error('Error occurred while updating client:', error);
+        return throwError(() => new Error('Failed to update client. Please try again.'));
+      })
+    );
+  }
+  deleteClient(id:any): Observable<any> {
+    const API = `${this.REST_API}/${id}`;
+    return this.http.delete<any>(API);
+  }
 
 }
