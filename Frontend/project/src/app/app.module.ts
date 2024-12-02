@@ -11,10 +11,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { WorkerWorksPhotoComponent } from './views/client/worker-works-photo/worker-works-photo.component';
+
 @NgModule({
   imports: [
-    WorkerWorksPhotoComponent,
+    
     CommonModule,
     MatStepperModule,
     MatButtonModule,
