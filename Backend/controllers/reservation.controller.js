@@ -1,5 +1,6 @@
 const Reservation = require("../models/reservation.model");
 const mongoose = require("mongoose");
+const Client = require("../models/client.model")
 // Create a new reservation
 const createReservation = async (req, res) => {
   try {
@@ -33,23 +34,34 @@ const getAllReservations = async (req, res) => {
 };
 
 // Get a single reservation by ID
-const getReservationById = async (req, res) => {
+const getClientReservations = async (req, res) => {
   try {
     const { id } = req.params;
-    const reservation = await Reservation.findById(id)
-      .populate("client", "firstname lastname email")
-      .populate("worker", "firstname lastname speciality");
+    const reservations = await Reservation.find({client:id})
 
-    if (!reservation) {
+    if (!reservations) {
       return res.status(404).json({ message: "Reservation not found" });
     }
 
-    res.status(200).json(reservation);
+    res.status(200).json(reservations);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+const getWorkerReservations = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const reservations = await Reservation.find({worker:id})
 
+    if (!reservations) {
+      return res.status(404).json({ message: "Reservations not found" });
+    }
+
+    res.status(200).json(reservations);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 // Update a reservation by ID
 const updateReservation = async (req, res) => {
   try {
@@ -259,11 +271,12 @@ const getTotalRevenueTodayForWorker = async (req, res) => {
 module.exports = {
   createReservation,
   getAllReservations,
-  getReservationById,
+  getClientReservations,
   updateReservation,
   deleteReservation,
   getMonthlyRevenueByWorker,
   getTotalRevenueByWorker,
   getTotalRevenueThisMonth,
   getTotalRevenueTodayForWorker,
+  getWorkerReservations
 };

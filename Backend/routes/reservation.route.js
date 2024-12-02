@@ -10,6 +10,8 @@ const {
   getTotalRevenueByWorker,
   getTotalRevenueThisMonth,
   getTotalRevenueTodayForWorker,
+  getClientReservations,
+  getWorkerReservations
 } = require("../controllers/reservation.controller");
 const { requireAuth } = require("../middleware/auth.middleware");
 //reservation
@@ -20,8 +22,8 @@ router.post("/", createReservation);
 router.get("/", getAllReservations);
 
 // Get a single reservation by ID
-router.get("/:id", getReservationById);
-
+router.get("/client/:id", getClientReservations);
+router.get("/worker/:id", getWorkerReservations);
 // Update a reservation by ID
 router.put("/:id", updateReservation);
 

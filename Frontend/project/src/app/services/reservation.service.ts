@@ -25,8 +25,8 @@ export class ReservationService {
   }
 
   // Method to fetch a single reservation by ID
-  getReservationById(id: string): Observable<Reservation> {
-    return this.http.get<Reservation>(`${this.REST_API}/${id}`);
+  getClientReservations(id: string): Observable<Reservation> {
+    return this.http.get<Reservation>(`${this.REST_API}/client/${id}`);
   }
 
   // Method to create a new reservation

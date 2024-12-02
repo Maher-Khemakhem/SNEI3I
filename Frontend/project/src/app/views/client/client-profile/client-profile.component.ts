@@ -50,7 +50,7 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
   }
 
   fetchReservations(): void {
-    this.reservationService.getReservationById('67423f458b448111c58478ec').subscribe({
+    this.reservationService.getClientReservations('67423f458b448111c58478ec').subscribe({
           next: (reservation: Reservation) => {
             this.dataSource.data = [reservation];
             console.log('Reservation fetched successfully:', reservation);
