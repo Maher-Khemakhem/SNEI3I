@@ -16,7 +16,7 @@ import { ReservationService } from '../../../services/reservation.service';
 export class ClientProfileComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['no', 'client', 'worker', 'date', 'status', 'price'];
   private _liveAnnouncer = inject(LiveAnnouncer);
-  dataSource = new MatTableDataSource<Reservation>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Reservation>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort; // Added MatSort
@@ -39,6 +39,8 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
     } else {
       console.error('No client ID found in localStorage');
     }
+    
+    const ELEMENT_DATA: Reservation[] = [];
   }
 
   ngAfterViewInit(): void {
@@ -72,30 +74,3 @@ export interface Reservation {
   message?: string;
 }
 
-const ELEMENT_DATA: Reservation[] = [
-  {
-    client: '67423f458b448111c58478ec',
-    worker: '6733b80e7cf19c19d1c12bbc',
-    date: new Date('2024-12-01T00:00:00.000+00:00'),
-    status: 'Confirmed',
-    price: 150,
-    message: 'Looking forward to the service!',
-  },
-  {
-    client: '67423f458b448111c58478ec',
-    worker: '6733b80e7cf19c19d1c12bbc',
-    date: new Date('2024-12-01T00:00:00.000+00:00'),
-    status: 'Confirmed',
-    price: 1050,
-    message: 'Looking forward to the service!',
-  },
-  {
-    client: '67423f458b448111c58478ec',
-    worker: '6733b80e7cf19c19d1c12bbc',
-    date: new Date('2024-12-01T00:00:00.000+00:00'),
-    status: 'Confirmed',
-    price: 1500,
-    message: 'Looking forward to the service!',
-  },
-
-];
