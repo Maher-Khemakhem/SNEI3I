@@ -10,7 +10,7 @@ import { ReservationService } from '../../../services/reservation.service';
   selector: 'app-client-profile',
   standalone: true,
   templateUrl: './client-profile.component.html',
-  styleUrls: ['./client-profile.component.css'], // Corrected typo
+  styleUrls: ['./client-profile.component.css'], // Ensure this file exists
   imports: [MatTableModule, MatPaginatorModule, MatSortModule],
 })
 export class ClientProfileComponent implements OnInit, AfterViewInit {
@@ -21,27 +21,19 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  client: any;
+   // Define client type or use `any`
+   client: any;
+  constructor(
+    private clientService: ClientService,
+    private reservationService: ReservationService
+  ) {
 
-  constructor(private clientService: ClientService, private reservationService: ReservationService) {}
+  }
 
   ngOnInit(): void {
-    const id = '1'; // Mocked ID for demonstration
-    if (id) {
-      this.clientService.getClientById('67423f458b448111c58478ec').subscribe({
-        next: (clientData) => {
-          this.client = clientData;
-          console.log('Client data fetched successfully:', clientData);
-        },
-        error: (err) => {
-          console.error('Error fetching client data:', err);
-        },
-      });
-    } else {
-      console.error('No client ID found in localStorage');
-    }
-
-    this.fetchReservations(); // Fetch reservations on initialization
+    const id = '674da09fd806f0b21be21e0a'; // Replace with dynamic ID if needed
+    this.fetchClientData(id);
+    this.fetchReservations(id); // Fetch reservations on initialization
   }
 
   ngAfterViewInit(): void {
@@ -49,14 +41,26 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  fetchReservations(): void {
-    this.reservationService.getClientReservations('67423f458b448111c58478ec').subscribe({
-          next: (reservation: Reservation) => {
-            this.dataSource.data = [reservation];
-            console.log('Reservation fetched successfully:', reservation);
-          },
-          error: (err) => console.error('Error fetching reservations:', err),
-        });
+  fetchClientData(clientId: string): void {
+    this.clientService.getClientById(clientId).subscribe({
+      next: (clientData) => {
+        this.client = clientData;
+        console.log('Client data fetched successfully:', clientData);
+      },
+      error: (err) => {
+        console.error('Error fetching client data:', err);
+      },
+    });
+  }
+
+  fetchReservations(clientId: string): void {
+    this.reservationService.getClientReservations(clientId).subscribe({
+      next: (reservations: Reservation[]) => {
+        this.dataSource.data = reservations; // Pass the array directly
+        console.log('Reservations fetched successfully:', reservations);
+      },
+      error: (err) => console.error('Error fetching reservations:', err),
+    });
   }
 
   announceSortChange(sortState: Sort): void {
@@ -74,5 +78,7 @@ export interface Reservation {
   date: Date;
   status: string;
   price: number;
-  message?: string;
+  message?: string; // Optional field
 }
+
+
