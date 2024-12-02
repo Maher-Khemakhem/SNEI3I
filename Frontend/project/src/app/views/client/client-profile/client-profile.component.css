@@ -22,7 +22,15 @@ body{
     border: 0 solid rgba(0,0,0,.125);
     border-radius: .25rem;
 }
-
+table {
+    width: 100%;
+  }
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  .mat-elevation-z8 {
+    box-shadow: none !important; /* Remove the shadow */
+  }
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
