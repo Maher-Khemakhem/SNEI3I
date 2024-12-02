@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, inject } from '@angular/core';
 import { ClientService } from '../../../services/client.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -10,7 +10,7 @@ import { ReservationService } from '../../../services/reservation.service';
   selector: 'app-client-profile',
   standalone: true,
   templateUrl: './client-profile.component.html',
-  styleUrl: './client-profile.component.css',
+  styleUrls: ['./client-profile.component.css'], // Corrected typo
   imports: [MatTableModule, MatPaginatorModule, MatSortModule],
 })
 export class ClientProfileComponent implements OnInit, AfterViewInit {
@@ -19,18 +19,19 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Reservation>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort; // Added MatSort
+  @ViewChild(MatSort) sort!: MatSort;
 
   client: any;
 
-  constructor(private clientservice: ClientService, private reservationService: ReservationService) {}
+  constructor(private clientService: ClientService, private reservationService: ReservationService) {}
 
   ngOnInit(): void {
     const id = '1'; // Mocked ID for demonstration
     if (id) {
-      this.clientservice.getClientById('674da09fd806f0b21be21e0a').subscribe({
-        next: (clientdata) => {
-          this.client = clientdata;
+      this.clientService.getClientById('67423f458b448111c58478ec').subscribe({
+        next: (clientData) => {
+          this.client = clientData;
+          console.log('Client data fetched successfully:', clientData);
         },
         error: (err) => {
           console.error('Error fetching client data:', err);
@@ -39,23 +40,25 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
     } else {
       console.error('No client ID found in localStorage');
     }
-    
-    const ELEMENT_DATA: Reservation[] = [];
+
+    this.fetchReservations(); // Fetch reservations on initialization
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort; // Correctly bind MatSort
+    this.dataSource.sort = this.sort;
   }
+
   fetchReservations(): void {
-    this.reservationService.getReservations().subscribe({
-      next: (reservations) => {
-        this.dataSource.data = reservations; // Assign fetched data to the table's data source
-        console.log('Reservations fetched successfully:', reservations);
-      },
-      error: (err) => console.error('Error fetching reservations:', err),
-    });
+    this.reservationService.getReservationById('67423f458b448111c58478ec').subscribe({
+          next: (reservation: Reservation) => {
+            this.dataSource.data = [reservation];
+            console.log('Reservation fetched successfully:', reservation);
+          },
+          error: (err) => console.error('Error fetching reservations:', err),
+        });
   }
+
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -73,4 +76,3 @@ export interface Reservation {
   price: number;
   message?: string;
 }
-
