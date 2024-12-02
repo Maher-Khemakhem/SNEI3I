@@ -14,7 +14,8 @@ export class ClientProfileComponent implements OnInit {
   ngOnInit(): void {
     // Get the worker ID from localStorage
     
-    const id = localStorage.getItem('landingpageclientid');  // Corrected syntax
+    //const id = localStorage.getItem('landingpageclientid');  // Corrected syntax
+    const id='1';
     if (id) {
       // Ensure the ID exists before making a request
       this.clientservice.getClientById('674da09fd806f0b21be21e0a').subscribe({
