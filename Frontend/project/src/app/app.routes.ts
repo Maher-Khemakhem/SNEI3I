@@ -23,6 +23,8 @@ import { GererClientComponent } from './views/admin/gerer-client/gerer-client.co
 import { GererWorkerComponent } from './views/admin/gerer-worker/gerer-worker.component';
 import { adminauthenticationGuard } from './services/adminauthentication.guard';
 import { ClientProfileComponent } from './views/client/client-profile/client-profile.component';
+import { ProfilComponent } from './views/worker/profil/profil.component';
+import { EditProfilComponent } from './views/worker/edit-profil/edit-profil.component';
 
 
 export const routes: Routes = [
