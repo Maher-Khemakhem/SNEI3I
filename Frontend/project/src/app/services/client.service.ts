@@ -30,5 +30,8 @@ export class ClientService {
     const API = `${this.REST_API}/${id}`;
     return this.http.delete<any>(API);
   }
-
+  getClientById(id:any): Observable<any> {
+    const API = `${this.REST_API}/${id}`;
+    return this.http.get<any>(API);
+  }
 }

@@ -21,8 +21,25 @@
           Last name is required.
         </mat-error>
       </mat-form-field>
-    </div>
-  
+    </div><div class="row" style="
+    width: 100%;
+    margin: 0 24%;
+">
+    <mat-form-field appearance="fill" class="half-width">
+        <mat-label>email</mat-label>
+        <input matInput formControlName="email" required />
+        <mat-error *ngIf="firstFormGroup.get('email')?.hasError('required')">
+          email is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>password</mat-label>
+        <input matInput formControlName="password" required />
+        <mat-error *ngIf="firstFormGroup.get('password')?.hasError('required')">
+          password is required.
+        </mat-error>
+      </mat-form-field>
+      </div>
     <!-- Second row with phone number -->
     <div class="row" style="
     width: 100%;
@@ -62,7 +79,7 @@
     <img *ngIf="photo" [src]="photo" alt="Uploaded photo" style="width: 150px; height: 150px;" />
     <!-- Submit button -->
     <div class="actions">
-      <button mat-button [disabled]="firstFormGroup.invalid" (click)="update()">Next</button>
+      <button mat-button [disabled]="firstFormGroup.invalid" (click)="create()">Next</button>
     </div>
   </form>
   

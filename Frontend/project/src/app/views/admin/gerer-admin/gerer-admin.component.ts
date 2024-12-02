@@ -1,12 +1,77 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UpdateAdminComponent } from './update-admin/update-admin.component';
+import { Router } from '@angular/router';
+import { LoginService } from '../../../services/login.service';
+import { ClientService } from '../../../services/client.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AdminService } from '../../../services/admin.service';
+import { CommonModule } from '@angular/common';
+import { CreateAdminComponent } from './create-admin/create-admin.component';
 
 @Component({
   selector: 'app-gerer-admin',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './gerer-admin.component.html',
   styleUrl: './gerer-admin.component.css'
 })
-export class GererAdminComponent {
+export class GererAdminComponent implements OnInit{
+  admins:any;
+  constructor(private loginService:LoginService,private router:Router,private clientservice:ClientService,private a:MatDialog,private adminservice:AdminService){}
+  ngOnInit(): void {
+      this.getAdmins();
+  }
+  getAdmins(){
+    this.adminservice.getAllAdmins().subscribe((data)=>{
+      
+      this.admins = data.admins;
+      console.log(this.admins);
+    })
+  }
+  openUpdate(id:any){
+    const modal = this.a.open(UpdateAdminComponent,{
+      width:'55%',
+      height:'75%',
+      data:{id:id}
+    });
+    modal.afterClosed().subscribe((res:any)=>{
+        if(res){
+          this.getAdmins();
+        }
+    })
+  }
+  openCreate(){
+    const modal = this.a.open(CreateAdminComponent,{
+      width:'55%',
+      height:'75%',
+      data:{}
+    });
+    modal.afterClosed().subscribe((res:any)=>{
+        if(res){
+          this.getAdmins();
+        }
+    })
+  }
+  delete(id:any){
+    this.adminservice.deleteAdmin(id);
+  }
+  logout(){
+    localStorage.removeItem("admin_id");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+    this.loginService.logout();
 
+  }
+  gotodashboard(){
+    this.router.navigate(['/admin/dashboard']);
+  }
+  gotogereradmin(){
+    this.router.navigate(['/admin/gerer-admin']);
+  }
+  gotoclient(){
+    this.router.navigate(['/admin/gerer-client']);
+  }
+  gotoworker(){
+    this.router.navigate(['/admin/gerer-worker']);
+  }
 }

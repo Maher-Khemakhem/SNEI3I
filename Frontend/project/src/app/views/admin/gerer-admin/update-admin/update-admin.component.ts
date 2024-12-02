@@ -1,8 +1,12 @@
-import { Component, Inject, inject, NgZone, OnInit } from '@angular/core';
+import { Component, Inject, inject, NgZone } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ClientService } from '../../../../services/client.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AdminService } from '../../../../services/admin.service';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators,
+  
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
@@ -10,43 +14,32 @@ import {
   MatNativeDateModule,
   ErrorStateMatcher,
   MatOptionModule,
-  provideNativeDateAdapter,
+  
 } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
-import { ClientService } from '../../../../services/client.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-update-client',
+  selector: 'app-update-admin',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatOptionModule
-  ],
+  imports: [ReactiveFormsModule,FormsModule,MatNativeDateModule,MatFormFieldModule,MatInputModule,MatDatepickerModule,CommonModule],
   providers:[provideNativeDateAdapter()],
-  templateUrl: './update-client.component.html',
-  styleUrls: ['./update-client.component.css'], // Fixed 'styleUrls'
+  templateUrl: './update-admin.component.html',
+  styleUrl: './update-admin.component.css'
 })
-export class UpdateClientComponent implements OnInit {
+export class UpdateAdminComponent {
   private _formBuilder = inject(FormBuilder);
   firstFormGroup!: FormGroup;
-  client_id:any;
+  admin_id:any;
   photo:any;
-  client:any;
-  constructor(private clientservice:ClientService,@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<UpdateClientComponent>,private router:Router,private ngZone:NgZone) {}
+  admin:any;
+  constructor(private adminservice:AdminService,private clientservice:ClientService,@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<UpdateAdminComponent>,private router:Router,private ngZone:NgZone) {}
 
   ngOnInit(): void {
     
-    this.client_id = this.data.id;
+    this.admin_id = this.data.id;
     
     this.firstFormGroup = this._formBuilder.group({
       firstname: ['', Validators.required],
@@ -57,16 +50,16 @@ export class UpdateClientComponent implements OnInit {
         [Validators.required, Validators.pattern(/^\d{8,15}$/)],
       ],
     });
-    this.clientservice.getClientById(this.client_id).subscribe((data: any) => {
-      this.client = data;
-      this.photo = this.client.photo; // Set photo after fetching
+    this.adminservice.getAdminById(this.admin_id).subscribe((data: any) => {
+      this.admin = data.admin;
+      this.photo = this.admin.photo; // Set photo after fetching
 
       // Update the form with fetched data
       this.firstFormGroup.patchValue({
-        firstname: this.client.firstname,
-        lastname: this.client.lastname,
-        Date_of_birth: this.client.Date_of_birth,
-        num_tel: this.client.num_tel,
+        firstname: this.admin.firstname,
+        lastname: this.admin.lastname,
+        Date_of_birth: this.admin.Date_of_birth,
+        num_tel: this.admin.num_tel,
       });
     });
   }
@@ -78,11 +71,11 @@ export class UpdateClientComponent implements OnInit {
       "num_tel":this.firstFormGroup.value.num_tel,
       "photo":this.photo
     }
-    this.clientservice.updateClient(this.client_id, formData).subscribe(
+    this.adminservice.updateAdmin(this.admin_id, formData).subscribe(
       ()=>{
         console.log('Data updated successfully');
         this.ngZone.run(()=>{
-          this.router.navigateByUrl('/admin/gerer-client').then(() => {
+          this.router.navigateByUrl('/admin/gerer-admin').then(() => {
             this.data = {err:true};
             this.dialogRef.close(this.data); // Close the modal
             //window.location.reload(); // Refresh the page

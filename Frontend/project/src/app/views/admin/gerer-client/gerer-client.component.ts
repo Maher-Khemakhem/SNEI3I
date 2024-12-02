@@ -15,6 +15,7 @@ import { UpdateClientComponent } from './update-client/update-client.component';
 })
 export class GererClientComponent implements OnInit{
   clients:any;
+  photo:any;
   constructor(private loginService:LoginService,private router:Router,private clientservice:ClientService,private a:MatDialog){}
   ngOnInit(): void {
       this.getClients();
@@ -25,7 +26,7 @@ export class GererClientComponent implements OnInit{
     })
   }
   logout(){
-    localStorage.removeItem("worker_id");
+    localStorage.removeItem("admin_id");
     localStorage.removeItem("user_id");
     localStorage.removeItem("token");
     this.loginService.logout();
@@ -61,4 +62,5 @@ export class GererClientComponent implements OnInit{
       console.log("client deleted successfully");
     });
   }
+  
 }
