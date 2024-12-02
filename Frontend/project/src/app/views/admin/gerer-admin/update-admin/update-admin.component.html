@@ -1,0 +1,68 @@
+<form [formGroup]="firstFormGroup">
+    <ng-template matStepLabel>General information</ng-template>
+  
+    <!-- First row with two fields -->
+    <div class="row" style="
+    width: 100%;
+    margin: 0 24%;
+">
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstname" required />
+        <mat-error *ngIf="firstFormGroup.get('firstname')?.hasError('required')">
+          First name is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastname" required />
+        <mat-error *ngIf="firstFormGroup.get('lastname')?.hasError('required')">
+          Last name is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  
+    <!-- Second row with phone number -->
+    <div class="row" style="
+    width: 100%;
+    margin: 0 24%;
+">
+        <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="num_tel" type="tel" required />
+            <mat-error *ngIf="firstFormGroup.get('num_tel')?.hasError('required')">
+              Phone number is required.
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.get('num_tel')?.hasError('pattern')">
+              Invalid phone number format.
+            </mat-error>
+          </mat-form-field>
+    </div>
+  
+    <!-- Third row with Date of Birth field -->
+    <div class="row" style="
+        width: 100%;
+        margin: 0 24%;
+    ">
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="Date_of_birth" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="firstFormGroup.get('Date_of_birth')?.hasError('required')">
+          Date of birth is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <input type="file" (change)="onPhotoUpload($event)" />
+    </div>
+    <p *ngIf="!photo">No photo uploaded. A default photo will be used.</p>
+    <img *ngIf="photo" [src]="photo" alt="Uploaded photo" style="width: 150px; height: 150px;" />
+    <!-- Submit button -->
+    <div class="actions">
+      <button mat-button [disabled]="firstFormGroup.invalid" (click)="update()">Next</button>
+    </div>
+  </form>
+  

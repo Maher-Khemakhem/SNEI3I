@@ -85,9 +85,11 @@ table.table td a:hover {
 }
 table.table td a.edit {
     color: #FFC107;
+    cursor: pointer;
 }
 table.table td a.delete {
     color: #F44336;
+    cursor: pointer;
 }
 table.table td i {
     font-size: 19px;
@@ -181,7 +183,7 @@ table.table .avatar {
 }
 .custom-checkbox input[type="checkbox"]:disabled + label:before {
     color: #b8b8b8;
-    cursor: auto;
+    cursor: pointer;
     box-shadow: none;
     background: #ddd;
 }

@@ -419,10 +419,14 @@
 						
                         <td>{{client.firstname}}</td>
                         <td>{{client.lastname}}</td>
-						<td>{{client.email}}</td>
+						            <td>{{client.email}}</td>
                         <td>{{client.num_tel}}</td>
                         <td>{{client.Date_of_birth}}</td>
                         <td><img [src]="client.photo" alt="Client Photo" class="img-fluid" /></td>
+                        <td>
+                          <a  class="edit" data-toggle="modal" (click)="openUpdate(client._id)"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                          <a  class="delete" data-toggle="modal" (click)="delete(client._id)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                      </td>
                     </tr>
                     
                 </tbody>
