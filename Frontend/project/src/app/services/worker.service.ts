@@ -112,6 +112,22 @@ createReservation(id_worker: any, id_client: any, date: any, price: any): Observ
     })
   );
 }
+updateWorker(worker_id: any, body: any) {
+  console.log('Worker ID:', worker_id); // Log worker_id
+  console.log('Request Body:', body); // Log request payload
+
+  
+  return this.http.put(`http://localhost:3000/worker/update/${worker_id}`, body, { headers: this.httpHeaders }).pipe(
+    catchError((error) => {
+      console.error('Detailed error:', error); // Log full error details
+      alert(`Failed to update the worker: ${error.message}`);
+      return throwError(() => new Error('Failed to update the worker. Please try again.'));
+    })
+  );
+}
+
+
+
 
 
 }

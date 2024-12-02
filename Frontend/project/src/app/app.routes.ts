@@ -13,8 +13,7 @@ import { ReservationComponent } from './views/worker/reservation/reservation.com
 import { WorkerProfileComponent } from './views/client/worker-profile/worker-profile.component';
 import { FiltreComponent } from './views/client/filtre/filtre.component';
 import { HeaderComponent } from './views/client/header/header.component';
-import { WorkerWorksPhotoModule } from './views/client/worker-works-photo/worker-works-photo.module';
-import { WorkerWorksPhotoComponent } from './views/client/worker-works-photo/worker-works-photo.component';
+
 import { Component } from '@angular/core';
 import { LoginAdminComponent } from './views/admin/login-admin/login-admin.component';
 import { DashboardAdminComponent } from './views/admin/dashboard-admin/dashboard-admin.component';
@@ -23,6 +22,7 @@ import { GererAdminComponent } from './views/admin/gerer-admin/gerer-admin.compo
 import { GererClientComponent } from './views/admin/gerer-client/gerer-client.component';
 import { GererWorkerComponent } from './views/admin/gerer-worker/gerer-worker.component';
 import { adminauthenticationGuard } from './services/adminauthentication.guard';
+import { ClientProfileComponent } from './views/client/client-profile/client-profile.component';
 
 
 export const routes: Routes = [
@@ -32,7 +32,7 @@ export const routes: Routes = [
     children:[
       {path:'',component:HeaderComponent},
       {path:'workerprofile',component:WorkerProfileComponent},
-      {path:'workerphoto',component:WorkerWorksPhotoComponent},
+      
       {path:'filter',component:FiltreComponent}
     ]
   },
@@ -49,6 +49,10 @@ export const routes: Routes = [
     path: 'loginclient',
     component: LogInClientComponent,
     canActivate: [authGuard], // Protect the route
+  },
+  {path:"profile",
+    component:ClientProfileComponent,
+
   },
   {
     path: 'loginworker',
@@ -70,7 +74,15 @@ export const routes: Routes = [
         path: 'reservation',
         component: ReservationComponent, // Child route for /worker/dashboard
       },
+      {
+        path: 'profil',
+        component: ProfilComponent, // Child route for /worker/dashboard
+      },{
+        path: 'editprofil',
+        component: EditProfilComponent, // Child route for /worker/dashboard
+      }
     ],
+
   },
   {
     path:'loginadmin',component:LoginAdminComponent,
