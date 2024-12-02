@@ -1,7 +1,7 @@
 const Worker = require("../models/worker.model");
 const Offre = require("../models/offre.model");
 const mongoose = require("mongoose"); // Add this line at the top
-
+const User = require("../models/user.model")
 const Reservation = require("../models/reservation.model");
 
 // Create a new worker
@@ -9,6 +9,14 @@ const createWorker = async (req, res) => {
   try {
     const newWorker = new Worker(req.body);
     const savedWorker = await newWorker.save();
+    const a = {
+      "email" : req.body.email,
+      "password":req.body.password,
+      "role":"worker",
+      "id_role":admin._id,
+  }
+  const user = new User(a);
+  await user.save();
     res.status(201).json(savedWorker);
   } catch (error) {
     res
@@ -68,11 +76,15 @@ const updateWorker = async (req, res) => {
 const deleteWorker = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedWorker = await Worker.findByIdAndDelete(id);
-    if (!deletedWorker) {
+    const deletedworker = await Worker.findByIdAndDelete(id);
+    if (!deletedworker) {
       return res.status(404).json({ message: "Worker not found" });
     }
-    res.status(200).json({ message: "Worker deleted successfully" });
+    const user = await User.findOneAndDelete({ id_role: id});
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Associated user not found' });
+    }
+    res.status(200).json({ message: "Worker and user deleted successfully" });
   } catch (error) {
     res
       .status(500)

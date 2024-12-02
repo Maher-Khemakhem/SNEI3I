@@ -17,7 +17,7 @@ const { requireAuth } = require("../middleware/auth.middleware");
 router.post("/", createReservation);
 
 // Get all reservations
-router.get("/", requireAuth, getAllReservations);
+router.get("/", getAllReservations);
 
 // Get a single reservation by ID
 router.get("/:id", getReservationById);

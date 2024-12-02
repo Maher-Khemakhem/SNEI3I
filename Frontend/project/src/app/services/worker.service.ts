@@ -125,6 +125,16 @@ updateWorker(worker_id: any, body: any) {
     })
   );
 }
+deleteWorker(worker_id: any) {
+  
+  return this.http.delete(`http://localhost:3000/worker/delete/${worker_id}`, ).pipe(
+    catchError((error) => {
+      console.error('Detailed error:', error); // Log full error details
+      //alert(`Failed to delete the worker: ${error.message}`);
+      return throwError(() => new Error('Failed to delete the worker. Please try again.'));
+    })
+  );
+}
 
 
 

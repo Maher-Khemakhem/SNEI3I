@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const bcrypt = require('bcrypt');
 const WorkerSchema = new Schema({
   firstname: {
     type: String,
@@ -77,6 +77,10 @@ const WorkerSchema = new Schema({
 }, {
   timestamps: true
 });
-
+WorkerSchema.pre('save', async function (next) {
+  const salt = await bcrypt.genSalt(10); // Use a strength of 10
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 const Worker = mongoose.model("Worker", WorkerSchema);
 module.exports = Worker;

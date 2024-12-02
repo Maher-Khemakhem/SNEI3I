@@ -1,11 +1,19 @@
 const Client = require('../models/client.model');
 const Reservation = require('../models/reservation.model');
-
+const User = require('../models/user.model');
 // CREATE a new client
 const createClient = async (req, res) => {
     try {
         const newClient = new Client(req.body);
         const savedClient = await newClient.save();
+        const a = {
+            "email" : req.body.email,
+            "password":req.body.password,
+            "role":"worker",
+            "id_role":admin._id,
+        }
+        const user = new User(a);
+        await user.save();
         res.status(201).json(savedClient);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -49,7 +57,11 @@ const deleteClient = async (req, res) => {
     try {
         const deletedClient = await Client.findByIdAndDelete(req.params.id);
         if (!deletedClient) return res.status(404).json({ message: 'Client not found' });
-        res.status(200).json({ message: 'Client deleted successfully' });
+        const user = await User.findOneAndDelete({ id_role: deletedClient._id});
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Associated user not found' });
+        }
+        res.status(200).json({ message: 'Client and user deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const bcrypt = require('bcrypt');
 const ClientSchema = new Schema({
   firstname:{
     type:String,
@@ -37,6 +37,10 @@ const ClientSchema = new Schema({
   timestamps:true,
 })
 
-
+ClientSchema.pre('save', async function (next) {
+  const salt = await bcrypt.genSalt(10); // Use a strength of 10
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 const Client = mongoose.model("Client", ClientSchema);
 module.exports = Client;

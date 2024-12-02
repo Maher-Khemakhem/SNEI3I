@@ -52,8 +52,17 @@ export class GererAdminComponent implements OnInit{
         }
     })
   }
-  delete(id:any){
-    this.adminservice.deleteAdmin(id);
+  deletee(id: any): void {
+    console.log("admin");
+    this.adminservice.deleteAdmin(id).subscribe({
+      next: (response) => {
+        this.getAdmins();
+        console.log('Admin deleted successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error deleting admin:', error);
+      }
+    });
   }
   logout(){
     localStorage.removeItem("admin_id");

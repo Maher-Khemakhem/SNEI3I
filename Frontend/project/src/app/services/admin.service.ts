@@ -27,9 +27,14 @@ export class AdminService {
       })
     );
   }
-  deleteAdmin(id:any): Observable<any> {
-    const API = `${this.REST_API}/${id}`;
-    return this.http.delete<any>(API);
+  deleteAdmin(id: any): Observable<any> {
+    const API = `${this.REST_API}/${id}`; // assuming the API follows this pattern
+    return this.http.delete<any>(API).pipe(
+      catchError((error) => {
+        console.error('Error deleting admin:', error);
+        return throwError(error); // Ensure the error is thrown so it can be handled upstream
+      })
+    );
   }
   getAdminById(id:any): Observable<any> {
     const API = `${this.REST_API}/${id}`;
