@@ -7,11 +7,18 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // optional i
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import this module
 import { BrowserModule } from '@angular/platform-browser';
-
+import {
+  CalendarEvent,
+  CalendarEventTimesChangedEvent,
+  CalendarWeekViewBeforeRenderEvent,
+  CalendarDayViewBeforeRenderEvent,
+  CalendarModule,
+  DateAdapter,
+} from 'angular-calendar';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 @NgModule({
   imports: [
     
@@ -26,7 +33,12 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     BrowserModule,
     MatOptionModule,
     MatSelectModule,
-    CarouselModule
+    CarouselModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    CalendarModule
   ],
   declarations: [],
   providers: [

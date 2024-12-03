@@ -26,6 +26,7 @@ import { ClientProfileComponent } from './views/client/client-profile/client-pro
 import { ProfilComponent } from './views/worker/profil/profil.component';
 import { EditProfilComponent } from './views/worker/edit-profil/edit-profil.component';
 import { clientauthenticationGuard } from './services/clientauthentication.guard';
+import { ReservationClientComponent } from './views/client/reservation-client/reservation-client.component';
 
 
 export const routes: Routes = [
@@ -108,6 +109,9 @@ export const routes: Routes = [
       {path:'gerer-worker',component:GererWorkerComponent},
     ]
     
+  },
+  {
+    path:'reserv',component:ReservationClientComponent
   }
   
 ];
