@@ -8,12 +8,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 @NgModule({
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
+    MatCarouselModule,
     HeaderRoutingModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -22,4 +24,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule
   ]
 })
-export class HeaderModule { }
+export class HeaderModule {
+
+ }

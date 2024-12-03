@@ -13,11 +13,14 @@ import { SearchService } from '.././../../services/search.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     MatIconModule,
+    MatCardModule,
+    CarouselModule,
     MatCardModule,
     MatButtonModule,
     MatStepperModule,
@@ -100,4 +103,31 @@ export class HeaderComponent implements OnInit {
       specialty: this.selectedSpecialty,
     });
   }
+  services = [
+    { icon: 'fas fa-code', title: 'Web Development', description: 'Build responsive websites.' },
+    { icon: 'fas fa-chart-line', title: 'SEO Optimization', description: 'Optimize your online presence.' },
+    { icon: 'fas fa-mobile-alt', title: 'Mobile Apps', description: 'Create mobile-first solutions.' },
+  ];
+
+  carouselOptions = {
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    navText: ['<', '>'],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      600: {
+        items: 2,
+      },
+      1000: {
+        items: 3,
+      },
+    },
+  };
 }
