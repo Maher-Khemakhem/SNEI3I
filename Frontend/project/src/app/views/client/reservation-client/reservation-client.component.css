@@ -70,4 +70,40 @@ mwl-calendar-day-view {
 button {
   margin-top: 10px;
 }
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.left-column, .right-column {
+  flex: 1; /* Adjusts column width equally */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar {
+  margin-bottom: 20px;
+}
+
+.event-details {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+button {
+  margin-top: 10px;
+}
+
 

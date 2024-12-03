@@ -1,17 +1,25 @@
 <!-- Container for two-column layout -->
-<div class="container">
+<div class="row">
+  <div class="column left-column">
   <!-- Left column for worker and date selection -->
-  <div class="left-column">
-    
-    <div class="date-selection">
-      <h4>Select Date</h4>
-      <mat-datepicker #picker></mat-datepicker>
-      <button mat-button >Select Date</button>
-    </div>
+  <h3>Reserve</h3>
+
+  <div class="date-selection">
+    <h4>Select Date</h4>
+    <mat-datepicker #picker (dateChange)="onDateChange($event)"></mat-datepicker>
+    <input matInput [matDatepicker]="picker" [value]="selectedDate | date: 'fullDate'" readonly />
+  </div>
+
+  <div class="description-section">
+    <h4>Description</h4>
+    <textarea matInput  placeholder="Add details for the reservation"></textarea>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="reserveNow()">Reserve</button>
   </div>
 
   <!-- Right column for calendar and event details -->
-  <div class="right-column">
+  <div class="column right-column">
     <div class="calendar">
       <mat-calendar [selected]="viewDate" (selectedChange)="onDateChange($event)"></mat-calendar>
     </div>

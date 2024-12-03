@@ -9,7 +9,7 @@ import {
   CalendarView,
   DateAdapter,
 } from 'angular-calendar';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,7 @@ import { Subject } from 'rxjs';
 import { startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 interface Event {
   title: string;
   start: Date;
@@ -33,6 +34,7 @@ interface Event {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    FormsModule,
     MatListModule,
     CommonModule,
     NgbModalModule,
@@ -79,12 +81,10 @@ export class ReservationClientComponent {
     
     
   }
-  onDateChange(date: Date | null): void {
-    if (date) {
-      this.viewDate = date;
-      this.selectedDate = date;
-    }
+  onDateChange(event:any): void {
+    this.selectedDate = event.value;
   }
+  
   
 
   // Function to get events for the selected date
