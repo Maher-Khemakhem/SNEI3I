@@ -71,6 +71,51 @@ const updateWorker = async (req, res) => {
       .json({ message: `Error updating worker: ${error.message}` });
   }
 };
+/////////////// photo   ////////////////
+const uploadWorkPhotos = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const files = req.files; // Assuming you're using multer or similar middleware
+
+    // Process and save uploaded files
+    const uploadedPhotoPaths = [];
+
+    if (files && files.work_photos) {
+      for (let file of files.work_photos) {
+        // Generate a unique filename
+        const filename = `worker_${id}_${Date.now()}_${file.originalname}`;
+        const filepath = path.join("uploads", filename);
+
+        // Save file
+        await fs.writeFile(filepath, file.buffer);
+
+        // Store the path or URL in the database
+        uploadedPhotoPaths.push(filepath);
+      }
+    }
+
+    // Find and update the worker
+    const updatedWorker = await Worker.findByIdAndUpdate(
+      id,
+      {
+        $push: { work_photos: { $each: uploadedPhotoPaths } },
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedWorker) {
+      return res.status(404).json({ message: "Worker not found" });
+    }
+
+    res.status(200).json(updatedWorker);
+  } catch (error) {
+    res.status(500).json({
+      message: `Error uploading work photos: ${error.message}`,
+    });
+  }
+};
 
 // Delete a worker by ID
 const deleteWorker = async (req, res) => {
@@ -264,4 +309,5 @@ module.exports = {
   getOfferWorker,
   acceptOffre,
   rejectOffre,
+  uploadWorkPhotos,
 };

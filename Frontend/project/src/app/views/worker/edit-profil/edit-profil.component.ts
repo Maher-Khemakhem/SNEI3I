@@ -55,7 +55,7 @@ export class EditProfilComponent implements OnInit {
         this.autre_service = res.autre_service || null;
         this.photo = res.photo || null;
         this.work_photos = res.work_photo || [];
-        alert(this.work_photos);
+        //alert(this.work_photos);
       });
     }
   }

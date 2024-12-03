@@ -11,6 +11,7 @@ const {
   getOfferWorker,
   acceptOffre,
   rejectOffre,
+  uploadWorkPhotos,
 } = require("../controllers/worker.controller");
 
 // Routes for search functionality
@@ -22,8 +23,9 @@ router.put("/update/:id", updateWorker);
 router.delete("/delete/:id", deleteWorker);
 router.get("/reservation/:id", getReservationWorker);
 router.get("/offre/:id", getOfferWorker);
-router.get("/:speciality", getWorkersBySpeciality);
+router.get("/speciality/:speciality", getWorkersBySpeciality);
 router.put("/acceptOffre/:Worker_id/:offre_id", acceptOffre);
+router.post("/updatephoto/:Worker_id", uploadWorkPhotos);
 router.put("/rejectOffre/:Worker_id/:offre_id", rejectOffre);
 module.exports = router;
 

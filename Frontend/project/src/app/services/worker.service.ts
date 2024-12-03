@@ -135,6 +135,10 @@ deleteWorker(worker_id: any) {
     })
   );
 }
+// photo  : 
+uploadWorkPhotos(workerId: string, formData: FormData) {
+  return this.http.post(`http://localhost:3000/updatephoto/${workerId}`, formData);
+}
 
 
 
