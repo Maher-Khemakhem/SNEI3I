@@ -5,3 +5,69 @@ mwl-calendar-day-view {
   width: 100%;     /* Ensure they take up space */
   height: 100%;    /* Ensure they take up space */
 }
+/* Style for the calendar container */
+.mat-calendar {
+  width: 80%; /* Adjust width to make it smaller */
+  max-width: 600px; /* Set a maximum width */
+  margin: 0 auto; /* Center the calendar */
+}
+
+/* Style for the calendar header */
+.mat-calendar-header {
+  font-size: 1rem; /* Adjust the header font size */
+}
+
+/* Style for calendar days */
+.mat-calendar-body-cell {
+  font-size: 0.9rem; /* Adjust the size of day cells */
+}
+
+/* Style for event elements within the calendar */
+.mat-calendar .mat-calendar-body-cell-event {
+  font-size: 0.8rem; /* Adjust the size of event text */
+}
+.selection-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.worker-selection, .date-selection {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.calendar-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 20px;
+}
+
+.calendar {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.event-details {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.mat-calendar {
+  max-width: 100%;
+  margin: auto;
+}
+
+.mat-list-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+button {
+  margin-top: 10px;
+}
+

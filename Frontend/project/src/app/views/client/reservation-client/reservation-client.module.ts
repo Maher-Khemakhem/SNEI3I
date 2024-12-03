@@ -7,13 +7,24 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReservationClientComponent } from './reservation-client.component';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { CalendarView } from 'angular-calendar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     FormsModule,
     NgbModalModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+
+    MatDatepickerModule,
+    MatNativeDateModule,
     
     CalendarModule.forRoot({ provide: DateAdapter, useClass: MomentDateAdapter }),
   ],

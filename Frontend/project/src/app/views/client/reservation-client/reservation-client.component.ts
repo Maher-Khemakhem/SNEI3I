@@ -5,205 +5,114 @@ import {
   TemplateRef,
 } from '@angular/core';
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
-} from 'date-fns';
-import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarDateFormatter,
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
   CalendarModule,
-  CalendarUtils,
   CalendarView,
   DateAdapter,
 } from 'angular-calendar';
-import { EventColor } from 'calendar-utils';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-const colors: Record<string, EventColor> = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
-
+import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+interface Event {
+  title: string;
+  start: Date;
+  end: Date;
+  description: string;
+}
 @Component({
   selector: 'app-reservation-client',
   standalone: true,
   templateUrl: './reservation-client.component.html',
   styleUrls: ['./reservation-client.component.css'],
-  imports: [CalendarModule,MatDatepickerModule,MatNativeDateModule,CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      h3 {
-        margin: 0 0 10px;
-      }
-
-      pre {
-        background-color: #f5f5f5;
-        padding: 15px;
-      }
-
-      .btn-group {
-        margin-top: 10px;
-      }
-
-      .btn {
-        margin: 0 5px;
-      }
-
-      .active {
-        background-color: #007bff;
-        color: white;
-      }
-    `,
+  imports: [
+    CalendarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatListModule,
+    CommonModule,
+    NgbModalModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: DateAdapter,
-      useClass: MomentDateAdapter, // Provide a default DateAdapter implementation
+      useClass: NativeDateAdapter,
     },
     {
       provide: MAT_DATE_LOCALE,
-      useValue: 'en-US', // Set the default locale
-    },
-    {
-      provide: CalendarDateFormatter,
-      useClass: CalendarDateFormatter, // Use the default implementation
-    },
-    {
-      provide: CalendarUtils,
-      useClass: CalendarUtils, // Provide the default implementation
+      useValue: 'en-US',
     },
   ],
 })
+
 export class ReservationClientComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
-
-  view: CalendarView = CalendarView.Month;
-
-  CalendarView = CalendarView;
-
-  viewDate: Date = new Date();
   
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  } | undefined;
-
-  actions: CalendarEventAction[] = [
+  view: CalendarView = CalendarView.Month;
+  CalendarView = CalendarView;
+  viewDate: Date = new Date();
+  selectedDate: Date | null = null;
+  activeDayIsOpen = true;
+  modalData: { action: string; event: any } | undefined;
+  refresh!: Subject<any>;
+  events: Event[] = [
     {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
+      title: 'Meeting with client',
+      start: new Date(2024, 11, 3, 10, 0),
+      end: new Date(2024, 11, 3, 11, 0),
+      description: 'Discuss project requirements with the client.'
     },
     {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
+      title: 'Team Standup',
+      start: new Date(2024, 11, 3, 13, 0),
+      end: new Date(2024, 11, 3, 13, 30),
+      description: 'Daily team sync-up meeting.'
+    }
   ];
 
-  refresh = new Subject<void>();
-
-  events: CalendarEvent[] = [];
-
-  activeDayIsOpen: boolean = true;
-
   constructor(private modal: NgbModal) {
-    console.log(this.viewDate);
+    
+    
   }
-  ngOnInit() {
-    this.view = CalendarView.Month;
-  }
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
+  onDateChange(date: Date | null): void {
+    if (date) {
       this.viewDate = date;
+      this.selectedDate = date;
     }
   }
   
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
+
+  // Function to get events for the selected date
+  getEventsForDay(date: Date): Event[] {
+    return this.events.filter(event => {
+      return (
+        event.start.toDateString() === date.toDateString() ||
+        event.end.toDateString() === date.toDateString()
+      );
     });
-    this.handleEvent('Dropped or resized', event);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+  // Placeholder function for reserving an event
+  reserveNow(): void {
+    if (this.selectedDate ) {
+      alert(`Reservation made for on ${this.selectedDate}`);
+      // Logic for making the reservation can be added here
+    } else {
+      alert('Please select a worker and a date before reserving.');
+    }
+  }
+  setView(view: CalendarView): void {
+    this.view = view;
   }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors['red'],
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
+  
+  
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;  // This will update the view based on button clicks.
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
 }
+
+

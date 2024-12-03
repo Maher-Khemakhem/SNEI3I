@@ -38,6 +38,7 @@
     "calendar-utils": "^0.11.0",
     "cdbreact": "^1.5.19",
     "chart.js": "^4.4.6",
+    "date-fn": "^0.0.2",
     "date-fns": "^4.1.0",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",
