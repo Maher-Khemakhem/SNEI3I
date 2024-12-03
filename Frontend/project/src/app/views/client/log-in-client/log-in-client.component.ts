@@ -29,6 +29,7 @@ onSubmit() {
           localStorage.setItem('client_id',response.id_role)
           localStorage.setItem('user_id',response.user );
           localStorage.setItem('token',response.token||"" );
+          localStorage.setItem('role',"client");
           this.router.navigateByUrl('/');
         }else{
           alert("Access only for clients");

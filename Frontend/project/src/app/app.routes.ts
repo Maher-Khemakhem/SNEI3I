@@ -25,6 +25,7 @@ import { adminauthenticationGuard } from './services/adminauthentication.guard';
 import { ClientProfileComponent } from './views/client/client-profile/client-profile.component';
 import { ProfilComponent } from './views/worker/profil/profil.component';
 import { EditProfilComponent } from './views/worker/edit-profil/edit-profil.component';
+import { clientauthenticationGuard } from './services/clientauthentication.guard';
 
 
 export const routes: Routes = [
@@ -34,10 +35,14 @@ export const routes: Routes = [
     children:[
       {path:'',component:HeaderComponent},
       {path:'workerprofile',component:WorkerProfileComponent},
-      
-      {path:'filter',component:FiltreComponent}
-    ]
+      {
+        path:'filter',component:FiltreComponent,
+      },
+
+    ],
+   
   },
+  
   {
     path: 'login',
     component: LoginComponent,
@@ -46,15 +51,16 @@ export const routes: Routes = [
   {
     path: 'signupworker',
     component: SignUpWorkerComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'loginclient',
     component: LogInClientComponent,
     canActivate: [authGuard], // Protect the route
   },
-  {path:"profile",
+  {path:"client-profile",
     component:ClientProfileComponent,
-
+    canActivate: [clientauthenticationGuard],
   },
   {
     path: 'loginworker',

@@ -17,7 +17,7 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['no', 'client', 'worker', 'date', 'status', 'price'];
   private _liveAnnouncer = inject(LiveAnnouncer);
   dataSource = new MatTableDataSource<Reservation>([]);
-
+  id = localStorage.getItem('client_id');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -31,9 +31,8 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const id = '674da09fd806f0b21be21e0a'; // Replace with dynamic ID if needed
-    this.fetchClientData(id);
-    this.fetchReservations(id); // Fetch reservations on initialization
+    this.fetchClientData(this.id||'');
+    this.fetchReservations(this.id||''); // Fetch reservations on initialization
   }
 
   ngAfterViewInit(): void {

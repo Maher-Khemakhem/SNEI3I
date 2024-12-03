@@ -23,7 +23,7 @@
     </div>
 
     <!-- Conditional Rendering -->
-    <ng-container *ngIf="isLoggedIn; else loggedInTemplate">
+    <ng-container *ngIf="!isLoggedIn; else loggedInTemplate">
       <a
         class="mx-3 text-decoration-none text-primary"
         style="cursor: pointer"
@@ -34,15 +34,15 @@
 
     <!-- Profile Section -->
     <ng-template #loggedInTemplate>
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" *ngIf="userType=='client'">
         <button mat-button [matMenuTriggerFor]="menu">
           <img
-            src="../../../../assets/user-avatar.png"
+            src={{client.photo}}
             class="rounded-circle me-2"
             width="40"
             alt="Profile"
           />
-          {{ userName }} ({{ userType }})
+          {{ client.firstname }} ({{ "client" }})
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="goToProfile()">

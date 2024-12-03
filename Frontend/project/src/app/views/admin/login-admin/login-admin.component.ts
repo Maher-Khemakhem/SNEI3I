@@ -30,6 +30,7 @@ export class LoginAdminComponent implements OnInit{
             localStorage.setItem('admin_id',response.id_role);
             localStorage.setItem('user_id',response.user );
             localStorage.setItem('token',response.token||"" );
+            localStorage.setItem('role',"admin" );
             this.router.navigateByUrl('/');
           }else{
             alert("Access only for admins");

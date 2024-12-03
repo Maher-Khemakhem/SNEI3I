@@ -93,7 +93,7 @@ export class HeaderComponent implements OnInit {
       speciality: this.selectedSpecialty,
     }
     localStorage.setItem("obj", JSON.stringify(this.obj));
-    this.router.navigateByUrl('/filter');
+    this.router.navigate(['/filter']);
     
     console.log('Searching for:', {
       location: this.selectedLocation,
