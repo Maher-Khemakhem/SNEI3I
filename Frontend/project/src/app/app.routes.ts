@@ -39,6 +39,9 @@ export const routes: Routes = [
       {
         path:'filter',component:FiltreComponent,
       },
+      {
+        path:'reserv',component:ReservationClientComponent
+      }
 
     ],
    
@@ -110,8 +113,6 @@ export const routes: Routes = [
     ]
     
   },
-  {
-    path:'reserv',component:ReservationClientComponent
-  }
+  
   
 ];

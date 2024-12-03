@@ -17,6 +17,7 @@ import {
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
+  CalendarDateFormatter,
   CalendarEvent,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
@@ -24,7 +25,8 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 const colors: Record<string, EventColor> = {
   red: {
     primary: '#ad2121',
@@ -39,12 +41,13 @@ const colors: Record<string, EventColor> = {
     secondary: '#FDF1BA',
   },
 };
+
 @Component({
   selector: 'app-reservation-client',
   standalone: true,
   templateUrl: './reservation-client.component.html',
-  styleUrl: './reservation-client.component.css',
-  imports: [CalendarModule],
+  styleUrls: ['./reservation-client.component.css'],
+  imports: [CalendarModule,MatDatepickerModule,MatNativeDateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
@@ -56,13 +59,32 @@ const colors: Record<string, EventColor> = {
         background-color: #f5f5f5;
         padding: 15px;
       }
+
+      .btn-group {
+        margin-top: 10px;
+      }
+
+      .btn {
+        margin: 0 5px;
+      }
+
+      .active {
+        background-color: #007bff;
+        color: white;
+      }
     `,
+  ],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CalendarDateFormatter, // Optional: use your custom formatter if you have one
+    },
   ],
 })
 export class ReservationClientComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
 
-  view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Month; // Default view is Month
 
   CalendarView = CalendarView;
 
@@ -138,6 +160,29 @@ export class ReservationClientComponent {
 
   constructor(private modal: NgbModal) {}
 
+  // Method to handle previous view (month, week, or day)
+  previousView(): void {
+    this.viewDate = subDays(this.viewDate, 1);
+  }
+
+  // Method to handle next view (month, week, or day)
+  nextView(): void {
+    this.viewDate = addDays(this.viewDate, 1);
+  }
+
+  // Method to handle "Today" button
+  today(): void {
+    this.viewDate = new Date(); // Set to current date
+  }
+
+  // Method to change the view between Month, Week, and Day
+  setView(view: CalendarView): void {
+    this.view = view;
+    if (view === CalendarView.Month) {
+      this.viewDate = new Date(); // Reset to current date for Month view
+    }
+  }
+
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -194,10 +239,6 @@ export class ReservationClientComponent {
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
   }
 
   closeOpenMonthViewDay() {

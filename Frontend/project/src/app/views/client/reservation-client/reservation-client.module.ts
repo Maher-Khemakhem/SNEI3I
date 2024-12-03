@@ -20,5 +20,6 @@ import { ReservationClientComponent } from './reservation-client.component';
     }),
   ],
   exports: [],
+ 
 })
 export class ReservationClientModule {}

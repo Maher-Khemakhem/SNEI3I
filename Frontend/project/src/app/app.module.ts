@@ -15,10 +15,11 @@ import {
   CalendarModule,
   DateAdapter,
 } from 'angular-calendar';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   imports: [
     
@@ -38,11 +39,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
-    CalendarModule
+    CalendarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [],
-  providers: [
-    
-  ],
+  
 })
 export class AppModule { }
