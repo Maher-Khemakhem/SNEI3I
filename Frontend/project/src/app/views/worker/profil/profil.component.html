@@ -343,15 +343,15 @@
       <div class="row">
         <div class="left col-lg-4">
           <div class="photo-left">
-            <img class="photo" src="" />
+            <img class="photo" src="{{ photo }}" />
             <div class="active"></div>
           </div>
-          <h4 class="name">first name</h4>
-          <p class="info">specialty</p>
-          <p class="info">email</p>
+          <h4 class="name">{{ firstname }} {{ lastname }}</h4>
+          <p class="info">{{ speciality }}</p>
+          <p class="info">{{ email }}</p>
           <div class="stats row">
             <div class="stat col-xs-4">
-              <p class="number-stat">99</p>
+              <p class="number-stat">{{ number_of_messages }}</p>
               <p class="desc-stat">number of messages</p>
             </div>
             <div class="stat col-xs-4">
@@ -359,17 +359,11 @@
               <p class="desc-stat">Rate</p>
             </div>
             <div class="stat col-xs-4">
-              <p class="number-stat">150 $</p>
+              <p class="number-stat">{{ price }} $</p>
               <p class="desc-stat">Price</p>
             </div>
           </div>
-          <p class="desc">description of the worker</p>
-          <div class="social">
-            <i class="fa fa-facebook-square" aria-hidden="true"></i>
-            <i class="fa fa-twitter-square" aria-hidden="true"></i>
-            <i class="fa fa-pinterest-square" aria-hidden="true"></i>
-            <i class="fa fa-tumblr-square" aria-hidden="true"></i>
-          </div>
+          <p class="desc">{{ description }}</p>
         </div>
         <div class="right col-lg-8">
           <mat-tab-group>
@@ -382,8 +376,10 @@
                       class="profile-avatar"
                       style="background-image: url('')"
                     ></div>
-                    <mat-card-title>worker name</mat-card-title>
-                    <mat-card-subtitle> worker job title</mat-card-subtitle>
+                    <mat-card-title>
+                      {{ firstname }} {{ lastname }}</mat-card-title
+                    >
+                    <mat-card-subtitle> {{ speciality }} </mat-card-subtitle>
                   </mat-card-header>
                   <mat-card-content>
                     <mat-list>
@@ -393,8 +389,8 @@
                       <mat-icon matListIcon>email</mat-icon>
                       <div class="form-container">
                         <mat-form-field appearance="fill" class="input-field">
-                          <mat-label>Email</mat-label>
-                          <input matInput [value]="'worker.email'" disabled />
+                          <mat-label> email : </mat-label>
+                          <input matInput [value]="email" disabled />
                         </mat-form-field>
                       </div>
 
@@ -405,26 +401,36 @@
                       <mat-icon matListIcon>phone</mat-icon>
                       <div class="form-container">
                         <mat-form-field appearance="fill" class="input-field">
-                          <mat-label>Phone</mat-label>
-                          <input matInput [value]="'worker.num_tel'" disabled />
+                          <mat-label>Phone : </mat-label>
+                          <input matInput [value]="num_tel" disabled />
                         </mat-form-field>
                       </div>
 
                       <mat-divider></mat-divider>
 
                       <!-- Certifications -->
-                      <div *ngFor="let cert of []" class="list-item">
-                        <mat-icon matListIcon>school</mat-icon>
-                        <div class="form-container">
-                          <mat-form-field appearance="fill" class="input-field">
-                            <mat-label>Certification Title</mat-label>
-                            <input matInput [value]="'cert.title'" disabled />
-                          </mat-form-field>
-                          <mat-form-field appearance="fill" class="input-field">
-                            <mat-label>Certification URL</mat-label>
-                            <input matInput [value]="'cert.url'" disabled />
-                          </mat-form-field>
+                      <div>
+                        @for (cert of certification; track $index) {
+                        <div class="list-item">
+                          <mat-icon matListIcon>school</mat-icon>
+                          <div class="form-container">
+                            <mat-form-field
+                              appearance="fill"
+                              class="input-field"
+                            >
+                              <mat-label>Certification Title</mat-label>
+                              <input matInput [value]="cert" disabled />
+                            </mat-form-field>
+                            <mat-form-field
+                              appearance="fill"
+                              class="input-field"
+                            >
+                              <mat-label>Certification URL</mat-label>
+                              <input matInput [value]="cert" disabled />
+                            </mat-form-field>
+                          </div>
                         </div>
+                        }
                       </div>
                     </mat-list>
                   </mat-card-content>
@@ -436,20 +442,20 @@
                 <div>
                   <p>Preview Photos:</p>
                   <owl-carousel-o [options]="carouselOptions">
-                    <ng-container *ngFor="let photo of visiblePhotos">
-                      <ng-template carouselSlide>
-                        <img
-                          [src]="photo"
-                          alt="Uploaded Photo"
-                          style="width: 100%; height: auto"
-                        />
-                      </ng-template>
-                    </ng-container>
+                    @for (photo of work_photos; track $index) {
+                    <ng-template carouselSlide>
+                      <img
+                        [src]="photo"
+                        alt="Uploaded Photo"
+                        style="width: 100%; height: auto"
+                      />
+                    </ng-template>
+                    }
                   </owl-carousel-o>
                 </div>
               </div>
             </mat-tab>
-            <mat-tab label="Location"> Content 3 </mat-tab>
+            <mat-tab label="Location"> {{ location }} </mat-tab>
           </mat-tab-group>
         </div>
       </div>

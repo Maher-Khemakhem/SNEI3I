@@ -367,7 +367,17 @@
                     <tr class="align-middle">
                       <td>{{ item.Client_id }}</td>
                       <td>{{ item.date | date : "dd-MMM-yyyy" }}</td>
-                      <td style="min-width: 200px">{{ item.message }}</td>
+                      <td
+                        style="
+                          min-width: 200px;
+                          max-width: 200px;
+                          overflow-x: auto;
+                          white-space: nowrap;
+                        "
+                      >
+                        {{ item.message }}
+                      </td>
+
                       <td>{{ item.Client_location }}</td>
                       <td>{{ item.price }} $</td>
                       <td>

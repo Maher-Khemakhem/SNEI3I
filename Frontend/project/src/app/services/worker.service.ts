@@ -26,8 +26,8 @@ export class WorkerService {
    getReservation(worker_id: string): Observable<API_offres> {
     return this.http.get<API_offres>(`${this.REST_API}/reservation/${worker_id}`).pipe(
       catchError((error) => {
-        console.error('Error occurred while fetching offers:', error);
-        return throwError(() => new Error('Failed to fetch offers. Please try again.'));
+        console.error('Error occurred while fetching reservation:', error);
+        return throwError(() => new Error('Failed to fetch reservation. Please try again.'));
       })
     );
   }

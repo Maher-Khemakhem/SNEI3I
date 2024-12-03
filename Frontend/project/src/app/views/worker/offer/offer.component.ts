@@ -55,7 +55,6 @@ acceptOffre(id_offre: string, client_id: string, date: any, price: any) {
 
 createReservation(client_id: any, date: any, price: any) {
   console.log("Creating reservation with details:", { client_id, date, price });
-  alert(client_id);
   this.offreservice.createReservation(this.worker_id, client_id, date, price).subscribe({
     next: (response) => {
       console.log('Reservation created successfully:', response);

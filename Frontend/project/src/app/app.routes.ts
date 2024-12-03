@@ -70,18 +70,18 @@ export const routes: Routes = [
         component: DashboardComponent, // Child route for /worker/dashboard
       },{
         path: 'offre',
-        component: OfferComponent, // Child route for /worker/dashboard
+        component: OfferComponent, // Child route for /worker/offre
       },
       {
         path: 'reservation',
-        component: ReservationComponent, // Child route for /worker/dashboard
+        component: ReservationComponent, // Child route for /worker/reservation
       },
       {
         path: 'profil',
-        component: ProfilComponent, // Child route for /worker/dashboard
+        component: ProfilComponent, // Child route for /worker/profil
       },{
         path: 'editprofil',
-        component: EditProfilComponent, // Child route for /worker/dashboard
+        component: EditProfilComponent, // Child route for /worker/editprofil
       }
     ],
 
