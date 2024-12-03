@@ -5,3 +5,7 @@ button{
     font-family:poppins;
     font-size: medium;
 }
+.navbar .rounded-circle {
+    border: 2px solid white;
+  }
+  

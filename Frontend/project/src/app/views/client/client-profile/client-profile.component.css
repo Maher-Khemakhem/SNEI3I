@@ -31,6 +31,9 @@ table {
   .mat-elevation-z8 {
     box-shadow: none !important; /* Remove the shadow */
   }
+  h6{
+    font-size: medium;
+  }
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;

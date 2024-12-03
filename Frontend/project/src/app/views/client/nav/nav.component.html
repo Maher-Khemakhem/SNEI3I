@@ -1,7 +1,4 @@
-<nav
-  class="navbar navbar-expand-lg navbar-light bg-body-tertiary"
-  style="background-color: #0283df"
->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary" style="background-color: #0283df">
   <div class="container-fluid">
     <img src="../../../../assets/logo.png" class="ms-3" width="50" />
     <a class="navbar-brand" href="#">SNEI3I</a>
@@ -24,12 +21,40 @@
         <a class="nav-link disabled">Disabled</a>
       </div>
     </div>
-    <a
-      class="mx-3 text-decoration-none text-primary"
-      style="cursor: pointer"
-      (click)="login()"
-      >Sign in</a
-    >
-    <button type="button" class="btn btn-primary mx-2"  (click)="signin()">Login</button>
+
+    <!-- Conditional Rendering -->
+    <ng-container *ngIf="isLoggedIn; else loggedInTemplate">
+      <a
+        class="mx-3 text-decoration-none text-primary"
+        style="cursor: pointer"
+        (click)="login()"
+      >Sign in</a>
+      <button type="button" class="btn btn-primary mx-2" (click)="signin()">Login</button>
+    </ng-container>
+
+    <!-- Profile Section -->
+    <ng-template #loggedInTemplate>
+      <div class="d-flex align-items-center">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <img
+            src="../../../../assets/user-avatar.png"
+            class="rounded-circle me-2"
+            width="40"
+            alt="Profile"
+          />
+          {{ userName }} ({{ userType }})
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="goToProfile()">
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+    </ng-template>
   </div>
 </nav>
