@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';  // Import RouterModule here
 
 @Component({
   selector: 'app-edit-profil',
@@ -16,7 +18,7 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatIconModule,
     CommonModule,FormsModule,
-    MatInputModule,
+    MatInputModule,RouterModule
   ],
   templateUrl: './edit-profil.component.html',
   styleUrls: ['./edit-profil.component.css'],
@@ -203,4 +205,9 @@ export class EditProfilComponent implements OnInit {
   trackByIndex(index: number): number {
     return index;
   }
+   gotoprofil(): void {
+    
+    this.router.navigate(['/worker/profil']);
+  }
+ 
 }

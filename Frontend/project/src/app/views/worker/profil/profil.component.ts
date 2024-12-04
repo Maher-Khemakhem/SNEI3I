@@ -19,10 +19,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router'; 
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, MatTooltipModule, CarouselModule, MatButtonModule, MatCardModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatIconModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, MatListModule],
+  imports: [CommonModule, MatTabsModule, MatTooltipModule, CarouselModule, MatButtonModule, MatCardModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatIconModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, MatListModule ,RouterModule],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
 })
@@ -75,6 +77,10 @@ export class ProfilComponent implements OnInit {
     localStorage.removeItem("token");
     this.loginService.logout();
     this.router.navigate(['/login']);
+  }
+   goToEditProfil(): void {
+    
+    this.router.navigate(['worker/editprofil']);
   }
 
   ngOnInit(): void {

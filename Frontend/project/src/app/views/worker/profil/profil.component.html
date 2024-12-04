@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<router-outlet></router-outlet>
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -442,23 +444,27 @@
                 <div>
                   <p>Preview Photos:</p>
                   <owl-carousel-o [options]="carouselOptions">
-                    @for (photo of work_photos; track $index) {
-                    <ng-template carouselSlide>
+                    <ng-template
+                      carouselSlide
+                      *ngFor="let photo of work_photos"
+                    >
                       <img
                         [src]="photo"
                         alt="Uploaded Photo"
                         style="width: 100%; height: auto"
                       />
                     </ng-template>
-                    }
                   </owl-carousel-o>
                 </div>
               </div>
             </mat-tab>
+
             <mat-tab label="Location"> {{ location }} </mat-tab>
           </mat-tab-group>
         </div>
       </div>
+
+      <button (click)="goToEditProfil()">edit Profil</button>
     </main>
 
     <!--   Core JS Files   -->

@@ -1,6 +1,6 @@
 const Reservation = require("../models/reservation.model");
 const mongoose = require("mongoose");
-const Client = require("../models/client.model")
+const Client = require("../models/client.model");
 // Create a new reservation
 const createReservation = async (req, res) => {
   try {
@@ -37,7 +37,7 @@ const getAllReservations = async (req, res) => {
 const getClientReservations = async (req, res) => {
   try {
     const { id } = req.params;
-    const reservations = await Reservation.find({client:id})
+    const reservations = await Reservation.find({ client: id });
 
     if (!reservations) {
       return res.status(404).json({ message: "Reservation not found" });
@@ -51,7 +51,7 @@ const getClientReservations = async (req, res) => {
 const getWorkerReservations = async (req, res) => {
   try {
     const { id } = req.params;
-    const reservations = await Reservation.find({worker:id})
+    const reservations = await Reservation.find({ worker: id });
 
     if (!reservations) {
       return res.status(404).json({ message: "Reservations not found" });
@@ -185,6 +185,7 @@ const getTotalRevenueByWorker = async (req, res) => {
 };
 const getTotalRevenueThisMonth = async (req, res) => {
   try {
+    const { workerId } = req.params; // Extract worker ID from request parameters
     const startOfMonth = new Date();
     startOfMonth.setDate(1); // Set the date to the first day of the current month
     startOfMonth.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
@@ -193,12 +194,13 @@ const getTotalRevenueThisMonth = async (req, res) => {
     endOfMonth.setMonth(startOfMonth.getMonth() + 1); // Set the end of month to the start of the next month
     endOfMonth.setHours(23, 59, 59, 999); // Set time to 23:59:59.999
 
-    // Aggregate the total revenue for the current month
+    // Aggregate the total revenue for the current month for a specific worker
     const totalRevenue = await Reservation.aggregate([
       {
         $match: {
           date: { $gte: startOfMonth, $lt: endOfMonth }, // Filter reservations within the current month
           status: "Confirmed", // Only include confirmed reservations
+          worker: new mongoose.Types.ObjectId(workerId), // Match reservations for the specific worker
         },
       },
       {
@@ -214,6 +216,7 @@ const getTotalRevenueThisMonth = async (req, res) => {
 
     // Respond with the total revenue for this month
     res.status(200).json({
+      workerId,
       totalRevenue: revenue,
     });
   } catch (error) {
@@ -278,5 +281,5 @@ module.exports = {
   getTotalRevenueByWorker,
   getTotalRevenueThisMonth,
   getTotalRevenueTodayForWorker,
-  getWorkerReservations
+  getWorkerReservations,
 };

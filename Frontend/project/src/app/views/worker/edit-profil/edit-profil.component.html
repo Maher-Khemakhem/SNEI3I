@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+  <router-outlet></router-outlet>
+
   <head>
     <meta charset="utf-8" />
     <meta
@@ -510,7 +512,7 @@
                               [src]="photo.preview"
                               class="img-fluid w-100"
                               alt="Work Photo {{ i + 1 }}"
-                              style="max-height: 200px; object-fit: cover"
+                              class="w-100"
                             />
                             <!-- Delete button -->
                             <button
@@ -533,13 +535,6 @@
                           accept="image/*"
                           multiple
                         />
-                        <button
-                          class="btn btn-primary"
-                          (click)="onPhotoUpload($event)"
-                          [disabled]="!selectedFiles.length"
-                        >
-                          Upload Photos
-                        </button>
                       </div>
 
                       <!-- Preview of Selected Files -->
@@ -635,7 +630,13 @@
                   >
                     Submit
                   </button>
-                  <button type="reset" class="btn btn-default">Cancel</button>
+                  <button
+                    type="reset"
+                    class="btn btn-default"
+                    (click)="gotoprofil()"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </form>
