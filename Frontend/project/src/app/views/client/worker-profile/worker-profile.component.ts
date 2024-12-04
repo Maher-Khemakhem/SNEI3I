@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef,Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Required for standalone components
 import { WorkerService } from '../../../services/worker.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +29,7 @@ export class WorkerProfileComponent implements OnInit {
   workPhotos: any[] = [];
   visiblePhotos: any[] = [];
   startIndex = 0;
-  photosToShow = 3;
+  photosToShow = 5;
   carouselOptions = {
     loop: true,
     margin: 10,
@@ -47,7 +47,7 @@ export class WorkerProfileComponent implements OnInit {
     },
   };
 
-  constructor(private workerservice:WorkerService,private router:Router) {}
+  constructor(private cdr: ChangeDetectorRef ,private workerservice:WorkerService,private router:Router) {}
 
   ngOnInit(): void {
     // Get the worker ID from localStorage
@@ -62,6 +62,7 @@ export class WorkerProfileComponent implements OnInit {
           
           this.workPhotos = this.worker.work_photo;
           this.updateVisiblePhotos();
+          this.cdr.detectChanges(); // Manually trigger change detection
          },
         error: (err) => {
           console.error('Error fetching worker data:', err); // Handle errors gracefully
