@@ -74,7 +74,7 @@ export class ReservationClientComponent {
   client_location:any;
   constructor(private modal: NgbModal,private fb: FormBuilder,private offreservice:OffreService,private clientservice:ClientService) {
     this.reservationForm = this.fb.group({
-      date: [this.viewDate, Validators.required], // Date control, required
+       // Date control, required
       description: ['', Validators.required], 
       client_location:['',Validators.required],
       price:['',Validators.required],
@@ -116,7 +116,7 @@ export class ReservationClientComponent {
         Client_id: clientId,
         Worker_id: workerId,
         Client_location: reservationData.client_location,
-        date: reservationData.date,
+        date: this.viewDate,
         price: reservationData.price,
         message: reservationData.description,
       };
