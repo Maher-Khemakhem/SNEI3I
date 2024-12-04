@@ -3,15 +3,17 @@ const Reservation = require('../models/reservation.model');
 // Create a new offer
 const createOffre = async (req, res) => {
   try {
-    const { Client_id, Worker_id, Client_location, date } = req.body;
+    const { Client_id, Worker_id, Client_location, date,message,price } = req.body;
 
     // Create a new offer with default status as 'pending'
     const newOffre = new Offre({
-      Client_id:Client_id,
+      Client_id:Client_id||0,
       Worker_id: Worker_id || 0,
       Client_location: Client_location || 0,
-      date,
-      status: 'pending', // Default status
+      date:date,
+      status: 'pending',
+      price:price,
+      message:message,
     });
 
     const savedOffre = await newOffre.save();

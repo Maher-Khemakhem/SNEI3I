@@ -1,39 +1,61 @@
-<!-- Container for two-column layout -->
 <div class="row">
   <div class="column left-column">
-  <!-- Left column for worker and date selection -->
-  <h3>Reserve</h3>
-
-  <div class="date-selection">
-    <h4>Select Date</h4>
-    <mat-datepicker #picker (dateChange)="onDateChange($event)"></mat-datepicker>
-    <input matInput [matDatepicker]="picker" [value]="selectedDate | date: 'fullDate'" readonly />
-  </div>
-
-  <div class="description-section">
-    <h4>Description</h4>
-    <textarea matInput  placeholder="Add details for the reservation"></textarea>
-  </div>
-
-  <button mat-raised-button color="primary" (click)="reserveNow()">Reserve</button>
-  </div>
-
-  <!-- Right column for calendar and event details -->
-  <div class="column right-column">
     <div class="calendar">
       <mat-calendar [selected]="viewDate" (selectedChange)="onDateChange($event)"></mat-calendar>
     </div>
-
     <div class="event-details">
       <h3>{{ viewDate | date: 'fullDate' }}</h3>
-      <mat-list>
-        <mat-list-item *ngFor="let event of getEventsForDay(viewDate)">
-          <h4>{{ event.title }}</h4>
-          <small>{{ event.start | date: 'shortTime' }} - {{ event.end | date: 'shortTime' }}</small>
-          <p>{{ event.description }}</p>
-        </mat-list-item>
-      </mat-list>
-      <button mat-raised-button color="primary" (click)="reserveNow()">Reserve Now</button>
+      
     </div>
   </div>
+  <div class="column right-column">
+    <h3>Reserve</h3>
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+      <!-- Date Selection -->
+      <div class="date-selection">
+        <label for="date">Select Date</label>
+        <input
+      
+      id="date"
+      formControlName="date"
+      class="form-control"
+      [value]="reservationForm.get('date')?.value | date: 'yyyy-MM-dd'"
+    />
+      </div>
+
+      <!-- Description -->
+      <div class="description-section">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          placeholder="Add details for the reservation"
+          formControlName="description"
+          class="form-control"
+        ></textarea>
+      </div>
+      <div class="description-section">
+        <label for="description">location</label>
+        <input
+          
+          placeholder="Add details for the reservation"
+          formControlName="client_location"
+          class="form-control"
+        />
+      </div>
+      <div class="description-section">
+        <label for="description">Price</label>
+        <input
+          
+          placeholder="Add details for the reservation"
+          formControlName="price"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn" (click)="send()">Reserve</button>
+    </form>
+  </div>
+
+  
 </div>

@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-worker-profile',
   standalone: true,
@@ -46,7 +47,7 @@ export class WorkerProfileComponent implements OnInit {
     },
   };
 
-  constructor(private workerservice:WorkerService) {}
+  constructor(private workerservice:WorkerService,private router:Router) {}
 
   ngOnInit(): void {
     // Get the worker ID from localStorage
@@ -89,5 +90,8 @@ export class WorkerProfileComponent implements OnInit {
       this.startIndex--;
       this.updateVisiblePhotos();
     }
+  }
+  gotoreserver(){
+    this.router.navigate(['/reserv']);
   }
 }

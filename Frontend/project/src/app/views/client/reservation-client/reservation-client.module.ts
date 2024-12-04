@@ -9,12 +9,13 @@ import { ReservationClientComponent } from './reservation-client.component';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { CalendarView } from 'angular-calendar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     NgbModalModule,
     FlatpickrModule.forRoot(),

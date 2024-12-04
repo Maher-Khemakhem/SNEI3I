@@ -11,7 +11,7 @@ export const clientauthenticationGuard: CanActivateFn = (route, state) => {
     try {
       // Decode and validate token
       const decodedToken: any = jwtDecode(token);
-
+      
       // Check if the token is expired
       const isExpired = decodedToken.exp * 1000 < Date.now();
       if (!isExpired) {
