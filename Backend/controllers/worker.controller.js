@@ -116,6 +116,41 @@ const uploadWorkPhotos = async (req, res) => {
     });
   }
 };
+// update worker certification
+const updateWorkerCertification = async (req, res) => {
+  try {
+    const { workerId } = req.params; // Assuming workerId is passed as a URL parameter
+    const { certifications } = req.body; // Certifications should be passed in the request body
+
+    // Validate input
+    if (!certifications || !Array.isArray(certifications)) {
+      return res
+        .status(400)
+        .json({ error: "Certifications must be an array of objects." });
+    }
+
+    // Find worker by ID
+    const worker = await Worker.findById(workerId);
+    if (!worker) {
+      return res.status(404).json({ error: "Worker not found." });
+    }
+
+    // Update the certifications field
+    worker.certification = certifications;
+
+    // Save updated worker
+    await worker.save();
+
+    return res
+      .status(200)
+      .json({ message: "Certifications updated successfully.", worker });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while updating certifications." });
+  }
+};
 
 // Delete a worker by ID
 const deleteWorker = async (req, res) => {
@@ -310,4 +345,5 @@ module.exports = {
   acceptOffre,
   rejectOffre,
   uploadWorkPhotos,
+  updateWorkerCertification,
 };

@@ -219,6 +219,7 @@ export class SignUpWorkerComponent implements OnInit{
         photo: this.photo || 'Default photo URL or message',
         work_photo: this.photos?.map((photo) => photo.preview) || [],
       };
+      
 
   
       this.signupService.addClient(formData, "worker").subscribe(() => {
