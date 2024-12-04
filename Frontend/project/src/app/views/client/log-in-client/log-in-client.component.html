@@ -1,44 +1,34 @@
 <div class="login-container">
   <div class="login-left">
-    <h2>Login! 👋</h2>
-    <p>How do I get started?</p>
-    <button class="btn btn-google">Sign in with Google</button>
-    <button class="btn btn-apple">Sign in with Apple</button>
-    <p>or Login with Email</p>
-    <form #form="ngForm" method="POST">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="test@atheros.ai"
-        [(ngModel)]="userObj.email"
-      />
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="******"
-        [(ngModel)]="userObj.password"
-      />
-      <button type="submit" class="btn btn-signin" (click)="onSubmit()">
-        Sign In
-      </button>
-    </form>
-    <p>Don't have an account? <a href="#">Sign Up Now</a></p>
+    <div class="form-box">
+      <h2>Marhba 7arif! 👋</h2>
+      <form #form="ngForm" method="POST">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="test@atheros.ai"
+          [(ngModel)]="userObj.email"
+        />
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="******"
+          [(ngModel)]="userObj.password"
+        />
+        <button type="submit" class="btn" (click)="onSubmit()">
+          Sign In
+        </button>
+      </form>
+      <p>Don't have an account? <a href="#">Sign Up Now</a></p>
+    </div>
   </div>
   <div class="login-right">
     <div class="login-info">
-      <h3>Why should I login?</h3>
-      <p>
-        By logging in, you can access your personal dashboard, where you can
-        manage your account, view your profile, and much more.
-      </p>
-      <img
-        src="https://www.datocms-assets.com/71768/1671497622-medical-receptionist.jpg"
-        alt="Dashboard example"
-      />
+      <img src="../../../../assets/logoWithName.png" alt="logo" />
     </div>
   </div>
 </div>

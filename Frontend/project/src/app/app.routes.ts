@@ -27,6 +27,7 @@ import { ProfilComponent } from './views/worker/profil/profil.component';
 import { EditProfilComponent } from './views/worker/edit-profil/edit-profil.component';
 import { clientauthenticationGuard } from './services/clientauthentication.guard';
 import { ReservationClientComponent } from './views/client/reservation-client/reservation-client.component';
+import { ChooseComponent } from './views/client/choose/choose.component';
 
 
 
@@ -78,6 +79,11 @@ export const routes: Routes = [
         path:"client-profile",
         component:ClientProfileComponent,
         canActivate: [clientauthenticationGuard],
+      },
+      {
+        path:"choose",
+        component:ChooseComponent,
+        
       },
 
     ],

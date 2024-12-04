@@ -1,3 +1,5 @@
+<div class="page-container">
+  <div class="stepper-box">
 <mat-horizontal-stepper class="p-5" [linear]="isLinear" #stepper>
   <!-- First Step -->
   <mat-step [stepControl]="firstFormGroup">
@@ -71,21 +73,22 @@
   </mat-step>
 
   <!-- Third Step -->
-  <mat-step>
+  <mat-step class="profile-step">
     <ng-template matStepLabel>Profile Picture</ng-template>
     <p>Upload a photo (optional):</p>
-
+  
     <div>
       <input type="file" (change)="onPhotoUpload($event)" />
     </div>
     <p *ngIf="!photo">No photo uploaded. A default photo will be used.</p>
     <img *ngIf="photo" [src]="photo" alt="Uploaded photo" style="width: 150px; height: 150px;" />
-
+  
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
+  
 
   <!-- Fourth Step (Password) -->
   <mat-step [stepControl]="passwordFormGroup">
@@ -127,3 +130,5 @@
     </div>
   </mat-step>
 </mat-horizontal-stepper>
+</div>
+</div>
