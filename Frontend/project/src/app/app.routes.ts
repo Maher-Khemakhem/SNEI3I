@@ -35,43 +35,56 @@ export const routes: Routes = [
     path: '',
     component: ClientLayoutComponent,
     children:[
-      {path:'',component:HeaderComponent},
-      {path:'workerprofile',component:WorkerProfileComponent},
+      {
+        path:'',
+        component:HeaderComponent
+      },
+      {
+        path:'workerprofile',
+        component:WorkerProfileComponent
+      },
       {
         path:'filter',component:FiltreComponent,
       },
       {
-        path:'reserv',component:ReservationClientComponent
-      }
+        path:'reservation',component:ReservationClientComponent
+      },
+      {
+        path: 'signupclient',
+        component: LoginComponent,
+        canActivate: [authGuard], // Protect the route
+      },
+      {
+        path: 'signupworker',
+        component: SignUpWorkerComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'loginclient',
+        component: LogInClientComponent,
+        canActivate: [authGuard], // Protect the route
+      },
+      {
+        path: 'loginworker',
+        component: LogInWorkerComponent,
+        canActivate: [authGuard], // Protect the route
+      },
+      {
+        path:'loginadmin',component:LoginAdminComponent,
+        canActivate: [authGuard],
+        
+      },
+      {
+        path:"client-profile",
+        component:ClientProfileComponent,
+        canActivate: [clientauthenticationGuard],
+      },
 
     ],
    
   },
   
-  {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [authGuard], // Protect the route
-  },
-  {
-    path: 'signupworker',
-    component: SignUpWorkerComponent,
-    canActivate: [authGuard],
-  },
-  {
-    path: 'loginclient',
-    component: LogInClientComponent,
-    canActivate: [authGuard], // Protect the route
-  },
-  {path:"client-profile",
-    component:ClientProfileComponent,
-    canActivate: [clientauthenticationGuard],
-  },
-  {
-    path: 'loginworker',
-    component: LogInWorkerComponent,
-    canActivate: [authGuard], // Protect the route
-  },
+  
   {
     path: 'worker',
     component: WorkerLayoutComponent, // Parent component for worker routes
@@ -79,7 +92,8 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent, // Child route for /worker/dashboard
-      },{
+      },
+      {
         path: 'offre',
         component: OfferComponent, // Child route for /worker/offre
       },
@@ -97,20 +111,28 @@ export const routes: Routes = [
     ],
 
   },
-  {
-    path:'loginadmin',component:LoginAdminComponent,
-    canActivate: [authGuard],
-    
-  },
+  
   {
     path:'admin',
     component:AdminLayoutComponent,
     canActivate:[adminauthenticationGuard],
     children:[
-      {path:'dashboard',component:DashboardAdminComponent},
-      {path:'gerer-admin',component:GererAdminComponent},
-      {path:'gerer-client',component:GererClientComponent},
-      {path:'gerer-worker',component:GererWorkerComponent},
+      {
+        path:'dashboard',
+        component:DashboardAdminComponent
+      },
+      {
+        path:'gerer-admin',
+        component:GererAdminComponent
+      },
+      {
+        path:'gerer-client',
+        component:GererClientComponent
+      },
+      {
+        path:'gerer-worker',
+        component:GererWorkerComponent
+      },
     ]
     
   },

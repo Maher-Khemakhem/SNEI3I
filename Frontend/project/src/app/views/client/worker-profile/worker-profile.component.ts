@@ -93,6 +93,6 @@ export class WorkerProfileComponent implements OnInit {
     }
   }
   gotoreserver(){
-    this.router.navigate(['/reserv']);
+    this.router.navigate(['/reservation']);
   }
 }
