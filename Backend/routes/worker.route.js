@@ -12,12 +12,14 @@ const {
   acceptOffre,
   rejectOffre,
   uploadWorkPhotos,
+  getAllWorkerslimit
 } = require("../controllers/worker.controller");
 
 // Routes for search functionality
 //base route  /worker
 router.get("/:id", getWorkerById);
 router.get("/", getAllWorkers);
+router.get("/limit/:limit/:skip",getAllWorkerslimit)
 router.post("/create", createWorker);
 router.put("/update/:id", updateWorker);
 router.delete("/delete/:id", deleteWorker);

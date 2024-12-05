@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -140,7 +140,18 @@ uploadWorkPhotos(workerId: string, formData: FormData) {
   return this.http.post(`http://localhost:3000/updatephoto/${workerId}`, formData);
 }
 
-
+getAllworkerslimit(data: any): Observable<any> {
+  const API_URL = this.REST_API;
+  const params = new HttpParams()
+    .set('limit', data.limit)
+    .set('skip', data.skip);
+  return this.http.get(`${API_URL}/limit/${data.limit}/${data.skip}`).pipe(
+    catchError((error) => {
+      console.error('Error occurred while fetching all workers:', error);
+      return throwError(() => new Error('Failed to fetch all workers. Please try again.'));
+    })
+  );
+}
 
 
 

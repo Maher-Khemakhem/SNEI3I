@@ -6,25 +6,46 @@ import { ClientService } from '../../../services/client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { WorkerService } from '../../../services/worker.service';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-gerer-worker',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NgbPaginationModule],
   templateUrl: './gerer-worker.component.html',
   styleUrl: './gerer-worker.component.css'
 })
 export class GererWorkerComponent {
   workers:any;
   photo:any;
+  page:any=1;
+  limit:any=3;
+  skip:any;
+  totalCount:any;
   constructor(private workerservice:WorkerService,private loginService:LoginService,private router:Router,private clientservice:ClientService,private a:MatDialog){}
   ngOnInit(): void {
       this.getWorkers();
   }
   getWorkers(){
-    this.workerservice.getAllworkers().subscribe((data:any)=>{
-      this.workers = data;
-    })
+    console.log("aaaaa");
+    if(this.page==1){
+      this.skip = 0;
+    }else{
+      this.skip = (this.page-1)*this.limit;
+    }
+    var requestObj = {
+      'limit' : this.limit,
+      'skip': this.skip,
+    }
+    this.workerservice.getAllworkerslimit(requestObj).subscribe(
+      (data: any) => {
+        this.workers = data.workers || []; // Assuming data contains `workers` array
+        this.totalCount = data.totalCount || 0; // Assuming backend sends total count
+      },
+      (error) => {
+        console.error('Error fetching workers:', error);
+      }
+    );
   }
   logout(){
     localStorage.removeItem("admin_id");

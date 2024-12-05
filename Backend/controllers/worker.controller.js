@@ -52,6 +52,26 @@ const getAllWorkers = async (req, res) => {
       .json({ message: `Error fetching workers: ${error.message}` });
   }
 };
+const getAllWorkerslimit = async (req, res) => {
+  try {
+    // Extract limit and skip from route parameters
+    const limitValue = parseInt(req.params.limit, 10) || 10; // Default to 10 workers
+    const skipValue = parseInt(req.params.skip, 10) || 0;    // Default to 0 workers skipped
+
+    // Fetch workers with pagination
+    const workers = await Worker.find().limit(limitValue).skip(skipValue);
+
+    // Count total workers for pagination metadata
+    const totalCount = await Worker.countDocuments();
+
+    // Respond with workers and total count
+    res.status(200).json({ workers:workers, totalCount:totalCount });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: `Error fetching workers: ${error.message}` });
+  }
+};
 
 // Update a worker by ID
 const updateWorker = async (req, res) => {
@@ -346,4 +366,5 @@ module.exports = {
   rejectOffre,
   uploadWorkPhotos,
   updateWorkerCertification,
+  getAllWorkerslimit
 };
