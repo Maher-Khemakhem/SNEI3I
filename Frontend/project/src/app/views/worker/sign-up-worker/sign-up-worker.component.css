@@ -24,4 +24,20 @@ mat-horizontal-stepper{
   mat-form-field {
     width: 100%; /* Makes sure the mat-form-field takes up the full width */
   }
+  .page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full-screen height */
+    background: linear-gradient(45deg, #007bff, #00025d);/* Blue background */
+  }
   
+  /* White box for the stepper */
+  .stepper-box {
+    background-color: white; /* White background for the box */
+    border-radius: 15px; /* Smooth rounded corners */
+    padding: 30px; /* Inner spacing for the content */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.6); /* White shadow */
+    width: 95%; /* Adjust width based on screen size */
+    max-width: 1000px; /* Maximum width for larger screens */
+  }

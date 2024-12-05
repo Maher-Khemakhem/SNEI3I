@@ -120,11 +120,11 @@ export class NavComponent implements OnInit {
   }
 
   login(): void {
-    this.router.navigate(['/signupclient']);
+    this.router.navigate(['/choose']);
   }
 
   signin(): void {
-    this.router.navigate(['/loginclient']);
+    this.router.navigate(['/choose']);
   }
 
   logout(): void {

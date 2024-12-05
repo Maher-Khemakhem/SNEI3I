@@ -14,11 +14,19 @@ html, body {
 
 header {
   background: #eee;
-  background-image: url("https://images.pexels.com/photos/1731427/pexels-photo-1731427.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background: linear-gradient(45deg, #007bff, #00025d);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 250px;
+}
+h4 {
+  background: linear-gradient(45deg, #007bff, #00025d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.number-stat{
+  color: #007bff;
 }
 
 header i {
@@ -88,7 +96,7 @@ main {
   margin-bottom: 5px;
   font-family: "Montserrat", sans-serif;
   font-size: 11pt;
-  color: #aaa;
+  color: #00025d;
 }
 
 .stats {
@@ -101,19 +109,19 @@ main {
 .number-stat {
   font-size: 14pt;
   font-weight: bold;
-  color: #aaa;
+
 }
 
 .desc-stat {
   margin-top: -15px;
   font-size: 10pt;
-  color: #bbb;
+  color: black;
 }
 
 .desc {
   text-align: center;
   margin: 25px 40px;
-  color: #999;
+  color: black;
   font-size: 11pt;
   padding-bottom: 25px;
   border-bottom: 1px solid #ededed;
@@ -181,8 +189,60 @@ main {
 
 .worker-profile-card {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 20px auto;
 }
 
+
+/* Ensure mat-card and mat-form-field have some spacing */
+mat-card {
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.mat-icon {
+  font-size: 24px;
+  color: #007bff; /* Adjust color as needed */
+  margin-right: 16px;
+}
+
+.form-container {
+  flex-grow: 1;
+}
+
+.input-field {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* Styling for the divs within the list items */
+.list-item {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+mat-divider {
+  margin: 12px 0;
+}
+.form-container {
+  display: flex;
+  gap: 16px; /* Adds space between the input fields */
+  flex-wrap: wrap; /* Allows wrapping for responsiveness */
+}
+
+.input-field {
+  flex: 1; /* Makes the form fields take up equal space */
+  min-width: 300px; /* Ensures the fields don't get too narrow */
+}
+.mat-mdc-input-element {
+  color: #ff0000; /* Change this to your desired color */
+}
 

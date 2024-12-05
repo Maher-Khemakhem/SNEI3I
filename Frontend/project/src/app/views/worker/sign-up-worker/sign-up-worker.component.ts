@@ -21,6 +21,7 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 import { delay, map } from 'rxjs/operators';
 import { SignupService } from '../../../services/signup.service';
 //import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -83,8 +84,8 @@ export class SignUpWorkerComponent implements OnInit{
 
   isLinear = true;
   photo: string | null = null;
+  constructor(private signupService:SignupService, private fb: FormBuilder, private router: Router) {}
 
-  constructor(private signupService:SignupService,private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initializeFormGroups();
@@ -230,6 +231,7 @@ export class SignUpWorkerComponent implements OnInit{
     } else {
       console.error('Form is invalid!');
     }
+    this.router.navigate(['']);
   }
   
 

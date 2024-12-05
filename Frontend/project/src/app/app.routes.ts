@@ -50,46 +50,47 @@ export const routes: Routes = [
       {
         path:'reservation',component:ReservationClientComponent
       },
-      {
-        path: 'signupclient',
-        component: LoginComponent,
-        canActivate: [authGuard], // Protect the route
-      },
-      {
-        path: 'signupworker',
-        component: SignUpWorkerComponent,
-        canActivate: [authGuard],
-      },
-      {
-        path: 'loginclient',
-        component: LogInClientComponent,
-        canActivate: [authGuard], // Protect the route
-      },
-      {
-        path: 'loginworker',
-        component: LogInWorkerComponent,
-        canActivate: [authGuard], // Protect the route
-      },
-      {
-        path:'loginadmin',component:LoginAdminComponent,
-        canActivate: [authGuard],
-        
-      },
+      
       {
         path:"client-profile",
         component:ClientProfileComponent,
         canActivate: [clientauthenticationGuard],
       },
-      {
-        path:"choose",
-        component:ChooseComponent,
-        
-      },
+      
 
     ],
    
   },
-  
+  {
+    path:"choose",
+    component:ChooseComponent,
+    
+  },
+  {
+    path: 'signupclient',
+    component: LoginComponent,
+    canActivate: [authGuard], // Protect the route
+  },
+  {
+    path: 'signupworker',
+    component: SignUpWorkerComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'loginclient',
+    component: LogInClientComponent,
+    canActivate: [authGuard], // Protect the route
+  },
+  {
+    path: 'loginworker',
+    component: LogInWorkerComponent,
+    canActivate: [authGuard], // Protect the route
+  },
+  {
+    path:'loginadmin',component:LoginAdminComponent,
+    canActivate: [authGuard],
+    
+  },
   
   {
     path: 'worker',

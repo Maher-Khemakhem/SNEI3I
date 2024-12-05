@@ -66,7 +66,11 @@ onSubmit() {
         alert('Connection error. Please try again.');
       }
 
-    }
+    },
   });
+}
+
+signin(): void {
+  this.router.navigate(['/signupworker']);
 }
 }

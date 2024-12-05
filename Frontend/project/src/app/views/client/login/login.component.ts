@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 import { delay, map } from 'rxjs/operators';
 import { SignupService } from '../../../services/signup.service';
 //import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -59,8 +60,8 @@ export class LoginComponent implements OnInit{
 
   isLinear = true;
   photo: string | null = null;
-
-  constructor(private signupService:SignupService) {}
+  constructor(private signupService: SignupService, private router: Router) {}
+  
 
   ngOnInit() {
     this.initializeFormGroups();
@@ -147,6 +148,7 @@ export class LoginComponent implements OnInit{
     } else {
       console.error('Form is invalid!');
     }
+    this.router.navigate(['']);
   }
   
 
