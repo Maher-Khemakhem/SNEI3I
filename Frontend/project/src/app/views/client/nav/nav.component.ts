@@ -153,4 +153,7 @@ export class NavComponent implements OnInit {
         console.warn('No profile route defined for user type:', this.userType);
     }
   }
+  goTodashboard(){
+    this.router.navigate(['/worker/dashboard']);
+  }
 }

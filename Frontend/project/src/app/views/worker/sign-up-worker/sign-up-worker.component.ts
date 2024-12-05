@@ -231,7 +231,7 @@ export class SignUpWorkerComponent implements OnInit{
     } else {
       console.error('Form is invalid!');
     }
-    this.router.navigate(['']);
+    this.router.navigate(['/loginworker']);
   }
   
 
