@@ -60,10 +60,18 @@ body {
     padding: 0.75rem 1.25rem;
     border-bottom-width: 1px;
 }
-
+.text-green {
+    color: green;
+  }
+  
+  .text-red {
+    color: red;
+  }
+  
 table th {
+    color: aliceblue;
     font-weight: 600;
-    background-color: #eeecfd !important;
+    background-color: #00025d !important;
 }
 
 .fa-arrow-up {
@@ -138,6 +146,10 @@ table th {
 }
 .navbar-vertical[_ngcontent-ng-c1670094791] .navbar-nav[_ngcontent-ng-c1670094791] > .nav-item[_ngcontent-ng-c1670094791] .nav-link.active[_ngcontent-ng-c1670094791] .icon[_ngcontent-ng-c1670094791]
 {
+    background-image: linear-gradient(45deg, #007bff, #00025d);
+    color: #fff;
+}
+.navbar-vertical[_ngcontent-ng-c1508050040] .navbar-nav[_ngcontent-ng-c1508050040] > .nav-item[_ngcontent-ng-c1508050040] .nav-link.active[_ngcontent-ng-c1508050040] .icon[_ngcontent-ng-c1508050040]{
     background-image: linear-gradient(45deg, #007bff, #00025d);
     color: #fff;
 }
