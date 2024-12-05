@@ -96,8 +96,17 @@
     background-image: linear-gradient(45deg, #007bff, #00025d);
     color: #fff;
 }
-.navbar-vertical[_ngcontent-ng-c1686109790] .navbar-nav[_ngcontent-ng-c1686109790] > .nav-item[_ngcontent-ng-c1686109790] .nav-link.active[_ngcontent-ng-c1686109790] .icon[_ngcontent-ng-c1686109790]
-{
+.navbar-vertical[_ngcontent-ng-c3681412246] .navbar-nav[_ngcontent-ng-c3681412246] > .nav-item[_ngcontent-ng-c3681412246] .nav-link.active[_ngcontent-ng-c3681412246] .icon[_ngcontent-ng-c3681412246]{
     background-image: linear-gradient(45deg, #007bff, #00025d);
     color: #fff;
+}
+.mask:first-child{
+    background:linear-gradient(45deg, #007bff, #00025d);
+}
+
+.text-gradient{
+    background: linear-gradient(45deg, #007bff, #00025d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 }

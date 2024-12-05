@@ -101,6 +101,9 @@
         <mat-error *ngIf="passwordFormGroup.get('password')?.hasError('required')">
           Password is required.
         </mat-error>
+        <mat-error *ngIf="passwordFormGroup.get('password')?.hasError('minlength')">
+          Password must be at least 6 characters long.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">

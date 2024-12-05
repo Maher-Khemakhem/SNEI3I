@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit{
 
     this.passwordFormGroup = this._formBuilder.group(
       {
-        password: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
       },
       { validators: this.passwordMatchValidator }

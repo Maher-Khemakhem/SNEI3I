@@ -336,93 +336,96 @@
       </div>
     </aside>
     <main
-      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
-    >
-      <link
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        rel="stylesheet"
-      />
-      <div class="container">
-        <div class="row">
-          <div class="col-12 mb-3 mb-lg-5">
-            <div class="position-relative card table-nowrap table-card">
-              <div class="card-header align-items-center">
-                <h5 class="mb-0">Latest Offers</h5>
-              </div>
-              <div class="table-responsive">
-                <table class="table mb-0">
-                  <thead class="small text-uppercase bg-body text-muted">
-                    <tr>
-                      <th>client name</th>
-                      <th>Date</th>
-                      <th>message</th>
-                      <th>location</th>
-                      <th>price</th>
-                      <th>action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @for (item of offreList; track $index) {
-
-                    <tr class="align-middle">
-                      <td>{{ item.Client_id }}</td>
-                      <td>{{ item.date | date : "dd-MMM-yyyy" }}</td>
-                      <td
-                        style="
-                          min-width: 200px;
-                          max-width: 200px;
-                          overflow-x: auto;
-                          white-space: nowrap;
-                        "
+    class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mb-3 mb-lg-5">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Latest Offers</mat-card-title>
+             
+            </mat-card-header>
+            <div class="table-responsive">
+              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                <!-- Client Name Column -->
+                <ng-container matColumnDef="clientName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.Client_id }} </td>
+                </ng-container>
+  
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.date | date: 'dd-MMM-yyyy' }}
+                  </td>
+                </ng-container>
+  
+                <!-- Message Column -->
+                <ng-container matColumnDef="message">
+                  <th mat-header-cell *matHeaderCellDef> Message </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      style="min-width: 200px; max-width: 200px; overflow-x: auto; white-space: nowrap;"
+                    >
+                      {{ element.message }}
+                    </span>
+                  </td>
+                </ng-container>
+  
+                <!-- Location Column -->
+                <ng-container matColumnDef="location">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.Client_location }} </td>
+                </ng-container>
+  
+                <!-- Price Column -->
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.price }} $ </td>
+                </ng-container>
+  
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="d-flex justify-content-between">
+                      <button
+                        mat-icon-button
+                        color="primary"
+                        (click)="acceptOffre(element._id, element.Client_id, element.date, element.price)"
                       >
-                        {{ item.message }}
-                      </td>
-
-                      <td>{{ item.Client_location }}</td>
-                      <td>{{ item.price }} $</td>
-                      <td>
-                        <div class="d-flex w-50 justify-content-between mt-2">
-                          <a
-                            class="btn btn-success btn-sm custom-button mr-4"
-                            href="/worker/offre"
-                            (click)="
-                              acceptOffre(
-                                item._id,
-                                item.Client_id,
-                                item.date,
-                                item.price
-                              );
-                              createReservation(
-                                item.Client_id,
-                                item.date,
-                                item.price
-                              )
-                            "
-                          >
-                            <i class="fas fa-check fa-2x"></i>
-                            <!-- Bigger accept icon -->
-                          </a>
-
-                          <a
-                            class="btn btn-danger btn-sm custom-button"
-                            href="/worker/offre"
-                            (click)="rejectOffre(item._id)"
-                          >
-                            <i class="fas fa-times fa-2x"></i>
-                            <!-- Bigger reject icon -->
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                    }
-                  </tbody>
-                </table>
-              </div>
+                        <mat-icon>check_circle</mat-icon>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="rejectOffre(element._id)"
+                      >
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+  
+                <!-- Header and Rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
             </div>
-          </div>
+            <mat-paginator
+             
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+            >
+            </mat-paginator>
+          </mat-card>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
+  
 
     <!--   Core JS Files   -->
     <script src="../../../../assets/js/core/popper.min.js"></script>
