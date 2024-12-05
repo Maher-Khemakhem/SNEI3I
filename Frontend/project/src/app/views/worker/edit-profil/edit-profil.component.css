@@ -68,3 +68,23 @@ form label {
     margin-top: 196px;
     border: 4px solid #f3f3f3;
 }
+
+/* Using higher specificity */
+.navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link.active .icon svg .color-background {
+    fill: #ffffff !important;
+}
+
+/* Using Angular's ::ng-deep */
+::ng-deep .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link.active .icon svg .color-background {
+    fill: #ffffff;
+}
+
+/* Using higher specificity */
+.navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link .icon svg .color-background {
+    fill: #0000ff !important;
+}
+
+/* Using Angular's ::ng-deep */
+::ng-deep .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link .icon svg .color-background {
+    fill: #0000ff;
+}

@@ -50,25 +50,24 @@ export class ProfilComponent implements OnInit {
   work_photos: any[] = [];
   number_of_messages: any;
 
-  carouselOptions: OwlOptions = {
+  carouselOptions = {
     loop: true,
     margin: 10,
     nav: true,
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       600: {
-        items: 3
+        items: 2,
       },
       1000: {
-        items: 5
-      }
-    }
+        items: 3,
+      },
+    },
   };
-
   startIndex: number = 0;
-  photosToShow: number = 5;
+  photosToShow: number = 5; 
   visiblePhotos: any;
 
   logout(): void {

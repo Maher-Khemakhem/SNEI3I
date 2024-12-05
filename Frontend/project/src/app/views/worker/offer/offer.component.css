@@ -72,3 +72,51 @@ table th {
 .fa-arrow-down {
     color: #FF00FF;
 }
+
+
+/* Using higher specificity */
+.navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link.active .icon svg .color-background {
+    fill: #ffffff !important;
+}
+
+/* Using Angular's ::ng-deep */
+::ng-deep .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link.active .icon svg .color-background {
+    fill: #ffffff;
+}
+
+/* Using higher specificity */
+.navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link .icon svg .color-background {
+    fill: #0000ff !important;
+}
+
+/* Using Angular's ::ng-deep */
+::ng-deep .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link .icon svg .color-background {
+    fill: #0000ff;
+}
+.navbar-vertical[_ngcontent-ng-c3474384521] .navbar-nav[_ngcontent-ng-c3474384521]>.nav-item[_ngcontent-ng-c3474384521] .nav-link.active[_ngcontent-ng-c3474384521] .icon[_ngcontent-ng-c3474384521] {
+    background-image: linear-gradient(310deg, #002cff 0%,
+        #00ff23 100%);
+    color: #fff;
+}
+
+.navbar-vertical[_ngcontent-ng-c3474384521] .navbar-nav[_ngcontent-ng-c3474384521]>.nav-item[_ngcontent-ng-c3474384521] .nav-link.active[_ngcontent-ng-c3474384521] .icon[_ngcontent-ng-c3474384521] {
+    background-image: linear-gradient(310deg, #002cff 0%, #00ff23 100%);
+    color: #fff;
+}
+
+.navbar-vertical[_ngcontent-ng-c3474384521] .navbar-nav[_ngcontent-ng-c3474384521]>.nav-item[_ngcontent-ng-c3474384521] .nav-link.active[_ngcontent-ng-c3474384521] .icon[_ngcontent-ng-c3474384521] {
+    background-image: linear-gradient(310deg, #002cff 0%, #00ff23 100%);
+    color: #fff;
+}
+
+.navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon {
+    background-image: linear-gradient(310deg, #002cff 0%,
+        #00ff23 100%);
+    color: #fff;
+}
+
+.navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon {
+    background-image: linear-gradient(310deg, #002cff 0%,
+        #00ff23 100%);
+    color: #fff;
+}

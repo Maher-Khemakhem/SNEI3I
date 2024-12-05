@@ -11,7 +11,7 @@ import { LoginService } from '../../../services/login.service';
   styleUrl: './reservation.component.css'
 })
 export class ReservationComponent implements OnInit {
-  isLoaded :boolean  = false;
+  isLoaded :boolean  = true;
   workerService = inject(WorkerService);
   loginService = inject(LoginService);
 
