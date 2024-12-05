@@ -27,7 +27,7 @@ onSubmit() {
           localStorage.setItem('user_id',response.user );
           localStorage.setItem('token',response.token||"" );
           localStorage.setItem('role',"worker");
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/worker/dashboard');
         }else{
           alert("Access only for workers");
         }

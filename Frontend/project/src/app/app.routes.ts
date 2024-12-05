@@ -28,6 +28,9 @@ import { EditProfilComponent } from './views/worker/edit-profil/edit-profil.comp
 import { clientauthenticationGuard } from './services/clientauthentication.guard';
 import { ReservationClientComponent } from './views/client/reservation-client/reservation-client.component';
 import { ChooseComponent } from './views/client/choose/choose.component';
+import { workerauthenticationGuard } from './services/workerauthentication.guard';
+import { clientOrNoAuthGuard } from './services/client-or-no-auth.guard';
+import { workerAuthGuard } from './services/worker-auth.guard';
 
 
 
@@ -35,20 +38,26 @@ export const routes: Routes = [
   {
     path: '',
     component: ClientLayoutComponent,
+    canActivate:[clientOrNoAuthGuard],
+    //canActivate:[workerauthenticationGuard],
     children:[
       {
         path:'',
-        component:HeaderComponent
+        component:HeaderComponent,
+        
       },
       {
         path:'workerprofile',
-        component:WorkerProfileComponent
+        component:WorkerProfileComponent,
+        canActivate: [clientauthenticationGuard],
       },
       {
         path:'filter',component:FiltreComponent,
+        canActivate: [clientauthenticationGuard],
       },
       {
-        path:'reservation',component:ReservationClientComponent
+        path:'reservation',component:ReservationClientComponent,
+        canActivate: [clientauthenticationGuard],
       },
       
       {
@@ -89,12 +98,12 @@ export const routes: Routes = [
   {
     path:'loginadmin',component:LoginAdminComponent,
     canActivate: [authGuard],
-    
   },
   
   {
     path: 'worker',
-    component: WorkerLayoutComponent, // Parent component for worker routes
+    component: WorkerLayoutComponent,
+    canActivate:[workerAuthGuard],
     children: [
       {
         path: 'dashboard',

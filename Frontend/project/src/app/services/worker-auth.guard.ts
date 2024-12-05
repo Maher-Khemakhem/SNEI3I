@@ -2,12 +2,12 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
-export const clientauthenticationGuard: CanActivateFn = (route, state) => {
+export const workerAuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const token = localStorage.getItem('token');
-  const clientId = localStorage.getItem('client_id');
+  const workerId = localStorage.getItem('worker_id');
 
-  if (token && clientId) {
+  if (token && workerId) {
     try {
       // Decode and validate token
       const decodedToken: any = jwtDecode(token);
@@ -23,6 +23,6 @@ export const clientauthenticationGuard: CanActivateFn = (route, state) => {
   }
 
   // Redirect to login if not authenticated
-  router.navigate(['/loginclient']);
+  router.navigate(['/loginworker']);
   return false;
 };
