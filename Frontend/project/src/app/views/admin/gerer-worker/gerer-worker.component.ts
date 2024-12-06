@@ -7,46 +7,45 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { WorkerService } from '../../../services/worker.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-gerer-worker',
   standalone: true,
-  imports: [CommonModule,NgbPaginationModule],
+  imports: [CommonModule,NgbPaginationModule,MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,MatButtonModule,MatCardModule],
   templateUrl: './gerer-worker.component.html',
   styleUrl: './gerer-worker.component.css'
 })
 export class GererWorkerComponent {
+openCreate() {
+throw new Error('Method not implemented.');
+}
   workers:any;
   photo:any;
   page:any=1;
   limit:any=3;
   skip:any;
   totalCount:any;
+  displayedColumns: string[] = ['firstname', 'lastname', 'email', 'num_tel', 'date_of_birth', 'photo', 'speciality', 'actions'];
+  dataSource = new MatTableDataSource<any>([]);
+ 
   constructor(private workerservice:WorkerService,private loginService:LoginService,private router:Router,private clientservice:ClientService,private a:MatDialog){}
   ngOnInit(): void {
       this.getWorkers();
   }
-  getWorkers(){
-    console.log("aaaaa");
-    if(this.page==1){
-      this.skip = 0;
-    }else{
-      this.skip = (this.page-1)*this.limit;
-    }
-    var requestObj = {
-      'limit' : this.limit,
-      'skip': this.skip,
-    }
-    this.workerservice.getAllworkerslimit(requestObj).subscribe(
-      (data: any) => {
-        this.workers = data.workers || []; // Assuming data contains `workers` array
-        this.totalCount = data.totalCount || 0; // Assuming backend sends total count
-      },
-      (error) => {
-        console.error('Error fetching workers:', error);
-      }
-    );
+  getWorkers(): void {
+    this.workerservice.getAllworkers().subscribe((workers: any[]) => {
+      this.dataSource.data = workers;
+    });
   }
+
+  
   logout(){
     localStorage.removeItem("admin_id");
     localStorage.removeItem("user_id");

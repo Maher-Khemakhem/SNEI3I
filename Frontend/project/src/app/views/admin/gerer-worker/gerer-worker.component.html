@@ -386,65 +386,84 @@
         </div>
       </div>
     </aside>
-    <main
-      class="main-content position-relative max-height-vh-100 h-100 border-radius"
-    >
-    <div class="container">
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius">
+      <div class="container">
         <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-						<h2>Manage <b>Employees</b></h2>
-					</div>
-					
-                </div>
+          <mat-card-title>
+            <div class="d-flex justify-content-between align-items-center">
+              <h2>Manage <b>Workers</b></h2>
+              <button mat-raised-button color="primary" (click)="openCreate()">
+                <mat-icon>add</mat-icon>
+                Add New Worker
+              </button>
             </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-						
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-						<th>email</th>
-                        <th>num_tel</th>
-                        <th>Date_of_birth</th>
-                        <th>photo</th>
-                        <th>Speciality</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let worker of workers">
-						
-                        <td>{{worker.firstname}}</td>
-                        <td>{{worker.lastname}}</td>
-						            <td>{{worker.email}}</td>
-                        <td>{{worker.num_tel}}</td>
-                        <td>{{worker.Date_of_birth}}</td>
-                        <td><img [src]="worker.photo" alt="Client Photo" class="img-fluid" /></td>
-                        <td>{{worker.speciality}}</td>
-                        <td>
-                          <a  class="edit" data-toggle="modal" (click)="openUpdate(worker._id)"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                          <a  class="delete" data-toggle="modal" (click)="deletee(worker._id)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                      
-                    </tr>
-                    
-                </tbody>
-            </table>
-     
-            <div class="pagination-container">
-              <ngb-pagination 
-                [collectionSize]="totalCount" 
-                [pageSize]="limit" 
-                [(page)]="page" 
-                aria-label="Default pagination" 
-                (pageChange)="getWorkers()">
-              </ngb-pagination>
-            </div>
-        </div>
-    </div>
+          </mat-card-title>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Column Definitions -->
+            <ng-container matColumnDef="firstname">
+              <th mat-header-cell *matHeaderCellDef> Firstname </th>
+              <td mat-cell *matCellDef="let worker"> {{worker.firstname}} </td>
+            </ng-container>
     
+            <ng-container matColumnDef="lastname">
+              <th mat-header-cell *matHeaderCellDef> Lastname </th>
+              <td mat-cell *matCellDef="let worker"> {{worker.lastname}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let worker"> {{worker.email}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="num_tel">
+              <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+              <td mat-cell *matCellDef="let worker"> {{worker.num_tel}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="date_of_birth">
+              <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+              <td mat-cell *matCellDef="let worker"> {{worker.date_of_birth  | date: 'shortDate' }} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="photo">
+              <th mat-header-cell *matHeaderCellDef> Photo </th>
+              <td mat-cell *matCellDef="let worker"> <img [src]="worker.photo" alt="Client Photo" class="img-fluid" style="width: 50px; height: 50px; object-fit: cover;"/> </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="speciality">
+              <th mat-header-cell *matHeaderCellDef> Speciality </th>
+              <td mat-cell *matCellDef="let worker"> {{worker.speciality}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let worker">
+                <button mat-icon-button (click)="openUpdate(worker._id)" aria-label="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deletee(worker._id)" aria-label="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+    
+            <!-- Table Headers and Rows -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    
+          <!-- Pagination -->
+          <mat-paginator
+            [pageSize]="limit"
+            [pageSizeOptions]="[5, 10, 20]"
+            [length]="totalCount"
+            (page)="getWorkers()"
+            aria-label="Select page"
+          ></mat-paginator>
+        </div>
+      </div>
     </main>
+    
 
     <!--   Core JS Files   -->
     <script src="../../../../assets/js/core/popper.min.js"></script>

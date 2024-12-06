@@ -10,7 +10,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     GererWorkerRoutingModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+  
   ]
 })
 export class GererWorkerModule { }

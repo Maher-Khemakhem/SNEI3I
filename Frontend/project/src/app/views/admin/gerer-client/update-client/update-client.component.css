@@ -1,10 +1,106 @@
-.half-width {
-    width: 48%;
-    margin-right: 2%;
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.mat-label {
+  font-weight: 500;
+}
+
+.mat-input-element {
+  font-size: 1rem;
+}
+
+/* Form Wrapper */
+form {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Flex for Form Groups */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* Full width for inputs */
+.full-width {
+  flex: 1 1 48%;
+}
+
+/* Photo Upload */
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.photo-upload input[type="file"] {
+  margin-bottom: 10px;
+}
+
+img {
+  border-radius: 8px;
+  margin-top: 10px;
+  object-fit: cover;
+}
+
+/* Submit Button */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button[mat-button] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[mat-button]:hover {
+  background-color: #0056b3;
+}
+
+button[mat-button]:disabled {
+  background-color: #b0c4de;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
   }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+  .full-width {
+    flex: 1 1 100%;
   }
-  
+}
