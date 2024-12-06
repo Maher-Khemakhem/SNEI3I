@@ -82,7 +82,8 @@ export class ReservationClientComponent {
   }
   onDateChange(event: any): void {
     this.selectedDate = event; // Mat-calendar provides the selected date directly.
-    this.viewDate = event; // Update the viewDate for the right column.
+    this.viewDate = event;
+    console.log(this.viewDate);
   }
   onSubmit(): void {
     if (this.reservationForm.valid) {
@@ -116,7 +117,7 @@ export class ReservationClientComponent {
         Client_id: clientId,
         Worker_id: workerId,
         Client_location: reservationData.client_location,
-        date: this.viewDate,
+        date: this.viewDate.toISOString(),
         price: reservationData.price,
         message: reservationData.description,
       };

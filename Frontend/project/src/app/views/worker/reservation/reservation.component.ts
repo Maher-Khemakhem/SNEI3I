@@ -8,6 +8,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { ReservationService } from '../../../services/reservation.service';
 
 @Component({
   selector: 'app-reservation',
@@ -37,7 +38,7 @@ export class ReservationComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  constructor(private reservationservice:ReservationService){}
   ngOnInit(): void {
     this.getAllReservation();
   }
@@ -53,7 +54,11 @@ export class ReservationComponent implements OnInit {
   }
 
   make(id: string) {
-    alert(`Action triggered for reservation ID: ${id}`);
+    const data = {};
+    this.reservationservice.baddel(id,data).subscribe(()=>{
+      console.log("mnathem");
+      this.getAllReservation();
+    })
   }
 
   logout() {

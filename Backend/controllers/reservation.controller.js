@@ -115,6 +115,7 @@ const getMonthlyRevenueByWorker = async (req, res) => {
         $gte: new Date(`${currentYear}-01-01T00:00:00.000Z`),
         $lte: new Date(`${currentYear}-12-31T23:59:59.999Z`),
       },
+      status: "Confirmed"
     });
     console.log(reservations);
     const monthlyRevenue = Array(12).fill(0);
@@ -213,7 +214,7 @@ const getTotalRevenueThisMonth = async (req, res) => {
 
     // If no revenue data found, set total to 0
     const revenue = totalRevenue.length > 0 ? totalRevenue[0].total : 0;
-
+    console.log(revenue);
     // Respond with the total revenue for this month
     res.status(200).json({
       workerId,
@@ -270,7 +271,23 @@ const getTotalRevenueTodayForWorker = async (req, res) => {
     });
   }
 };
+const finished = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = {
+      'status':"Confirmed",
+    }
+    const reservation = await Reservation.findByIdAndUpdate(id,data);
 
+    if (!reservation) {
+      return res.status(404).json({ message: "Reservation not found" });
+    }
+
+    res.status(200).json({ message: "Reservation Updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 module.exports = {
   createReservation,
   getAllReservations,
@@ -282,4 +299,5 @@ module.exports = {
   getTotalRevenueThisMonth,
   getTotalRevenueTodayForWorker,
   getWorkerReservations,
+  finished
 };

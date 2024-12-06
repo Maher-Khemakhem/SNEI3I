@@ -43,4 +43,7 @@ export class ReservationService {
   deleteReservation(id: string): Observable<void> {
     return this.http.delete<void>(`${this.REST_API}/${id}`);
   }
+  baddel(id:any,data:any): Observable<Reservation> {
+    return this.http.put<Reservation>(`${this.REST_API}/finished/${id}`,data);
+  }
 }

@@ -383,9 +383,9 @@
                   </ng-container>
                   <!-- Actions Column -->
                   <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
                     <td mat-cell *matCellDef="let element">
-                      <button mat-button color="primary" (click)="make(element.id)">Action</button>
+                      <button mat-button color="primary" (click)="make(element._id)">Finished</button>
                     </td>
                   </ng-container>
     

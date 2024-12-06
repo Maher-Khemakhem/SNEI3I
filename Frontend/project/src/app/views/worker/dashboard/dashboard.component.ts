@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    console.log(this.worker_id);
     this.initTotalRevenue();
     this.initMonthlyRevenue();
     this.initDailyRevenue();
@@ -60,10 +61,13 @@ export class DashboardComponent implements OnInit {
   }
 
   initTotalRevenue(): void {
+    
     if (this.worker_id) {
       this.workerservice.getTotalrevenue(this.worker_id).subscribe({
         next: (response) => {
+          console.log(response);
           this.total = response;
+          console.log(this.total);
         },
         error: (error) => {
           console.error('Error fetching total revenue:', error);
