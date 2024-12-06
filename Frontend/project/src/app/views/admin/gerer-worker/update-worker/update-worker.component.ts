@@ -56,9 +56,10 @@ export class UpdateWorkerComponent {
       this.firstFormGroup.patchValue({
         firstname: this.worker.firstname,
         lastname: this.worker.lastname,
-        Date_of_birth: this.worker.Date_of_birth,
+        Date_of_birth: this.worker.date_of_birth,
         num_tel: this.worker.num_tel,
       });
+      console.log(this.worker.date_of_birth);
     });
   }
   update(){
@@ -73,7 +74,7 @@ export class UpdateWorkerComponent {
       ()=>{
         console.log('Data updated successfully');
         this.ngZone.run(()=>{
-          this.router.navigateByUrl('/admin/gerer-wokrer').then(() => {
+          this.router.navigateByUrl('/admin/gerer-worker').then(() => {
             this.data = {err:true};
             this.dialogRef.close(this.data); // Close the modal
             //window.location.reload(); // Refresh the page

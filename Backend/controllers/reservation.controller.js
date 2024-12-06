@@ -288,6 +288,59 @@ const finished = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+const getMonthlyRevenue = async (req, res) => {
+  try {
+    const { year } = req.query; // Get year from query parameters or use the current year
+    const currentYear = year ? parseInt(year, 10) : new Date().getFullYear();
+
+    // Aggregate reservations to calculate monthly revenue
+    const monthlyRevenueData = await Reservation.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: new Date(`${currentYear}-01-01T00:00:00.000Z`),
+            $lte: new Date(`${currentYear}-12-31T23:59:59.999Z`),
+          },
+          status: "Confirmed", // Only consider confirmed reservations
+        },
+      },
+      {
+        $group: {
+          _id: { month: { $month: "$date" } }, // Group by month
+          totalRevenue: { $sum: "$price" }, // Calculate the total revenue for each month
+        },
+      },
+      {
+        $sort: { "_id.month": 1 }, // Sort by month
+      },
+    ]);
+
+    // Array of month names
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    // Format the output to include month names
+    const formattedRevenue = Array.from({ length: 12 }, (_, index) => {
+      const revenueData = monthlyRevenueData.find((data) => data._id.month === index + 1);
+      return {
+        month: monthNames[index], // Use the month name
+        totalRevenue: revenueData ? revenueData.totalRevenue : 0, // Default to 0 if no data for the month
+      };
+    });
+
+    res.status(200).json({
+      year: currentYear,
+      revenue: formattedRevenue,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createReservation,
   getAllReservations,
@@ -299,5 +352,6 @@ module.exports = {
   getTotalRevenueThisMonth,
   getTotalRevenueTodayForWorker,
   getWorkerReservations,
-  finished
+  finished,
+  getMonthlyRevenue
 };

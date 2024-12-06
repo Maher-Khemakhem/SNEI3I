@@ -46,4 +46,8 @@ export class ReservationService {
   baddel(id:any,data:any): Observable<Reservation> {
     return this.http.put<Reservation>(`${this.REST_API}/finished/${id}`,data);
   }
+
+  getMonthReservation(): Observable<any> {
+    return this.http.get<any>(`${this.REST_API}/adminrevenue`);
+  }
 }

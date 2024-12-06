@@ -11,7 +11,8 @@ const {
   getTotalRevenueThisMonth,
   getTotalRevenueTodayForWorker,
   getClientReservations,
-  getWorkerReservations,finished
+  getWorkerReservations,finished,
+  getMonthlyRevenue
 } = require("../controllers/reservation.controller");
 const { requireAuth } = require("../middleware/auth.middleware");
 //reservation
@@ -34,4 +35,5 @@ router.get("/total/:workerId", getTotalRevenueByWorker);
 router.get("/thismonth/:workerId", getTotalRevenueThisMonth);
 router.get("/today/:workerId", getTotalRevenueTodayForWorker);
 router.put("/finished/:id", finished);
+router.get('/adminrevenue',getMonthlyRevenue)
 module.exports = router;
