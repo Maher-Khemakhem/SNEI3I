@@ -56,7 +56,7 @@ const getAllWorkerslimit = async (req, res) => {
   try {
     // Extract limit and skip from route parameters
     const limitValue = parseInt(req.params.limit, 10) || 10; // Default to 10 workers
-    const skipValue = parseInt(req.params.skip, 10) || 0;    // Default to 0 workers skipped
+    const skipValue = parseInt(req.params.skip, 10) || 0; // Default to 0 workers skipped
 
     // Fetch workers with pagination
     const workers = await Worker.find().limit(limitValue).skip(skipValue);
@@ -65,7 +65,7 @@ const getAllWorkerslimit = async (req, res) => {
     const totalCount = await Worker.countDocuments();
 
     // Respond with workers and total count
-    res.status(200).json({ workers:workers, totalCount:totalCount });
+    res.status(200).json({ workers: workers, totalCount: totalCount });
   } catch (error) {
     res
       .status(500)
@@ -194,18 +194,21 @@ const deleteWorker = async (req, res) => {
   }
 };
 // get the offer of a worker by his ID, sorted by date
+// get the offer of a worker by his ID, sorted by date
 const getOfferWorker = async (req, res) => {
   try {
     const { id } = req.params;
-
-    // Fetch offers for the worker with status 'pending' or 'Pending'
     const offres = await Offre.find({
       Worker_id: id,
-      status: { $in: ["pending", "Pending"] }, // Matches both 'pending' and 'Pending'
+      status: { $in: ["pending", "Pending"] },
     })
       .populate({
         path: "Client_id",
-        select: "name",
+        select: "firstname lastname",
+      })
+      .populate({
+        path: "Worker_id",
+        select: "firstname lastname",
       })
       .select(
         "_id Worker_id Client_id Client_location date status price message"
@@ -366,5 +369,5 @@ module.exports = {
   rejectOffre,
   uploadWorkPhotos,
   updateWorkerCertification,
-  getAllWorkerslimit
+  getAllWorkerslimit,
 };

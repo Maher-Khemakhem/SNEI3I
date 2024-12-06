@@ -56,7 +56,7 @@
     ></script>
   </head>
 
-  <body class="g-sidenav-show ">
+  <body class="g-sidenav-show">
     <aside
       class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
       id="sidenav-main"
@@ -67,20 +67,15 @@
           aria-hidden="true"
           id="iconSidenav"
         ></i>
-        <a
-          class="navbar-brand m-0"
-         
-          target="_blank"
-        >
-        <img
-        src="../../../../assets/logoWithName.png"
-        class="navbar-brand-img "
-        alt="main_logo"
-      />
-      
+        <a class="navbar-brand m-0" target="_blank">
+          <img
+            src="../../../../assets/logoWithName.png"
+            class="navbar-brand-img"
+            alt="main_logo"
+          />
         </a>
       </div>
- 
+
       <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -336,96 +331,128 @@
       </div>
     </aside>
     <main
-    class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
-  >
-    <div class="container">
-      <div class="row">
-        <div class="col-12 mb-3 mb-lg-5">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Latest Offers</mat-card-title>
-             
-            </mat-card-header>
-            <div class="table-responsive">
-              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-                <!-- Client Name Column -->
-                <ng-container matColumnDef="clientName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Client_id }} </td>
-                </ng-container>
-  
-                <!-- Date Column -->
-                <ng-container matColumnDef="date">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                  <td mat-cell *matCellDef="let element">
-                    {{ element.date | date: 'dd-MMM-yyyy' }}
-                  </td>
-                </ng-container>
-  
-                <!-- Message Column -->
-                <ng-container matColumnDef="message">
-                  <th mat-header-cell *matHeaderCellDef> Message </th>
-                  <td mat-cell *matCellDef="let element">
-                    <span
-                      style="min-width: 200px; max-width: 200px; overflow-x: auto; white-space: nowrap;"
-                    >
-                      {{ element.message }}
-                    </span>
-                  </td>
-                </ng-container>
-  
-                <!-- Location Column -->
-                <ng-container matColumnDef="location">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.Client_location }} </td>
-                </ng-container>
-  
-                <!-- Price Column -->
-                <ng-container matColumnDef="price">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.price }} $ </td>
-                </ng-container>
-  
-                <!-- Action Column -->
-                <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef> Action </th>
-                  <td mat-cell *matCellDef="let element">
-                    <div class="d-flex justify-content-between">
-                      <button
-                        mat-icon-button
-                        color="primary"
-                        (click)="acceptOffre(element._id, element.Client_id, element.date, element.price)"
+      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-12 mb-3 mb-lg-5">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Latest Offers</mat-card-title>
+              </mat-card-header>
+              <div class="table-responsive">
+                <table
+                  mat-table
+                  [dataSource]="dataSource"
+                  matSort
+                  class="mat-elevation-z8"
+                >
+                  <!-- Client Name Column -->
+                  <ng-container matColumnDef="clientName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Client Name
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.Client_id.firstname }}
+                      {{ element.Client_id.lastname }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Date Column -->
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Date
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.date | date : "dd-MMM-yyyy" }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Message Column -->
+                  <ng-container matColumnDef="message">
+                    <th mat-header-cell *matHeaderCellDef>Message</th>
+                    <td mat-cell *matCellDef="let element">
+                      <span
+                        style="
+                          min-width: 200px;
+                          max-width: 200px;
+                          overflow-x: auto;
+                          white-space: nowrap;
+                        "
                       >
-                        <mat-icon>check_circle</mat-icon>
-                      </button>
-                      <button
-                        mat-icon-button
-                        color="warn"
-                        (click)="rejectOffre(element._id)"
-                      >
-                        <mat-icon>cancel</mat-icon>
-                      </button>
-                    </div>
-                  </td>
-                </ng-container>
-  
-                <!-- Header and Rows -->
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-            </div>
-            <mat-paginator
-             
-              [pageSize]="5"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-            >
-            </mat-paginator>
-          </mat-card>
+                        {{ element.message }}
+                      </span>
+                    </td>
+                  </ng-container>
+
+                  <!-- Location Column -->
+                  <ng-container matColumnDef="location">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Location
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.Client_location }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Price Column -->
+                  <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Price
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.price }} $
+                    </td>
+                  </ng-container>
+
+                  <!-- Action Column -->
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="d-flex justify-content-between">
+                        <button
+                          mat-icon-button
+                          color="primary"
+                          (click)="
+                            acceptOffre(
+                              element._id,
+                              element.Client_id,
+                              element.date,
+                              element.price
+                            )
+                          "
+                        >
+                          <mat-icon>check_circle</mat-icon>
+                        </button>
+                        <button
+                          mat-icon-button
+                          color="warn"
+                          (click)="rejectOffre(element._id)"
+                        >
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Header and Rows -->
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+                </table>
+              </div>
+              <mat-paginator
+                [pageSize]="5"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+              >
+              </mat-paginator>
+            </mat-card>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
-  
+    </main>
 
     <!--   Core JS Files   -->
     <script src="../../../../assets/js/core/popper.min.js"></script>

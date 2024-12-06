@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 const OffreSchema = new Schema(
   {
     Client_id: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Client",
       required: true,
     },
     Worker_id: {
