@@ -19,10 +19,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
 import { WorkerService } from '../../../../services/worker.service';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-update-worker',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,MatNativeDateModule,MatFormFieldModule,MatInputModule,MatDatepickerModule,CommonModule],
+  imports: [ReactiveFormsModule,FormsModule,MatNativeDateModule,MatFormFieldModule,MatInputModule,MatDatepickerModule,CommonModule,MatButtonModule],
   providers:[provideNativeDateAdapter()],
   templateUrl: './update-worker.component.html',
   styleUrl: './update-worker.component.css'

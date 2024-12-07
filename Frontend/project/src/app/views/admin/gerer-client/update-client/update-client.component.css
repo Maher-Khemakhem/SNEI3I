@@ -1,106 +1,126 @@
-/* General Styles */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f9;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.mat-form-field {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.mat-label {
-  font-weight: 500;
-}
-
-.mat-input-element {
-  font-size: 1rem;
-}
-
-/* Form Wrapper */
+/* Container for the entire form */
 form {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 24px;
-  width: 100%;
-  max-width: 600px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  margin: 20px auto;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* Flex for Form Groups */
-.form-group {
+/* Row styling for spacing */
+.row {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 20px;
   margin-bottom: 20px;
 }
 
-/* Full width for inputs */
-.full-width {
-  flex: 1 1 48%;
+/* Input field styling */
+mat-form-field {
+  flex: 1 1 calc(50% - 20px);
+  min-width: 300px;
 }
 
-/* Photo Upload */
-.photo-upload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
+mat-form-field.half-width {
+  flex: 1 1 calc(50% - 10px);
 }
 
-.photo-upload input[type="file"] {
+mat-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+input[matInput] {
+  font-size: 16px;
+  padding: 10px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #e5e7eb;
+}
+
+.mat-form-field-appearance-fill.mat-focused .mat-form-field-flex {
+  border: 2px solid #3f51b5;
+}
+
+/* Error styling */
+mat-error {
+  color: #e63946;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* File upload section */
+#photo-upload {
+  display: none;
+}
+
+.photo-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
   margin-bottom: 10px;
+  text-align: center;
+}
+
+.photo-label:hover {
+  background-color: #303f9f;
 }
 
 img {
-  border-radius: 8px;
+  display: block;
   margin-top: 10px;
-  object-fit: cover;
-}
-
-/* Submit Button */
-.actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-button[mat-button] {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit button */
+button {
+  padding: 12px 24px;
+  border: none;
+  background-color: #3f51b5;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button[mat-button]:hover {
-  background-color: #0056b3;
-}
-
-button[mat-button]:disabled {
-  background-color: #b0c4de;
+button:disabled {
+  background-color: #d1d5db;
   cursor: not-allowed;
 }
 
-/* Responsive Design */
+button:hover:enabled {
+  background-color: #303f9f;
+}
+
+/* Actions container */
+.actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .form-group {
+  .row {
     flex-direction: column;
+    align-items: stretch;
   }
-  .full-width {
+
+  mat-form-field {
     flex: 1 1 100%;
+    min-width: 100%;
+  }
+
+  button {
+    width: 100%;
   }
 }

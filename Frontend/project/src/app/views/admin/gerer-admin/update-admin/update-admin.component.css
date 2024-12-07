@@ -1,15 +1,15 @@
-/* Form container */
+/* Container for the entire form */
 form {
     background-color: #f9f9f9;
     border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 80%;
     margin: 20px auto;
-    max-width: 800px;
     font-family: 'Roboto', sans-serif;
   }
   
-  /* Row container for layout */
+  /* Row styling for spacing */
   .row {
     display: flex;
     flex-wrap: wrap;
@@ -17,8 +17,9 @@ form {
     margin-bottom: 20px;
   }
   
+  /* Input field styling */
   mat-form-field {
-    flex: 1;
+    flex: 1 1 calc(50% - 20px);
     min-width: 300px;
   }
   
@@ -26,42 +27,46 @@ form {
     flex: 1 1 calc(50% - 10px);
   }
   
+  mat-label {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  input[matInput] {
+    font-size: 16px;
+    padding: 10px;
+  }
+  
   .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: white;
-    border: 1px solid #ddd;
+    background-color: #ffffff;
     border-radius: 5px;
+    border: 1px solid #e5e7eb;
   }
   
   .mat-form-field-appearance-fill.mat-focused .mat-form-field-flex {
     border: 2px solid #3f51b5;
   }
   
-  /* Error text */
+  /* Error styling */
   mat-error {
     color: #e63946;
     font-size: 12px;
     margin-top: 5px;
   }
   
-  /* File upload */
-  .file-upload {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
+  /* File upload section */
   #photo-upload {
     display: none;
   }
   
   .photo-label {
+    display: inline-block;
     padding: 10px 20px;
     background-color: #3f51b5;
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 10px;
     text-align: center;
   }
   
@@ -69,25 +74,21 @@ form {
     background-color: #303f9f;
   }
   
-  .uploaded-photo {
-    width: 150px;
-    height: 150px;
+  img {
+    display: block;
+    margin-top: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   /* Submit button */
-  .actions {
-    text-align: center;
-  }
-  
   button {
     padding: 12px 24px;
+    border: none;
     background-color: #3f51b5;
     color: white;
     font-size: 16px;
     border-radius: 5px;
-    border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
@@ -101,13 +102,21 @@ form {
     background-color: #303f9f;
   }
   
-  /* Responsive layout */
+  /* Actions container */
+  .actions {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Responsive adjustments */
   @media (max-width: 768px) {
     .row {
       flex-direction: column;
+      align-items: stretch;
     }
   
     mat-form-field {
+      flex: 1 1 100%;
       min-width: 100%;
     }
   

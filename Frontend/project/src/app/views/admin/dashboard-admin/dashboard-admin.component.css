@@ -35,3 +35,9 @@
         /* Centers cards on smaller screens */
     }
 }
+a{
+    cursor: pointer;
+  }
+ .navbar-brand-img {
+    width: 100px;
+ }

@@ -52,11 +52,11 @@
     <label for="photo-upload" class="photo-label">Upload Photo</label>
     <input type="file" id="photo-upload" (change)="onPhotoUpload($event)" />
     <p *ngIf="!photo">No photo uploaded. A default photo will be used.</p>
-    <img *ngIf="photo" [src]="photo" alt="Uploaded photo" class="uploaded-photo" />
+    <img *ngIf="photo" [src]="photo" alt="Uploaded photo" class="uploaded-photo" style="width: 150px; height: 150px; margin-top: 10px;" />
   </div>
 
   <!-- Submit button -->
   <div class="actions">
-    <button mat-button [disabled]="firstFormGroup.invalid" (click)="update()">Next</button>
+    <button mat-button [disabled]="firstFormGroup.invalid" (click)="update()">Submit</button>
   </div>
 </form>

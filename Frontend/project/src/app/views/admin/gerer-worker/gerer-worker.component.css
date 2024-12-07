@@ -417,4 +417,13 @@ button.mat-raised-button {
       margin-left: 5px;
     }
   }
+  a{
+    cursor: pointer;
+  }
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height to center it on the page */
+  }
   

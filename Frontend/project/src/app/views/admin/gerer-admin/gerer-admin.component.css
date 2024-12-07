@@ -1,6 +1,6 @@
 body {
     color: #566787;
-    background: #f5f5f5;
+    background: white;
     font-family: 'Varela Round', sans-serif;
     font-size: 13px;
 }
@@ -417,4 +417,9 @@ button.mat-raised-button {
       margin-left: 5px;
     }
   }
-  
+  .bg-gray-100[_ngcontent-ng-c3974105827]{
+    background-color: aliceblue !important;
+  }
+  a{
+    cursor: pointer;
+  }

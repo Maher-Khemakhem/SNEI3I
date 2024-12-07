@@ -12,13 +12,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-gerer-worker',
   standalone: true,
   imports: [CommonModule,NgbPaginationModule,MatTableModule,
     MatPaginatorModule,
-    MatIconModule,MatButtonModule,MatCardModule],
+    MatIconModule,MatButtonModule,MatCardModule,MatProgressSpinnerModule ],
   templateUrl: './gerer-worker.component.html',
   styleUrl: './gerer-worker.component.css'
 })
@@ -34,8 +35,13 @@ throw new Error('Method not implemented.');
   totalCount:any;
   displayedColumns: string[] = ['firstname', 'lastname', 'email', 'num_tel', 'date_of_birth', 'photo', 'speciality', 'actions'];
   dataSource = new MatTableDataSource<any>([]);
- 
-  constructor(private workerservice:WorkerService,private loginService:LoginService,private router:Router,private clientservice:ClientService,private a:MatDialog){}
+  isLoading = true;
+  constructor(private workerservice:WorkerService,private loginService:LoginService,private router:Router,private clientservice:ClientService,private a:MatDialog){
+    setTimeout(() => {
+      this.isLoading = false; // Set to false when loading is complete
+    }, 2000); // Replace with your actual loading logic
+  }
+  
   ngOnInit(): void {
       this.getWorkers();
   }

@@ -2,7 +2,7 @@
   <ng-template matStepLabel>General Information</ng-template>
 
   <!-- First row with two fields -->
-  <div class="form-group">
+  <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>First Name</mat-label>
       <input matInput formControlName="firstname" required />
@@ -21,7 +21,7 @@
   </div>
 
   <!-- Second row with phone number -->
-  <div class="form-group">
+  <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Phone Number</mat-label>
       <input matInput formControlName="num_tel" type="tel" required />
@@ -35,7 +35,7 @@
   </div>
 
   <!-- Third row with Date of Birth field -->
-  <div class="form-group">
+  <div class="row">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Date of Birth</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="Date_of_birth" required />
@@ -48,14 +48,15 @@
   </div>
 
   <!-- Photo upload section -->
-  <div class="photo-upload">
-    <input type="file" (change)="onPhotoUpload($event)" />
-  </div>
-  <p *ngIf="!photo">No photo uploaded. A default photo will be used.</p>
-  <img *ngIf="photo" [src]="photo" alt="Uploaded photo" style="width: 150px; height: 150px;" />
-
+  <div class="file-upload row photo-upload">
+    
+      <label for="photo-upload" class="photo-label">Upload Photo</label>
+      <input type="file" id="photo-upload" (change)="onPhotoUpload($event)" />
+      <p *ngIf="!photo">No photo uploaded. A default photo will be used.</p>
+      <img *ngIf="photo" [src]="photo" alt="Uploaded photo" class="uploaded-photo" style="width: 150px; height: 150px; margin-top: 10px;" />
+    </div>
   <!-- Submit button -->
   <div class="actions">
-    <button mat-button [disabled]="firstFormGroup.invalid" (click)="update()">Next</button>
+    <button mat-button [disabled]="firstFormGroup.invalid" (click)="update()">Submit</button>
   </div>
 </form>
