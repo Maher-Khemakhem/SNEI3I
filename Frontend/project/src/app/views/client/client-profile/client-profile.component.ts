@@ -5,6 +5,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ReservationService } from '../../../services/reservation.service';
+import { WorkerService } from '../../../services/worker.service';
+import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-client-profile',
@@ -16,7 +18,7 @@ import { ReservationService } from '../../../services/reservation.service';
 export class ClientProfileComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['no', 'client', 'worker', 'date', 'status', 'price'];
   private _liveAnnouncer = inject(LiveAnnouncer);
-  dataSource = new MatTableDataSource<Reservation>([]);
+  dataSource = new MatTableDataSource<any>([]);
   id = localStorage.getItem('client_id');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -24,15 +26,18 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
    // Define client type or use `any`
    client: any;
   constructor(
+    
     private clientService: ClientService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private workerservice:WorkerService
   ) {
 
   }
 
   ngOnInit(): void {
     this.fetchClientData(this.id||'');
-    this.fetchReservations(this.id||''); // Fetch reservations on initialization
+    this.fetchReservations(this.id||'');
+    
   }
 
   ngAfterViewInit(): void {
@@ -45,6 +50,8 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
       next: (clientData) => {
         this.client = clientData;
         console.log('Client data fetched successfully:', clientData);
+        
+        console.log(this.dataSource.data);
       },
       error: (err) => {
         console.error('Error fetching client data:', err);
@@ -54,9 +61,30 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
 
   fetchReservations(clientId: string): void {
     this.reservationService.getClientReservations(clientId).subscribe({
-      next: (reservations: Reservation[]) => {
-        this.dataSource.data = reservations; // Pass the array directly
-        console.log('Reservations fetched successfully:', reservations);
+      next: (reservations: any[]) => {
+        // Create an array of observables for fetching worker data for each reservation
+        const workerRequests = reservations.map(reservation => 
+          this.workerservice.getWorkerbyID(reservation.worker).pipe(
+            map((data: any) => {
+              // Add worker's firstname and lastname to the reservation
+              return {
+                ...reservation,
+                workerfirstname: data.firstname,
+                workerlastname: data.lastname
+              };
+            })
+          )
+        );
+  
+        // Use forkJoin to wait for all worker requests to complete
+        forkJoin(workerRequests).subscribe({
+          next: (updatedReservations) => {
+            // Update the dataSource with the updated reservations
+            this.dataSource.data = updatedReservations;
+            console.log('Reservations fetched successfully:', updatedReservations);
+          },
+          error: (err) => console.error('Error fetching workers:', err),
+        });
       },
       error: (err) => console.error('Error fetching reservations:', err),
     });
@@ -77,7 +105,8 @@ export interface Reservation {
   date: Date;
   status: string;
   price: number;
-  message?: string; // Optional field
+  message?: string;
+  
 }
 
 

@@ -84,14 +84,14 @@
               
                   <!-- Client Column -->
                   <ng-container matColumnDef="client">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by client"> Client </th>
-                    <td mat-cell *matCellDef="let element"> {{element.client}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by client"> Firstname </th>
+                    <td mat-cell *matCellDef="let element"> {{element.workerfirstname}} </td>
                   </ng-container>
               
                   <!-- Worker Column -->
                   <ng-container matColumnDef="worker">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by worker"> Worker </th>
-                    <td mat-cell *matCellDef="let element"> {{element.worker}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by worker"> Lastname </th>
+                    <td mat-cell *matCellDef="let element"> {{element.workerlastname}} </td>
                   </ng-container>
               
                   <!-- Date Column -->
