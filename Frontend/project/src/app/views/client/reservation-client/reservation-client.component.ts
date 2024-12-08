@@ -28,6 +28,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OffreService } from '../../../services/offre.service';
 import { ClientService } from '../../../services/client.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservation-client',
@@ -72,7 +73,7 @@ export class ReservationClientComponent {
   events: Event[] = [];
   reservationForm: FormGroup;
   client_location:any;
-  constructor(private modal: NgbModal,private fb: FormBuilder,private offreservice:OffreService,private clientservice:ClientService) {
+  constructor(private modal: NgbModal,private fb: FormBuilder,private offreservice:OffreService,private clientservice:ClientService,private router:Router) {
     this.reservationForm = this.fb.group({
        // Date control, required
       description: ['', Validators.required], 
@@ -127,6 +128,7 @@ export class ReservationClientComponent {
         (response) => {
           console.log('Reservation successfully sent:', response);
           alert('Reservation submitted successfully!');
+          this.router.navigate(['/']);
         },
         (error) => {
           console.error('Error submitting reservation:', error);
