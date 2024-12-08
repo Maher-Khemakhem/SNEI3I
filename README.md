@@ -15,11 +15,12 @@ The Snei3i project is part of the field of connecting customers and service prov
 
 ### Built With
 
+* [![MongoDB][MongoDB]][MongoDB-url]
 * [![Angular][Angular.io]][Angular-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![Express][Express.js]][Express-url]
 * [![Node.js][Node.js]][Node-url]
-* [![MongoDB][MongoDB]][MongoDB-url]
+
 
 
 
