@@ -56,32 +56,26 @@
     ></script>
   </head>
 
-  <body class="g-sidenav-show ">
+  <body class="g-sidenav-show">
     <aside
       class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
       id="sidenav-main"
     >
       <div class="sidenav-header">
         <i
-          class="fas fa-times  cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+          class="fas fa-times cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
           aria-hidden="true"
           id="iconSidenav"
         ></i>
-        <a
-          class="navbar-brand m-0"
-          
-          target="_blank"
-        >
-        <img
-        src="../../../../assets/logoWithName.png"
-
-        class="navbar-brand-img img-fluid"
-        alt="main_logo"
-      />
-      
+        <a class="navbar-brand m-0" target="_blank">
+          <img
+            src="../../../../assets/logoWithName.png"
+            class="navbar-brand-img img-fluid"
+            alt="main_logo"
+          />
         </a>
       </div>
-      
+
       <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -337,7 +331,9 @@
       </div>
     </aside>
 
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <main
+      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+    >
       <div class="container">
         <div class="row">
           <div class="col-12 mb-3 mb-lg-5">
@@ -346,38 +342,63 @@
                 <mat-card-title>Latest Reservation</mat-card-title>
               </mat-card-header>
               <div class="table-responsive">
-                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    
+                <table
+                  mat-table
+                  [dataSource]="dataSource"
+                  matSort
+                  class="mat-elevation-z8"
+                >
                   <!-- Client Name Column -->
                   <ng-container matColumnDef="clientName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Client Name
+                    </th>
                     <td mat-cell *matCellDef="let item">
                       {{ item.client.firstname }} {{ item.client.lastname }}
                     </td>
                   </ng-container>
-    
+
                   <!-- Date Column -->
                   <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-                    <td mat-cell *matCellDef="let item">{{ item.date | date: 'dd-MMM-yyyy' }}</td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Date
+                    </th>
+                    <td mat-cell *matCellDef="let item">
+                      {{ item.date | date : "dd-MMM-yyyy" }}
+                    </td>
                   </ng-container>
-    
+
                   <!-- Location Column -->
                   <ng-container matColumnDef="location">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-                    <td mat-cell *matCellDef="let item">{{ item.worker.location }}</td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Location
+                    </th>
+                    <td mat-cell *matCellDef="let item">
+                      {{ item.worker.location }}
+                    </td>
                   </ng-container>
-    
+
                   <!-- Price Column -->
                   <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Price
+                    </th>
                     <td mat-cell *matCellDef="let item">{{ item.price }} $</td>
                   </ng-container>
-    
+
                   <!-- Status Column -->
                   <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-                    <td mat-cell *matCellDef="let item" [ngClass]="{ 'text-green': item.status === 'Confirmed', 'text-red': item.status !== 'Confirmed' }">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Status
+                    </th>
+                    <td
+                      mat-cell
+                      *matCellDef="let item"
+                      [ngClass]="{
+                        'text-green': item.status === 'Confirmed',
+                        'text-red': item.status !== 'Confirmed'
+                      }"
+                    >
                       {{ item.status }}
                     </td>
                   </ng-container>
@@ -385,30 +406,56 @@
                   <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef>Action</th>
                     <td mat-cell *matCellDef="let element">
-                      <button mat-button color="primary" (click)="make(element._id)">Finished</button>
+                      <!-- Conditionally display the button if status is 'Pending', else display an empty button -->
+                      <ng-container
+                        *ngIf="element.status === 'Pending'; else emptyButton"
+                      >
+                        <button
+                          mat-button
+                          color="primary"
+                          (click)="make(element._id)"
+                        >
+                          Finished
+                        </button>
+                      </ng-container>
+                      <ng-template #emptyButton>
+                        <button mat-button disabled>&nbsp;</button>
+                      </ng-template>
                     </td>
                   </ng-container>
-    
-                 
+
                   <!-- Table Rows -->
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
                 </table>
-    
+
                 <!-- Paginator -->
-                <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+                <mat-paginator
+                  [pageSizeOptions]="[5, 10, 25]"
+                  showFirstLastButtons
+                ></mat-paginator>
               </div>
             </mat-card>
           </div>
         </div>
       </div>
-    
+
       <!-- Loading Spinner -->
-      <div *ngIf="!isLoaded" class="d-flex justify-content-center align-items-center" style="height: 100vh">
-        <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+      <div
+        *ngIf="!isLoaded"
+        class="d-flex justify-content-center align-items-center"
+        style="height: 100vh"
+      >
+        <mat-progress-spinner
+          mode="indeterminate"
+          color="primary"
+        ></mat-progress-spinner>
       </div>
     </main>
-    
+
     <!--   Core JS Files   -->
     <script src="../../../../assets/js/core/popper.min.js"></script>
     <script src="../../../../assets/js/core/bootstrap.min.js"></script>
