@@ -427,3 +427,7 @@ button.mat-raised-button {
     height: 100vh; /* Full height to center it on the page */
   }
   
+    .navbar-vertical[_ngcontent-ng-c1106772842] .navbar-nav[_ngcontent-ng-c1106772842]>.nav-item[_ngcontent-ng-c1106772842] .nav-link.active[_ngcontent-ng-c1106772842] .icon[_ngcontent-ng-c1106772842] {
+      background-image: linear-gradient(45deg, #007bff, #00025d);
+        color: #fff;
+    }
