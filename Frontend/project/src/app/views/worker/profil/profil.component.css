@@ -257,3 +257,7 @@ main {
     background-image: linear-gradient(45deg, #007bff, #00025d);
     color: #fff;
 }
+.navbar-vertical[_ngcontent-ng-c3699411649] .navbar-nav[_ngcontent-ng-c3699411649]>.nav-item[_ngcontent-ng-c3699411649] .nav-link.active[_ngcontent-ng-c3699411649] .icon[_ngcontent-ng-c3699411649] {
+background-image: linear-gradient(45deg, #007bff, #00025d);
+    color: #fff;
+}
