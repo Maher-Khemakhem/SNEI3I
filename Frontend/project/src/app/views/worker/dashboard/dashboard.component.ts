@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.worker_id);
+    //console.log(this.worker_id);
     this.initTotalRevenue();
     this.initMonthlyRevenue();
     this.initDailyRevenue();
