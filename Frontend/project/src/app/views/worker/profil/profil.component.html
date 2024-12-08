@@ -348,14 +348,6 @@
           <p class="info">{{ email }}</p>
           <div class="stats row">
             <div class="stat col-xs-4">
-              <p class="number-stat">{{ number_of_messages }}</p>
-              <p class="desc-stat">number of messages</p>
-            </div>
-            <div class="stat col-xs-4">
-              <p class="number-stat">4.3</p>
-              <p class="desc-stat">Rate</p>
-            </div>
-            <div class="stat col-xs-4">
               <p class="number-stat">{{ price }} $</p>
               <p class="desc-stat">Price</p>
             </div>
@@ -459,7 +451,25 @@
         </div>
       </div>
 
-      <button (click)="goToEditProfil()">edit Profil</button>
+      <button
+        (click)="goToEditProfil()"
+        style="
+          background-image: linear-gradient(45deg, #007bff, #00025d);
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: transform 0.2s, opacity 0.2s;
+        "
+        onmouseover="this.style.opacity='0.9';"
+        onmouseout="this.style.opacity='1';"
+        onmousedown="this.style.transform='scale(0.95)';"
+        onmouseup="this.style.transform='scale(1)';"
+      >
+        Edit Profil
+      </button>
     </main>
 
     <!--   Core JS Files   -->

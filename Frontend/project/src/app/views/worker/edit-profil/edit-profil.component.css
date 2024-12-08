@@ -88,3 +88,53 @@ form label {
 ::ng-deep .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item>.nav-link .icon svg .color-background {
     fill: #0000ff;
 }
+
+.navbar-vertical[_ngcontent-ng-c2583449634] .navbar-nav[_ngcontent-ng-c2583449634]>.nav-item[_ngcontent-ng-c2583449634] .nav-link.active[_ngcontent-ng-c2583449634] .icon[_ngcontent-ng-c2583449634] {
+    background-image: linear-gradient(45deg, #007bff, #00025d);
+        color: #fff;
+}
+
+.custom-button {
+    background-image: linear-gradient(45deg, #007bff, #00025d);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.custom-button:hover {
+    opacity: 0.9;
+}
+
+.custom-button:active {
+    transform: scale(0.95);
+}
+
+.default-button {
+    background-color: #f8f9fa;
+    /* Matches default button style */
+    color: #000;
+    border: 1px solid #ced4da;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.default-button:hover {
+    opacity: 0.9;
+}
+
+.default-button:active {
+    transform: scale(0.95);
+}
+
+
+.navbar-vertical[_ngcontent-ng-c2373995081] .navbar-nav[_ngcontent-ng-c2373995081]>.nav-item[_ngcontent-ng-c2373995081] .nav-link.active[_ngcontent-ng-c2373995081] .icon[_ngcontent-ng-c2373995081] {
+    background-image: linear-gradient(45deg, #007bff, #00025d);
+        color: #fff;
+}
