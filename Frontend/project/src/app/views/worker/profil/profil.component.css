@@ -241,7 +241,121 @@ main {
     background-image: linear-gradient(45deg, #007bff, #00025d);
         color: #fff;
 }
-.navbar-vertical[_ngcontent-ng-c1317612398] .navbar-nav[_ngcontent-ng-c1317612398]>.nav-item[_ngcontent-ng-c1317612398] .nav-link.active[_ngcontent-ng-c1317612398] .icon[_ngcontent-ng-c1317612398] {
-background-image: linear-gradient(45deg, #007bff, #00025d);
+.navbar-vertical[_ngcontent-ng-c3156890694] .navbar-nav[_ngcontent-ng-c3156890694] > .nav-item[_ngcontent-ng-c3156890694] .nav-link.active[_ngcontent-ng-c3156890694] .icon[_ngcontent-ng-c3156890694]{background-image: linear-gradient(45deg, #007bff, #00025d);
     color: #fff;
 }
+.left{
+    background-image: linear-gradient(45deg, #007bff, #00025d);
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+.left h4{
+    color: #fff;
+}
+.left p{
+    color: #fff;
+}
+main{
+    padding: 0;
+    overflow-x: hidden;
+}
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .nav li {
+    margin: 40px 30px 0 10px;
+    cursor: pointer;
+    font-size: 13pt;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    color: #888;
+  }
+  
+  .nav li:hover,
+  .nav li:nth-child(1) {
+    color: #999;
+    border-bottom: 2px solid #999;
+  }
+  
+  
+  
+  @media (max-width: 990px) {
+    .nav {
+      display: none;
+    }
+  
+    
+  }
+  
+  
+  
+  .gallery img {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+  
+  .worker-profile-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  
+  /* Ensure mat-card and mat-form-field have some spacing */
+  mat-card {
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-list-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+  }
+  
+  .mat-icon {
+    font-size: 24px;
+    color: #007bff; /* Adjust color as needed */
+    margin-right: 16px;
+  }
+  
+  .form-container {
+    flex-grow: 1;
+  }
+  
+  .input-field {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  
+  /* Styling for the divs within the list items */
+  .list-item {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+  }
+  
+  mat-divider {
+    margin: 12px 0;
+  }
+  .form-container {
+    display: flex;
+    gap: 16px; /* Adds space between the input fields */
+    flex-wrap: wrap; /* Allows wrapping for responsiveness */
+  }
+  
+  .input-field {
+    flex: 1; /* Makes the form fields take up equal space */
+    min-width: 300px; /* Ensures the fields don't get too narrow */
+  }
+  .mat-mdc-input-element {
+    color: #ff0000; /* Change this to your desired color */
+  }
+  
+  

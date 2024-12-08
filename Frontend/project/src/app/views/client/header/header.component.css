@@ -1,6 +1,7 @@
 .gradient-header {
     background: linear-gradient(45deg, #007bff, #00025d);
     height: 700px; /* Adjust height as needed */
+    animation: gradientMove 8s ease infinite;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,6 +60,7 @@ button {
 }
 .container{
   padding-top: 3%;
+  padding-bottom: 3%;
   align-items: center;
   
 }
@@ -193,4 +195,38 @@ button {
 .single_advisor_profile:hover .single_advisor_details_info p,
 .single_advisor_profile:focus .single_advisor_details_info p {
   color: #ffffff;
+}
+.mat-mdc-form-field-subscript-wrapper{
+
+ height: 0;
+  display: none;
+}
+.jumping-point {
+  position: absolute;
+  
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: jump 1.5s ease-in-out infinite;
+}
+@keyframes jump {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translateY(-20px); /* Higher jump */
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  75% {
+    transform: translate(-50%, -50%) translateY(-10px); /* Lower second jump */
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
 }

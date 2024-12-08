@@ -346,13 +346,7 @@
           <h4 class="name">{{ firstname }} {{ lastname }}</h4>
           <p class="info">{{ speciality }}</p>
           <p class="info">{{ email }}</p>
-          <div class="stats row">
-            <div class="stat col-xs-4">
-              <p class="number-stat">{{ price }} $</p>
-              <p class="desc-stat">Price</p>
-            </div>
-          </div>
-          <p class="desc">{{ description }}</p>
+          
         </div>
         <div class="right col-lg-8">
           <mat-tab-group>
@@ -446,7 +440,15 @@
               </div>
             </mat-tab>
 
-            <mat-tab label="Location"> {{ location }} </mat-tab>
+            <mat-tab label="Location"> 
+              
+              {{ location }}
+              <br>
+              <img
+               src="../../../../assets/Map.png"
+               style="width: 75%; align-items: center;"
+              >
+               </mat-tab>
           </mat-tab-group>
         </div>
       </div>

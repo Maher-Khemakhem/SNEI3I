@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';  // Import RouterModule here
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-edit-profil',
@@ -18,7 +19,7 @@ import { RouterModule } from '@angular/router';  // Import RouterModule here
     MatFormFieldModule,
     MatIconModule,
     CommonModule,FormsModule,
-    MatInputModule,RouterModule
+    MatInputModule,RouterModule,MatButtonModule
   ],
   templateUrl: './edit-profil.component.html',
   styleUrls: ['./edit-profil.component.css'],
