@@ -1,40 +1,49 @@
 <div class="main">
     <aside class="filter-aside">
-      <p>Filter by:</p>
-      <form [formGroup]="filterForm" (ngSubmit)="onFilterSubmit()">
-        <!-- Select Type -->
-        <mat-form-field appearance="fill" class="w-100">
-          <mat-label>Select Type</mat-label>
-          <mat-select formControlName="location">
-            <mat-option *ngFor="let location of locations" [value]="location">
-              {{ location||obj.location }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-  
-        <!-- Select Category -->
-        <mat-form-field appearance="fill" class="w-100">
-          <mat-label>Select price</mat-label>
-          <mat-select formControlName="price">
-            <mat-option *ngFor="let price of prices" [value]="price">
-              {{ price }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Select speciality</mat-label>
-            <mat-select formControlName="speciality">
-              <mat-option *ngFor="let speciality of specialities" [value]="speciality">
-                {{ speciality||obj.speciality }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-  
-        <!-- Submit Button -->
-        <div class="col-12">
-          <button type="submit" mat-raised-button color="primary" class="btn">Submit</button>
-        </div>
-      </form>
+      <mat-card class="filter-card">
+        <mat-card-header>
+          <mat-card-title>Filter Options</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="filterForm" (ngSubmit)="onFilterSubmit()">
+            <!-- Select Location -->
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Select Location</mat-label>
+              <mat-select formControlName="location">
+                <mat-option *ngFor="let location of locations" [value]="location">
+                  {{ location || obj.location }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+            <!-- Select Price -->
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Select Price</mat-label>
+              <mat-select formControlName="price">
+                <mat-option *ngFor="let price of prices" [value]="price">
+                  {{ price }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+            <!-- Select Speciality -->
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Select Speciality</mat-label>
+              <mat-select formControlName="speciality">
+                <mat-option *ngFor="let speciality of specialities" [value]="speciality">
+                  {{ speciality || obj.speciality }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+            <!-- Submit Button -->
+            <div class="submit-container">
+              <button type="submit" mat-raised-button color="primary" class="btn-submit">Submit</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+      
     </aside>
   
     <div class="cards-container">

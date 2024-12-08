@@ -8,10 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchService } from '../../../services/search.service';
+import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-filtre',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,MatFormFieldModule,MatSelectModule,MatButtonModule], // Import CommonModule here
+  imports: [CommonModule,MatCardModule,ReactiveFormsModule,MatFormFieldModule,MatSelectModule,MatButtonModule], // Import CommonModule here
   templateUrl: './filtre.component.html',
   styleUrls: ['./filtre.component.css'],
 })

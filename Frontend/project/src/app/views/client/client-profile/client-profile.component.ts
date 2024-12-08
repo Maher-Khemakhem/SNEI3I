@@ -7,13 +7,14 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ReservationService } from '../../../services/reservation.service';
 import { WorkerService } from '../../../services/worker.service';
 import { forkJoin, map } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-client-profile',
   standalone: true,
   templateUrl: './client-profile.component.html',
   styleUrls: ['./client-profile.component.css'], // Ensure this file exists
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule],
 })
 export class ClientProfileComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['no', 'client', 'worker', 'date', 'status', 'price'];
@@ -22,7 +23,7 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
   id = localStorage.getItem('client_id');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  isEditMode = false;
    // Define client type or use `any`
    client: any;
   constructor(
@@ -43,6 +44,13 @@ export class ClientProfileComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+  toggleEditMode(): void {
+    if (this.isEditMode) {
+      // Logic to save changes goes here
+      console.log('Changes saved');
+    }
+    this.isEditMode = !this.isEditMode;
   }
 
   fetchClientData(clientId: string): void {

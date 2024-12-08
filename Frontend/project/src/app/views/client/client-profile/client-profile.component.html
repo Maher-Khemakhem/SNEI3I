@@ -2,13 +2,13 @@
     <div class="main-body">
     
           <!-- Breadcrumb -->
-          <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <!--<nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
               <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
               <li class="breadcrumb-item active" aria-current="page">User Profile</li>
             </ol>
-          </nav>
+          </nav>-->
           <!-- /Breadcrumb -->
     
           <div class="row gutters-sm">
@@ -36,7 +36,7 @@
                       <h6 class="mb-0">Full Name</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <input type="text" class="form-control" value={{client.firstname}}>
+                      <input  [disabled]="!isEditMode" type="text" class="form-control" value={{client.firstname}}>
                     </div>
                   </div>
                   <div class="row mb-3">
@@ -44,7 +44,7 @@
                       <h6 class="mb-0">Email</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <input type="text" class="form-control" value={{client.email}}>
+                      <input disabled type="text" class="form-control" value={{client.email}}>
                     </div>
                   </div>
                   
@@ -53,7 +53,7 @@
                       <h6 class="mb-0">Mobile</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <input type="text" class="form-control" value={{client.num_tel}}>
+                      <input  [disabled]="!isEditMode" type="text" class="form-control" value={{client.num_tel}}>
                     </div>
                   </div>
                   <div class="row mb-3">
@@ -61,13 +61,13 @@
                       <h6 class="mb-0">Address</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <input type="text" class="form-control" value="Bay Area, San Francisco, CA">
+                      <input  [disabled]="!isEditMode" type="text" class="form-control" value="Bay Area, San Francisco, CA">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9 text-secondary">
-                      <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                     
                     </div>
                   </div>
                 </div>
