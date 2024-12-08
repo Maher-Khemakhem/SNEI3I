@@ -1,0 +1,97 @@
+:host {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(45deg, #007bff, #00025d);
+    /* Gradient background */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Subtle shadow for the heading */
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    /* Allows buttons to wrap to the next line */
+    justify-content: center;
+}
+
+.large-button {
+    padding: 75px 150px;
+    /* Increase the padding */
+    font-size: 7.5rem;
+    /* Increase the font size */
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background-color: #fff;
+    color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+/* Hover effect */
+.large-button:hover {
+    background-color: #007bff;
+    color: #fff;
+    transform: translateY(-3px);
+    /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    /* Darker shadow on hover */
+}
+
+/* Focus effect */
+.large-button:focus {
+    outline: none;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        /* Smaller heading */
+    }
+
+    .large-button {
+        padding: 40px 80px;
+        /* Adjust button padding */
+        font-size: 4rem;
+        /* Adjust font size */
+    }
+
+    .button-container {
+        flex-direction: column;
+        /* Stack buttons vertically */
+        gap: 15px;
+        /* Adjust the spacing between buttons */
+    }
+}
+
+@media (max-width: 480px) {
+    .large-button {
+        padding: 20px 40px;
+        /* Further adjust button padding */
+        font-size: 2rem;
+        /* Smaller font size */
+    }
+}
+
+.arrow {
+    font-size: 5rem;
+
+}

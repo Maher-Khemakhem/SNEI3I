@@ -120,7 +120,7 @@ export class NavComponent implements OnInit {
   }
 
   login(): void {
-    this.router.navigate(['/choose']);
+    this.router.navigate(['/choose2']);
   }
 
   signin(): void {

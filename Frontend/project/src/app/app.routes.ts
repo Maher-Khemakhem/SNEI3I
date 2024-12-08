@@ -31,6 +31,7 @@ import { ChooseComponent } from './views/client/choose/choose.component';
 import { workerauthenticationGuard } from './services/workerauthentication.guard';
 import { clientOrNoAuthGuard } from './services/client-or-no-auth.guard';
 import { workerAuthGuard } from './services/worker-auth.guard';
+import { Choose2Component } from './views/client/choose2/choose2.component';
 
 
 
@@ -73,6 +74,11 @@ export const routes: Routes = [
   {
     path:"choose",
     component:ChooseComponent,
+    
+  },
+  {
+    path:"choose2",
+    component:Choose2Component,
     
   },
   {
