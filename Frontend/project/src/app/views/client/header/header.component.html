@@ -1,104 +1,140 @@
 <header class="gradient-header">
-        
-      
-    <!-- Background image -->
-    <div
-      class=" text-center bg-image "
-      style="
-        
-        height: 500px;
-      "
-    >
-      
-        <div class="" style="
-        
-        height: 700px;
-      ">
-          <div class="text-white">
-            <h1 class="mb-3">WELCOME TO SNEI3I</h1>
-            <h4 class="mb-3">Find the best worker for the job</h4>
-           <form [formGroup]="filterForm" class="search-bar-container">
-            <div class="form-field">
-              <!-- Location Dropdown -->
-              <mat-form-field appearance="outline" class="search-field">
-                <mat-label>Location</mat-label>
-                <mat-select [(value)]="selectedLocation" formControlName="location">
-                  <mat-option *ngFor="let location of locations" [value]="location">
-                    {{ location }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-field ">
-              <!-- Specialty Dropdown -->
-              <mat-form-field appearance="outline" class="search-field" >
-                <mat-label>Specialty</mat-label>
-                <mat-select [(value)]="selectedSpecialty" formControlName="speciality">
-                  <mat-option *ngFor="let specialty of specialties" [value]="specialty">
-                    {{ specialty }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-      </div>
-              <!-- Search Button -->
-              <button mat-raised-button class="btn btn-outline-light btn-lg" color="primary" (click)="search()">
-                <mat-icon>search</mat-icon>
-                <span class="ms-2">FIND The SNEI3I</span>
-              </button>
-            
-          </form>
+  <!-- Background image -->
+  <div class="text-center bg-image" style="height: 500px">
+    <div class="" style="height: 700px">
+      <div class="text-white">
+        <h1 class="mb-3">WELCOME TO SNEI3I</h1>
+        <h4 class="mb-3">Find the best worker for the job</h4>
+        <form [formGroup]="filterForm" class="search-bar-container">
+          <div class="form-field">
+            <!-- Location Dropdown -->
+            <mat-form-field appearance="outline" class="search-field">
+              <mat-label>Location</mat-label>
+              <mat-select
+                [(value)]="selectedLocation"
+                formControlName="location"
+              >
+                <mat-option
+                  *ngFor="let location of locations"
+                  [value]="location"
+                >
+                  {{ location }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-        </div>
-    
-    </div>
-    <!-- Background image -->
-  </header>
-  <section class="page-section" id="services">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="section-heading text-uppercase">Services</h2>
-        <h3 class="section-subheading text-muted">Connecting you with the best craftsmen in the industry.</h3>
+          <div class="form-field">
+            <!-- Specialty Dropdown -->
+            <mat-form-field appearance="outline" class="search-field">
+              <mat-label>Specialty</mat-label>
+              <mat-select
+                [(value)]="selectedSpecialty"
+                formControlName="speciality"
+              >
+                <mat-option
+                  *ngFor="let specialty of specialties"
+                  [value]="specialty"
+                >
+                  {{ specialty }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Search Button -->
+          <button
+            mat-raised-button
+            class="btn btn-outline-light btn-lg"
+            color="primary"
+            (click)="search()"
+          >
+            <mat-icon>search</mat-icon>
+            <span class="ms-2">FIND The SNEI3I</span>
+          </button>
+        </form>
       </div>
-      <owl-carousel-o [options]="carouselOptions">
-        <ng-container *ngFor="let service of services">
-          <ng-template carouselSlide>
-            <div class="row text-center">
-              <div class="col-md-12">
-                <span class="fa-stack fa-4x">
-                  <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                  <i [class]="service.icon + ' fa-stack-1x fa-inverse'"></i>
-                </span>
-                <h4 class="my-3">{{ service.title }}</h4>
-                <p class="text-muted">{{ service.description }}</p>
-              </div>
-            </div>
-          </ng-template>
-        </ng-container>
-      </owl-carousel-o>
-      
     </div>
-  </section>
+  </div>
+  <!-- Background image -->
+</header>
+<section class="page-section" id="services">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-heading text-uppercase">Services</h2>
+      <h3 class="section-subheading text-muted">
+        Connecting you with the best craftsmen in the industry.
+      </h3>
+    </div>
+    <owl-carousel-o [options]="carouselOptions">
+      <ng-container *ngFor="let service of services">
+        <ng-template carouselSlide>
+          <div class="row text-center">
+            <div class="col-md-12">
+              <span class="fa-stack fa-4x">
+                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                <i [class]="service.icon + ' fa-stack-1x fa-inverse'"></i>
+              </span>
+              <h4 class="my-3">{{ service.title }}</h4>
+              <p class="text-muted">{{ service.description }}</p>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</section>
 <!-- Team-->
-<section class="page-section bg-light d-flex align-items-center justify-content-center" id="team">
+<section
+  class="page-section bg-light d-flex align-items-center justify-content-center"
+  id="team"
+>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-sm-8 col-lg-6">
         <!-- Section Heading-->
-        <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+        <div
+          class="section_heading text-center wow fadeInUp"
+          data-wow-delay="0.2s"
+          style="
+            visibility: visible;
+            animation-delay: 0.2s;
+            animation-name: fadeInUp;
+          "
+        >
           <h3>Our Creative <span> Team</span></h3>
-          <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
+          <p>
+            Appland is completely creative, lightweight, clean &amp; super
+            responsive app landing page.
+          </p>
           <div class="line"></div>
         </div>
       </div>
     </div>
-    <div class="row justify-content-center col-gap-3" >
+    <div class="row justify-content-center col-gap-3">
       <!-- Single Advisor-->
       <div class="col-12 col-sm-6 col-lg-3">
-        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+        <div
+          class="single_advisor_profile wow fadeInUp"
+          data-wow-delay="0.2s"
+          style="
+            visibility: visible;
+            animation-delay: 0.2s;
+            animation-name: fadeInUp;
+          "
+        >
           <!-- Team Thumb-->
-          <div class="advisor_thumb"><img src="../../../../assets/fourat.jpeg" height="325px" width="300px" alt="">
+          <div class="advisor_thumb">
+            <img
+              src="../../../../assets/fourat.jpeg"
+              height="325px"
+              width="300px"
+              alt=""
+            />
             <!-- Social Info-->
-            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+            <div class="social-info">
+              <a href="#"><i class="fa fa-facebook"></i></a
+              ><a href="#"><i class="fa fa-twitter"></i></a
+              ><a href="#"><i class="fa fa-linkedin"></i></a>
+            </div>
           </div>
           <!-- Team Details-->
           <div class="single_advisor_details_info">
@@ -109,11 +145,29 @@
       </div>
       <!-- Single Advisor-->
       <div class="col-12 col-sm-6 col-lg-3">
-        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+        <div
+          class="single_advisor_profile wow fadeInUp"
+          data-wow-delay="0.3s"
+          style="
+            visibility: visible;
+            animation-delay: 0.3s;
+            animation-name: fadeInUp;
+          "
+        >
           <!-- Team Thumb-->
-          <div class="advisor_thumb"><img src="../../../../assets/ahmed.jpg" height="325px" width="300px" alt="">
+          <div class="advisor_thumb">
+            <img
+              src="../../../../assets/ahmed.jpg"
+              height="325px"
+              width="300px"
+              alt=""
+            />
             <!-- Social Info-->
-            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+            <div class="social-info">
+              <a href="#"><i class="fa fa-facebook"></i></a
+              ><a href="#"><i class="fa fa-twitter"></i></a
+              ><a href="#"><i class="fa fa-linkedin"></i></a>
+            </div>
           </div>
           <!-- Team Details-->
           <div class="single_advisor_details_info">
@@ -124,11 +178,29 @@
       </div>
       <!-- Single Advisor-->
       <div class="col-12 col-sm-6 col-lg-3">
-        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+        <div
+          class="single_advisor_profile wow fadeInUp"
+          data-wow-delay="0.4s"
+          style="
+            visibility: visible;
+            animation-delay: 0.4s;
+            animation-name: fadeInUp;
+          "
+        >
           <!-- Team Thumb-->
-          <div class="advisor_thumb"><img src="../../../../assets/maherr.jpeg" height="325px" width="300px" alt="">
+          <div class="advisor_thumb">
+            <img
+              src="../../../../assets/maherr.jpeg"
+              height="325px"
+              width="300px"
+              alt=""
+            />
             <!-- Social Info-->
-            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+            <div class="social-info">
+              <a href="#"><i class="fa fa-facebook"></i></a
+              ><a href="#"><i class="fa fa-twitter"></i></a
+              ><a href="#"><i class="fa fa-linkedin"></i></a>
+            </div>
           </div>
           <!-- Team Details-->
           <div class="single_advisor_details_info">
@@ -137,105 +209,75 @@
           </div>
         </div>
       </div>
-      
-      
     </div>
   </div>
-  </section>
-  
+</section>
+
 <!-- Clients-->
 <div class="py-5">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-sm-8 col-lg-6">
-          <!-- Section Heading-->
-          <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <h3>Our Creative <span> Team</span></h3>
-            <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
-            <div class="line"></div>
-          </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8 col-lg-6">
+        <!-- Section Heading-->
+        <div
+          class="section_heading text-center wow fadeInUp"
+          data-wow-delay="0.2s"
+          style="
+            visibility: visible;
+            animation-delay: 0.2s;
+            animation-name: fadeInUp;
+          "
+        >
+          <h3>Our Creative <span> Team</span></h3>
+          <p>
+            Appland is completely creative, lightweight, clean &amp; super
+            responsive app landing page.
+          </p>
+          <div class="line"></div>
         </div>
       </div>
-        <div class="row align-items-center">
-            <div class="col-md-3 col-sm-6 my-3">
-                <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="../../../../assets/8867-Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg" alt="..." aria-label="Microsoft Logo" /></a>
-            </div>
-            <div class="col-md-3 col-sm-6 my-3">
-                <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="../../../../assets/Google_2015_logo.svg.png" alt="..." aria-label="Google Logo" /></a>
-            </div>
-            <div class="col-md-3 col-sm-6 my-3">
-                <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="../../../../assets/Poulina.png" alt="..." aria-label="Facebook Logo" /></a>
-            </div>
-            <div class="col-md-3 col-sm-6 my-3">
-                <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="../../../../assets/sopal.jpg" alt="..." aria-label="IBM Logo" /></a>
-            </div>
-        </div>
     </div>
+    <div class="row align-items-center">
+      <div class="col-md-3 col-sm-6 my-3">
+        <a href="#!"
+          ><img
+            class="img-fluid img-brand d-block mx-auto"
+            src="../../../../assets/8867-Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg"
+            alt="..."
+            aria-label="Microsoft Logo"
+        /></a>
+      </div>
+      <div class="col-md-3 col-sm-6 my-3">
+        <a href="#!"
+          ><img
+            class="img-fluid img-brand d-block mx-auto"
+            src="../../../../assets/Google_2015_logo.svg.png"
+            alt="..."
+            aria-label="Google Logo"
+        /></a>
+      </div>
+      <div class="col-md-3 col-sm-6 my-3">
+        <a href="#!"
+          ><img
+            class="img-fluid img-brand d-block mx-auto"
+            src="../../../../assets/Poulina.png"
+            alt="..."
+            aria-label="Facebook Logo"
+        /></a>
+      </div>
+      <div class="col-md-3 col-sm-6 my-3">
+        <a href="#!"
+          ><img
+            class="img-fluid img-brand d-block mx-auto"
+            src="../../../../assets/sopal.jpg"
+            alt="..."
+            aria-label="IBM Logo"
+        /></a>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- Contact-->
-<section class="page-section" id="contact">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-        </div>
-        <!-- * * * * * * * * * * * * * * *-->
-        <!-- * * SB Forms Contact Form * *-->
-        <!-- * * * * * * * * * * * * * * *-->
-        <!-- This form is pre-integrated with SB Forms.-->
-        <!-- To make this form functional, sign up at-->
-        <!-- https://startbootstrap.com/solution/contact-forms-->
-        <!-- to get an API token!-->
-        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-            <div class="row align-items-stretch mb-5">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <!-- Name input-->
-                        <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <!-- Email address input-->
-                        <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                    </div>
-                    <div class="form-group mb-md-0">
-                        <!-- Phone number input-->
-                        <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group form-group-textarea mb-md-0">
-                        <!-- Message input-->
-                        <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
-                        <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                    </div>
-                </div>
-            </div>
-            <!-- Submit success message-->
-            <!---->
-            <!-- This is what your users will see when the form-->
-            <!-- has successfully submitted-->
-            <div class="d-none" id="submitSuccessMessage">
-                <div class="text-center text-white mb-3">
-                    <div class="fw-bolder">Form submission successful!</div>
-                    To activate this form, sign up at
-                    <br />
-                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                </div>
-            </div>
-            <!-- Submit error message-->
-            <!---->
-            <!-- This is what your users will see when there is-->
-            <!-- an error submitting the form-->
-            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-            <!-- Submit Button-->
-            <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
-        </form>
-    </div>
-</section>
 
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

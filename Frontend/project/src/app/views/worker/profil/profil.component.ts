@@ -74,6 +74,8 @@ export class ProfilComponent implements OnInit {
     localStorage.removeItem("worker_id");
     localStorage.removeItem("user_id");
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
+
     this.loginService.logout();
     this.router.navigate(['/login']);
   }
