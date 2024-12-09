@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule for *ngFor and *ngIf
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { WorkerService } from '../../../services/worker.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -9,95 +9,94 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchService } from '../../../services/search.service';
 import { MatCardModule } from '@angular/material/card';
+
 @Component({
   selector: 'app-filtre',
   standalone: true,
-  imports: [CommonModule,MatCardModule,ReactiveFormsModule,MatFormFieldModule,MatSelectModule,MatButtonModule], // Import CommonModule here
+  imports: [CommonModule, MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatButtonModule],
   templateUrl: './filtre.component.html',
   styleUrls: ['./filtre.component.css'],
 })
 export class FiltreComponent implements OnInit {
-  workers: any[] = []; // All workers
-  filteredWorkers: any[] = []; // Workers displayed after filtering
-  locations: any[] = []; // List of types
-  prices: any[] = []; // List of categories
+  workers: any[] = [];
+  filteredWorkers: any[] = [];
+  locations: any[] = [];
+  prices: any[] = [];
   specialities: any[] = [];
-  filterForm: FormGroup; // Form for filtering
-  obj:any;
-  constructor(private fb: FormBuilder, private workerService: WorkerService,private router:Router,private searchservice:SearchService) {
-    // Initialize the form
+  filterForm: FormGroup;
+  obj: any;
+
+  constructor(
+    private fb: FormBuilder,
+    private workerService: WorkerService,
+    private router: Router,
+    private searchservice: SearchService
+  ) {
     this.filterForm = this.fb.group({
-      location: [''], // Default value is empty
+      location: [''],
       price: [''],
-      speciality:['']    
+      speciality: ['']
     });
   }
 
   ngOnInit(): void {
-    // Fetch initial data
+    // Fetch initial data for workers
     this.workerService.getAllworkers().subscribe((data) => {
       this.workers = data;
       this.obj = JSON.parse(localStorage.getItem('obj') || '{}'); 
+
+      // Set initial filter form values based on localStorage or default
       this.filterForm = this.fb.group({
-        location: [this.obj.location,''], // Default value is empty
-        price: [''],
-        speciality:[this.obj.speciality,'']    
+        location: [this.obj.location || ''],
+        price: [this.obj.price || ''],
+        speciality: [this.obj.speciality || '']
       });
-      console.log(this.obj.location, this.obj.speciality); 
+
+      console.log('LocalStorage Data:', this.obj);
+
+      // Apply filters based on localStorage data
       this.filteredWorkers = this.workers.filter((worker) => {
-      const matchesPrice = !this.obj.location||worker.location==this.obj.location;
-      const matchesLocation = !this.obj.speciality||worker.speciality==this.obj.speciality;
-      return matchesPrice && matchesLocation;
-      
-    }); 
-    console.log(this.workers);
-    console.log(this.filteredWorkers);
-      //this.filteredWorkers = data; // Initially, show all workers
+        const matchesLocation = !this.obj.location || worker.location === this.obj.location;
+        const matchesSpeciality = !this.obj.speciality || worker.speciality === this.obj.speciality;
+        return matchesLocation && matchesSpeciality;
+      });
+
+      console.log('All Workers:', this.workers);
+      console.log('Filtered Workers:', this.filteredWorkers);
     });
 
-    // Fetch types and categories (mock these APIs if necessary)
-    /*
-    this.workerService.getLocation().subscribe((data) => {
-      this.locations = data;
-    });
-
-    this.workerService.getPrice().subscribe((data) => {
-      this.prices = data;
-    });
-    */
-    this.searchservice.getLocations().subscribe((data:any) => {
+    // Fetch types, prices, and specialities from search service
+    this.searchservice.getLocations().subscribe((data: any) => {
       this.locations = data.locations;
     });
-    this.searchservice.getPrices().subscribe((data:any) => {
+    this.searchservice.getPrices().subscribe((data: any) => {
       this.prices = data.prices;
     });
-    this.searchservice.getSepcialities().subscribe((data:any) => {
+    this.searchservice.getSepcialities().subscribe((data: any) => {
       this.specialities = data.specialities;
     });
-    
-    
   }
 
   // Filter workers based on form values
   onFilterSubmit(): void {
-    const { price, location,speciality } = this.filterForm.value;
+    const { price, location, speciality } = this.filterForm.value;
+
+    console.log('Filter Values:', price, location, speciality);
 
     this.filteredWorkers = this.workers.filter((worker) => {
       const matchesPrice = !price || worker.price === price;
       const matchesLocation = !location || worker.location === location;
       const matchesSpeciality = !speciality || worker.speciality === speciality;
-      console.log(price);
-      return matchesPrice || matchesLocation || matchesSpeciality;
-      
+
+      return matchesPrice && matchesLocation && matchesSpeciality;
     });
-    
+
     console.log('Filtered Workers:', this.filteredWorkers);
   }
-  gotoworker(id:any){
-    localStorage.setItem('filterworker_id',id);
-    this.router.navigateByUrl('/workerprofile')
-  }
-  
 
-  
+  // Navigate to worker profile
+  gotoworker(id: any): void {
+    localStorage.setItem('filterworker_id', id);
+    this.router.navigateByUrl('/workerprofile');
+  }
 }
